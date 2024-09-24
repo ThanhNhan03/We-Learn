@@ -13,6 +13,7 @@ namespace WeLearnAPI.Repository
         public IAdminRepository Admin { get; private set; }
 
         public IUserRepository Users { get; private set; }
+        public INewsRepository News { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, UserManager<Admin> userManager, RoleManager<IdentityRole<Guid>> roleManager)
         {
@@ -21,7 +22,7 @@ namespace WeLearnAPI.Repository
             _roleManager = roleManager;
             Admin = new AdminRepository(_context, _userManager, _roleManager);
             Users = new UserRepository(_context);
-          
+            News = new NewsRepository(_context);
         }
         public async Task SaveChangesAsync()
         {

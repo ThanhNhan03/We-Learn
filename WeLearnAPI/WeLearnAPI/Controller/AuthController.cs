@@ -20,6 +20,8 @@ namespace WeLearnAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IAuthService _authService; 
         private readonly IEmailService _emailSenderService;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+
 
         public AuthController(
             IUnitOfWork unitOfWork,
@@ -28,7 +30,8 @@ namespace WeLearnAPI.Controllers
             IConfiguration configuration,
             IMapper mapper,
             IAuthService authService,
-            IEmailService emailSenderService)
+            IEmailService emailSenderService,
+            RoleManager<IdentityRole<Guid>> roleManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
@@ -36,6 +39,7 @@ namespace WeLearnAPI.Controllers
             _mapper = mapper;
             _authService = authService;
             _emailSenderService = emailSenderService;
+            _roleManager = roleManager;
         }
 
         [HttpPost("register/user")]
@@ -86,7 +90,6 @@ namespace WeLearnAPI.Controllers
         }
 
 
-
         [HttpPost("register/admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterRequestDTO request)
         {
@@ -98,8 +101,15 @@ namespace WeLearnAPI.Controllers
 
             if (result.Succeeded)
             {
+                if (!await _roleManager.RoleExistsAsync("Admin"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+                }
+
+                await _adminManager.AddToRoleAsync(admin, "Admin");
+
                 await _unitOfWork.SaveChangesAsync();
-                return Ok(new { message = "Admin registered successfully" });
+                return Ok(new { message = "Admin registered successfully and assigned Admin role" });
             }
 
             return BadRequest(result.Errors);
