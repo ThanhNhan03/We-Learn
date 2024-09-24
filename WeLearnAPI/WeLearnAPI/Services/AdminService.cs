@@ -27,7 +27,6 @@ namespace WeLearnAPI.Services
 
             var admin = _mapper.Map<Admin>(addAdminRequest);
 
-            admin.CreatedBy = Guid.NewGuid();
             admin.CreatedAt = DateTime.Now;
             admin.UpdatedAt = DateTime.Now;
 
@@ -35,7 +34,6 @@ namespace WeLearnAPI.Services
 
             if (result.Succeeded)
             {
-                // Gán quyền cho Admin
                 await _userManager.AddToRoleAsync(admin, addAdminRequest.Role);
             }
 
