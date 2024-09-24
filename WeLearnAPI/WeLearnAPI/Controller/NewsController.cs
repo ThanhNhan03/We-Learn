@@ -76,7 +76,9 @@ public class NewsController : ControllerBase
 
     // PUT: api/News/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateNews(int id, UpdateNewsRequestDTO updateNewsRequest)
+
+    public async Task<IActionResult> UpdateNews(int id, [FromBody] UpdateNewsRequestDTO updateNewsRequest)
+
     {
         if (!ModelState.IsValid)
             return BadRequest(new { message = "Invalid data.", errors = ModelState });
