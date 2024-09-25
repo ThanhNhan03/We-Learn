@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTO.RequestDto;
+using WeLearnAPI.Models.DTO.ResponeDto;
 using WeLearnAPI.Repository.Interface;
 using WeLearnAPI.Services;
 
@@ -18,7 +19,7 @@ namespace WeLearnAPI.Controllers
         private readonly UserManager<Users> _userManager;
         private readonly UserManager<Admin> _adminManager;
         private readonly IMapper _mapper;
-        private readonly IAuthService _authService; 
+        private readonly IAuthService _authService;
         private readonly IEmailService _emailSenderService;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
@@ -49,7 +50,7 @@ namespace WeLearnAPI.Controllers
                 return BadRequest(ModelState);
 
             var user = _mapper.Map<Users>(request);
-            user.EmailConfirmed = false; 
+            user.EmailConfirmed = false;
             var result = await _userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)
@@ -59,7 +60,7 @@ namespace WeLearnAPI.Controllers
                     new { userId = user.Id, token }, Request.Scheme);
 
                 var message = $"Please confirm your account by clicking this link: <a href='{confirmationLink}'>Confirm your account</a>";
-                
+
                 var sendEmailTask = Task.Run(async () =>
                 {
                     await _emailSenderService.SendEmailAsync(user.Email, "Confirm your email", message);
@@ -115,34 +116,56 @@ namespace WeLearnAPI.Controllers
             return BadRequest(result.Errors);
         }
 
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken([FromBody] TokenRequestDTO tokenRequest)
+        {
+            if (tokenRequest is null || string.IsNullOrEmpty(tokenRequest.AccessToken) || string.IsNullOrEmpty(tokenRequest.RefreshToken))
+                return BadRequest("Invalid client request");
+
+            var principal = _authService.GetPrincipalFromExpiredToken(tokenRequest.AccessToken);
+            if (principal == null)
+                return BadRequest("Invalid access token or refresh token");
+
+            var userEmail = principal.Identity.Name;
+            var user = await _userManager.FindByEmailAsync(userEmail);
+
+            if (user == null || user.RefreshToken != tokenRequest.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+                return BadRequest("Invalid refresh token");
+
+            var newAccessToken = await _authService.GenerateJwtToken(user, "User");
+            var newRefreshToken = await _authService.GenerateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
+            });
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var admin = await _adminManager.FindByEmailAsync(request.Email);
-
-            if (admin != null && await _adminManager.CheckPasswordAsync(admin, request.Password))
-            {
-                var roles = await _adminManager.GetRolesAsync(admin);
-                var role = roles.FirstOrDefault(); // Assuming an admin has only one role
-
-                if (role == null)
-                {
-                    return BadRequest("User role not found");
-                }
-
-                var token = await _authService.GenerateJwtToken(admin, role);
-                return Ok(new { token, role });
-            }
-
             var user = await _userManager.FindByEmailAsync(request.Email);
-
             if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
             {
-                var token = await _authService.GenerateJwtToken(user, "User");
-                return Ok(new { token, role = "User" });
+                var accessToken = await _authService.GenerateJwtToken(user, "User");
+                var refreshToken = await _authService.GenerateRefreshToken();
+
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+                await _userManager.UpdateAsync(user);
+
+                return Ok(new
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
+                });
             }
 
             return Unauthorized("Cannot Authorized");
