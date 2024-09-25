@@ -4,10 +4,12 @@ using WeLearnAPI.Repository.Interface;
 using AutoMapper;
 using WeLearnAPI.Models.DTO.RequestDto;
 using Microsoft.AspNetCore.Authorization;
+using WeLearnAPI.Models.DTO.ResponeDto;
+using WeLearnAPI.Helpers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize (Roles = "Admin")]
+[Authorize(Roles = "Admin")]
 public class NewsController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -21,15 +23,40 @@ public class NewsController : ControllerBase
 
     // GET: api/News
     [HttpGet]
-    public async Task<IActionResult> GetAllNews()
+    public async Task<IActionResult> GetAllNews(
+            int pageNumber = 1,
+            int pageSize = 10,
+            string sortBy = "Date",
+            bool isDescending = true,
+            string titleFilter = null)
     {
-        var news = await _unitOfWork.News.GetAllNewsAsync();
+        var (news, totalCount) = await _unitOfWork.News.GetAllNewsAsync(pageNumber, pageSize, sortBy, isDescending, titleFilter);
+
         if (news == null || !news.Any())
         {
             return NotFound(new { message = "No news found." });
         }
-        return Ok(new { message = "News retrieved successfully.", data = news });
+
+        // Ánh xạ từ domain model sang DTO
+        var newsDto = _mapper.Map<IEnumerable<NewsReponeDTO>>(news);
+
+        // Tạo đối tượng phân trang
+        var pagedResult = new PagedResult<NewsReponeDTO>
+        {
+            Items = newsDto.ToList(),
+            TotalCount = totalCount,
+            PageNumber = pageNumber,
+            PageSize = pageSize
+        };
+
+        return Ok(new
+        {
+            message = "News retrieved successfully.",
+            data = pagedResult
+        });
     }
+
+
 
     // GET: api/News/{id}
     [HttpGet("{id}")]
