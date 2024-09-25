@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTO.RequestDto;
+using WeLearnAPI.Models.DTO.ResponeDto;
 using WeLearnAPI.Models.DTOs;
 
 public class MappingProfile : Profile
@@ -14,6 +15,7 @@ public class MappingProfile : Profile
         CreateMap<Users, UserResponseDTO>();
         // Mapping RegisterRequestDTO to Users domain model
         CreateMap<Admin, AdminResponseDTO>();
+        CreateMap<News, NewsReponeDTO>();
 
 
         CreateMap<RegisterRequestDTO, Users>()
