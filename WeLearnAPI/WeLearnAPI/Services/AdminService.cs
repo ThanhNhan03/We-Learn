@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTOs;
+using WeLearnAPI.Services.Interface;
 
 namespace WeLearnAPI.Services
 {

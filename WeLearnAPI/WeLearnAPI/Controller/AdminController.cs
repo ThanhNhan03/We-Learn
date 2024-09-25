@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTOs;
 using WeLearnAPI.Repository.Interface;
-using WeLearnAPI.Services;
+using WeLearnAPI.Services.Interface;
 
 namespace WeLearnAPI.Controller
 {
