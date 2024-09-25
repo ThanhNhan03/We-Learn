@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WeLearnAPI.Services
+namespace WeLearnAPI.Services.Interface
 {
     public interface IAdminService
     {

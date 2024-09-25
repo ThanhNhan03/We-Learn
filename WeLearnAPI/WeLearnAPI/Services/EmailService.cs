@@ -3,6 +3,7 @@ using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using WeLearnAPI.Services.Interface;
 
 namespace DMS_API.Services
 {

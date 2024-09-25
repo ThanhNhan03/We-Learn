@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DMS_API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,7 @@ using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTO.RequestDto;
 using WeLearnAPI.Models.DTO.ResponeDto;
 using WeLearnAPI.Repository.Interface;
-using WeLearnAPI.Services;
+using WeLearnAPI.Services.Interface;
 
 namespace WeLearnAPI.Controllers
 {
@@ -20,6 +19,7 @@ namespace WeLearnAPI.Controllers
         private readonly UserManager<Admin> _adminManager;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IJwtTokenService _jwtTokenService;
         private readonly IEmailService _emailSenderService;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
@@ -32,7 +32,8 @@ namespace WeLearnAPI.Controllers
             IMapper mapper,
             IAuthService authService,
             IEmailService emailSenderService,
-            RoleManager<IdentityRole<Guid>> roleManager)
+            RoleManager<IdentityRole<Guid>> roleManager,
+            IJwtTokenService jwtTokenService)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
@@ -41,6 +42,7 @@ namespace WeLearnAPI.Controllers
             _authService = authService;
             _emailSenderService = emailSenderService;
             _roleManager = roleManager;
+            _jwtTokenService = jwtTokenService;
         }
 
         [HttpPost("register/user")]
@@ -63,7 +65,8 @@ namespace WeLearnAPI.Controllers
 
                 var sendEmailTask = Task.Run(async () =>
                 {
-                    await _emailSenderService.SendEmailAsync(user.Email, "Confirm your email", message);
+                    await _emailSenderService.SendEmailAsync(user.Email, "Confirm your email", message)
+                    ;
                 });
 
                 return Ok(new { message = "User registered successfully. Please check your email to confirm your account." });
@@ -122,7 +125,7 @@ namespace WeLearnAPI.Controllers
             if (tokenRequest is null || string.IsNullOrEmpty(tokenRequest.AccessToken) || string.IsNullOrEmpty(tokenRequest.RefreshToken))
                 return BadRequest("Invalid client request");
 
-            var principal = _authService.GetPrincipalFromExpiredToken(tokenRequest.AccessToken);
+            var principal = _jwtTokenService.GetPrincipalFromExpiredToken(tokenRequest.AccessToken);
             if (principal == null)
                 return BadRequest("Invalid access token or refresh token");
 
@@ -132,8 +135,8 @@ namespace WeLearnAPI.Controllers
             if (user == null || user.RefreshToken != tokenRequest.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
                 return BadRequest("Invalid refresh token");
 
-            var newAccessToken = await _authService.GenerateJwtToken(user, "User");
-            var newRefreshToken = await _authService.GenerateRefreshToken();
+            var newAccessToken = await _jwtTokenService.GenerateJwtToken(user, "User");
+            var newRefreshToken = await _jwtTokenService.GenerateRefreshToken();
 
             user.RefreshToken = newRefreshToken;
             await _userManager.UpdateAsync(user);
@@ -150,25 +153,21 @@ namespace WeLearnAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
+            var (adminToken, adminRole) = await _authService.AuthenticateAdminAsync(request.Email, request.Password);
+            if (adminToken != null)
             {
-                var accessToken = await _authService.GenerateJwtToken(user, "User");
-                var refreshToken = await _authService.GenerateRefreshToken();
-
-                user.RefreshToken = refreshToken;
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
-                await _userManager.UpdateAsync(user);
-
-                return Ok(new
-                {
-                    AccessToken = accessToken,
-                    RefreshToken = refreshToken
-                });
+                return Ok(new { token = adminToken, role = adminRole });
             }
 
+            var (userAccessToken, userRefreshToken, userRole) = await _authService.AuthenticateUserAsync(request.Email, request.Password);
+            if (userAccessToken != null)
+            {
+                return Ok(new { AccessToken = userAccessToken, RefreshToken = userRefreshToken, role = userRole });
+            }
+  
             return Unauthorized("Cannot Authorized");
         }
+
+
     }
 }

@@ -1,11 +1,9 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using WeLearnAPI.Models.Domain;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
-namespace WeLearnAPI.Services
+namespace WeLearnAPI.Services.Interface
 {
-    public interface IAuthService
+    public interface IJwtTokenService
     {
         Task<string> GenerateJwtToken(IdentityUser<Guid> user, string role);
         Task<string> GenerateRefreshToken();
