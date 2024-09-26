@@ -37,10 +37,8 @@ public class NewsController : ControllerBase
             return NotFound(new { message = "No news found." });
         }
 
-        // Ánh xạ từ domain model sang DTO
         var newsDto = _mapper.Map<IEnumerable<NewsReponeDTO>>(news);
 
-        // Tạo đối tượng phân trang
         var pagedResult = new PagedResult<NewsReponeDTO>
         {
             Items = newsDto.ToList(),

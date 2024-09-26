@@ -55,7 +55,6 @@ namespace YourNamespace.Controllers
             if (user == null)
                 return NotFound("User not found");
 
-            // Xác thực token
             var result = await _userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
             if (result.Succeeded)
             {

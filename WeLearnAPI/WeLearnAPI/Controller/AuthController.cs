@@ -153,20 +153,31 @@ namespace WeLearnAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var (adminToken, adminRole) = await _authService.AuthenticateAdminAsync(request.Email, request.Password);
             if (adminToken != null)
             {
                 return Ok(new { token = adminToken, role = adminRole });
             }
 
-            var (userAccessToken, userRefreshToken, userRole) = await _authService.AuthenticateUserAsync(request.Email, request.Password);
-            if (userAccessToken != null)
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user != null)
             {
-                return Ok(new { AccessToken = userAccessToken, RefreshToken = userRefreshToken, role = userRole });
+                if (!user.EmailConfirmed)
+                {
+                    return Unauthorized("Please confirm your email before logging in.");
+                }
+
+                var (userAccessToken, userRefreshToken, userRole) = await _authService.AuthenticateUserAsync(request.Email, request.Password);
+                if (userAccessToken != null)
+                {
+                    return Ok(new { AccessToken = userAccessToken, RefreshToken = userRefreshToken, role = userRole });
+                }
             }
-  
-            return Unauthorized("Cannot Authorized");
+
+            return Unauthorized("Invalid email or password.");
         }
+
 
 
     }
