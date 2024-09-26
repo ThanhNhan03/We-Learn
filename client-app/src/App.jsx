@@ -17,7 +17,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       
-      <Route path="/dashboard" element={<AdminDashboard />} /> {/* Home view redirects to Admin Dashboard */}
+      <Route path="/admin/dashboard" element={<AdminDashboard />} /> {/* Home view redirects to Admin Dashboard */}
       <Route path="/admin/dashboard/users" element={<AdminDashboard />} /> {/* Users view */}
       <Route path="/admin/dashboard/news" element={<AdminDashboard />} /> {/* News view */}
       <Route path="/admin/dashboard/educators" element={<AdminDashboard />} /> {/* Educators view */}
