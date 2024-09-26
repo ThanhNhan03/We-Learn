@@ -10,6 +10,19 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorization(); 
 builder.Services.AddSwaggerDocumentation();
 
+//Add Cors
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .WithOrigins("http://localhost:3000");
+    });
+});
+
 var app = builder.Build();
 
 app.UseCors("CorsPolicy");
