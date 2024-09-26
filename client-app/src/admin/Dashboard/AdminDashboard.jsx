@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import AdminAppBar from './components/AdminAppBar.jsx';
 import AdminDrawer from './components/AdminDrawer.jsx';
 import HomeView from './components/HomeView.jsx';
@@ -9,8 +10,9 @@ import EducatorTable from './components/EducatorTable.jsx';
 import { Toolbar } from '@mui/material';
 
 const AdminDashboard = () => {
+  const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
-  const [view, setView] = useState('home'); // Default view is 'home'
+  const [view, setView] = useState('home');
   const [openDialog, setOpenDialog] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -110,7 +112,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div style={{ display: 'flex', backgroundColor: darkMode ? '#333' : '#fff', color: darkMode ? '#000' : '#000', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', backgroundColor: darkMode ? '#333' : '#fff', minHeight: '100vh' }}>
       <AdminAppBar darkMode={darkMode} handleThemeChange={handleThemeChange} />
       <AdminDrawer darkMode={darkMode} setView={setView} />
       <main style={{ flexGrow: 1, padding: '24px' }}>

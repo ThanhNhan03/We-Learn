@@ -5,7 +5,7 @@ const HomeView = ({ users, setView, handleDialogOpen }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={6}>
-        <Card onClick={() => setView('users')} style={{ cursor: 'pointer' }}>
+        <Card onClick={() => setView('users')}>
           <CardContent>
             <Typography variant="h5">Users</Typography>
             <Typography variant="h6">{users.length}</Typography>
@@ -13,10 +13,10 @@ const HomeView = ({ users, setView, handleDialogOpen }) => {
         </Card>
       </Grid>
       <Grid item xs={6}>
-        <Card onClick={() => setView('educators')} style={{ cursor: 'pointer' }}>
+        <Card onClick={() => setView('educators')}>
           <CardContent>
             <Typography variant="h5">Educators</Typography>
-            <Typography variant="h6">50</Typography> {/* Replace with actual count if available */}
+            <Typography variant="h6">50</Typography>
           </CardContent>
         </Card>
       </Grid>

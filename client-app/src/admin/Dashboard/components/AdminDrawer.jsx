@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Drawer, Toolbar, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Home, People, History, Article, QuestionAnswer, School, Book } from '@mui/icons-material'; // Import Book icon for Courses
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useLocation } from 'react-router-dom'; // Import Link from react-router-dom
 
 const drawerWidth = 240;
 
@@ -16,6 +16,16 @@ const menuItems = [
 ];
 
 const AdminDrawer = ({ darkMode, setView }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const currentItem = menuItems.find(item => item.path === currentPath);
+    if (currentItem) {
+      setView(currentItem.view);
+    }
+  }, [location, setView]);
+
   return (
     <Drawer
       variant="permanent"
@@ -35,6 +45,8 @@ const AdminDrawer = ({ darkMode, setView }) => {
           <ListItem 
             button 
             key={item.text} 
+            component={Link} 
+            to={item.path} 
             onClick={() => setView(item.view)} 
             sx={{
               '&:hover': {
