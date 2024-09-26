@@ -1,45 +1,56 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using WeLearnAPI.Models.Domain;
 using System.Threading.Tasks;
 using System;
+using WeLearnAPI.Models.Domain;
+using WeLearnAPI.Services.Interface;
 
 namespace WeLearnAPI.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IConfiguration _configuration;
+        private readonly UserManager<Users> _userManager;
+        private readonly UserManager<Admin> _adminManager;
+        private readonly IJwtTokenService _jwtTokenService;
 
-        public AuthService(IConfiguration configuration)
+        public AuthService(
+            UserManager<Users> userManager,
+            UserManager<Admin> adminManager,
+            IJwtTokenService jwtTokenService)
         {
-            _configuration = configuration;
+            _userManager = userManager;
+            _adminManager = adminManager;
+            _jwtTokenService = jwtTokenService;
         }
 
-        public async Task<string> GenerateJwtToken(IdentityUser<Guid> user, string role)
+        public async Task<(string token, string role)> AuthenticateAdminAsync(string email, string password)
         {
-            var authClaims = new List<Claim>
+            var admin = await _adminManager.FindByEmailAsync(email);
+            if (admin != null && await _adminManager.CheckPasswordAsync(admin, password))
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email ?? ""),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, role) // Thêm role vào token
-            };
+                var roles = await _adminManager.GetRolesAsync(admin);
+                var role = roles.FirstOrDefault() ?? "Admin"; // Assuming admin has a role
 
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Secret"] ?? string.Empty));
+                var token = await _jwtTokenService.GenerateJwtToken(admin, role);
+                return (token, role);
+            }
+            return (null, null);
+        }
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JwtSettings:Issuer"],
-                audience: _configuration["JwtSettings:Audience"],
-                expires: DateTime.UtcNow.AddHours(3), // Thời gian hết hạn token
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-            );
+        public async Task<(string accessToken, string refreshToken, string role)> AuthenticateUserAsync(string email, string password)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, password))
+            {
+                var accessToken = await _jwtTokenService.GenerateJwtToken(user, "User");
+                var refreshToken = await _jwtTokenService.GenerateRefreshToken();
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Token hết hạn sau 7 ngày
+                await _userManager.UpdateAsync(user);
+
+                return (accessToken, refreshToken, "User");
+            }
+            return (null, null, null);
         }
     }
 }

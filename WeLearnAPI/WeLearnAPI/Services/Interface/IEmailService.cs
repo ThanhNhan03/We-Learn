@@ -1,4 +1,4 @@
-﻿namespace DMS_API.Services
+﻿namespace WeLearnAPI.Services.Interface
 {
     public interface IEmailService
     {

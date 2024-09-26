@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTO.RequestDto;
+using WeLearnAPI.Models.DTO.ResponeDto;
 using WeLearnAPI.Models.DTOs;
 
 public class MappingProfile : Profile
@@ -13,6 +14,10 @@ public class MappingProfile : Profile
 
         CreateMap<Users, UserResponseDTO>();
         // Mapping RegisterRequestDTO to Users domain model
+        CreateMap<Admin, AdminResponseDTO>();
+        CreateMap<News, NewsReponeDTO>();
+
+
         CreateMap<RegisterRequestDTO, Users>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
@@ -44,5 +49,8 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.TelephoneNumber))
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == "male" ? 1 : src.Gender == "female" ? 0 : 2));
+
+        CreateMap<AddNewsRequestDTO, News>();
+        CreateMap<UpdateNewsRequestDTO, News>();
     }
 }

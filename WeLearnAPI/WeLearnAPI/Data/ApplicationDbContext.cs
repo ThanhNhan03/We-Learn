@@ -13,6 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<Admin, IdentityRole<Guid>,
 
     public DbSet<Users> AppUsers { get; set; }
     public DbSet<Admin> Admins { get; set; }
+    public DbSet<News> News { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
