@@ -1,27 +1,36 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import AdminDashboard from "./admin/Dashboard/AdminDashboard";
+import SignUp from "./pages/sign-up/SignUp";
+import SignIn from "./pages/sign-in/SignIn";
 
-import SignUp from "./pages/sign-up/SignUp"; // Import SignUp component
-import SignIn from "./pages/sign-in/SignIn"; // Import SignIn component
-import GetStarted from "./pages/GetStarted"; // Import GetStarted component 
-import CourseDetail from "./components/CourseDetail/CourseDetail"; // Import CourseDetail component
+const App = () => {
+  const location = useLocation();
 
-function App() {
+  useEffect(() => {
+    // Save the current path to local storage
+    localStorage.setItem('currentPath', location.pathname);
+  }, [location]);
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} /> {/* Add route for Home */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/sign-in" element={<SignIn/ >} /> {/* Add route for Register */}
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/get-started" element={<GetStarted />} /> {/* Add route for GetStarted */}
-        <Route path="/course/:title" element={<CourseDetail />} />
+    <Routes>
+      <Route path="/" element={<Home />} />
       
-      </Routes>
-    </Router>
+      <Route path="/dashboard" element={<AdminDashboard />} /> {/* Home view redirects to Admin Dashboard */}
+      <Route path="/admin/dashboard/users" element={<AdminDashboard />} /> {/* Users view */}
+      <Route path="/admin/dashboard/news" element={<AdminDashboard />} /> {/* News view */}
+      <Route path="/admin/dashboard/educators" element={<AdminDashboard />} /> {/* Educators view */}
+      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/sign-up" element={<SignUp />} />
+    </Routes>
   );
-}
+};
 
-export default App;
+const AppWrapper = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default AppWrapper;

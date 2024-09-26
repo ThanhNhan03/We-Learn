@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import EditNewsDialog from './EditNewsDialog';
-import AddNewsDialog from './AddNewsDialog.jsx'; // Import thành phần AddNewsDialog
+import AddNewsDialog from './AddNewsDialog.jsx'; // Import AddNewsDialog component
 
 const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAddNews }) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [openAddDialog, setOpenAddDialog] = useState(false); // State quản lý dialog thêm tin tức
+  const [openAddDialog, setOpenAddDialog] = useState(false); // State to manage add news dialog
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false); // State to manage confirm delete dialog
   const [selectedNews, setSelectedNews] = useState({
     id: '',
     title: '',
@@ -15,7 +16,7 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
     date: ''
   });
 
-  // State lưu trữ thông tin tin tức mới
+  // State to store new news information
   const [newNews, setNewNews] = useState({
     id: '',
     title: '',
@@ -24,30 +25,42 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
     date: ''
   });
 
-  // Mở dialog chỉnh sửa
+  // Open edit dialog
   const handleOpenEditDialog = (news) => {
-    setSelectedNews(news); // Gán dữ liệu của tin tức vào state
-    setOpenEditDialog(true); // Mở dialog
+    setSelectedNews(news); // Set selected news data
+    setOpenEditDialog(true); // Open dialog
   };
 
-  // Đóng dialog chỉnh sửa
+  // Close edit dialog
   const handleCloseEditDialog = () => {
     setOpenEditDialog(false);
-    setSelectedNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset dữ liệu
+    setSelectedNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset data
   };
 
-  // Mở dialog thêm tin tức
+  // Open add news dialog
   const handleOpenAddDialog = () => {
     setOpenAddDialog(true);
   };
 
-  // Đóng dialog thêm tin tức
+  // Close add news dialog
   const handleCloseAddDialog = () => {
     setOpenAddDialog(false);
-    setNewNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset dữ liệu
+    setNewNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset data
   };
 
-  // Xử lý khi thay đổi dữ liệu trong form chỉnh sửa
+  // Open confirm delete dialog
+  const handleOpenConfirmDialog = (news) => {
+    setSelectedNews(news);
+    setOpenConfirmDialog(true);
+  };
+
+  // Close confirm delete dialog
+  const handleCloseConfirmDialog = () => {
+    setOpenConfirmDialog(false);
+    setSelectedNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset data
+  };
+
+  // Handle changes in edit form
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedNews((prev) => ({
@@ -56,7 +69,7 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
     }));
   };
 
-  // Xử lý khi thay đổi dữ liệu trong form thêm mới
+  // Handle changes in new news form
   const handleNewChange = (e) => {
     const { name, value } = e.target;
     setNewNews((prev) => ({
@@ -65,25 +78,31 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
     }));
   };
 
-  // Cập nhật tin tức
+  // Update news
   const handleUpdateNews = () => {
-    handleEditNews(selectedNews); // Gọi hàm handleEditNews từ props để cập nhật tin tức
-    handleCloseEditDialog(); // Đóng dialog sau khi cập nhật
+    handleEditNews(selectedNews); // Call handleEditNews from props to update news
+    handleCloseEditDialog(); // Close dialog after updating
   };
 
-  // Thêm tin tức mới
+  // Add new news
   const handleAddNewNews = () => {
-    handleAddNews(newNews); // Gọi hàm handleAddNews từ props để thêm tin tức mới
-    handleCloseAddDialog(); // Đóng dialog sau khi thêm mới
+    handleAddNews(newNews); // Call handleAddNews from props to add new news
+    handleCloseAddDialog(); // Close dialog after adding
+  };
+
+  // Confirm delete news
+  const handleConfirmDeleteNews = () => {
+    handleDeleteNews(selectedNews); // Call handleDeleteNews from props to delete news
+    handleCloseConfirmDialog(); // Close dialog after deleting
   };
 
   return (
     <>
       <TableContainer component={Paper} sx={{ backgroundColor: darkMode ? '#424242' : '#fff', color: darkMode ? '#000' : '#000' }}>
         <Button variant="contained" onClick={handleOpenAddDialog} sx={{ margin: 2 }}>
-          Thêm Tin Tức
+          Add News
         </Button>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="news table">
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Title</TableCell>
@@ -104,7 +123,7 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
                   <IconButton onClick={() => handleOpenEditDialog(item)}>
                     <Edit />
                   </IconButton>
-                  <IconButton onClick={() => handleDeleteNews(item)}>
+                  <IconButton onClick={() => handleOpenConfirmDialog(item)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -114,7 +133,7 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
         </Table>
       </TableContainer>
 
-      {/* Sử dụng thành phần EditNewsDialog */}
+      {/* Use EditNewsDialog component */}
       <EditNewsDialog
         open={openEditDialog}
         onClose={handleCloseEditDialog}
@@ -123,7 +142,7 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
         onUpdate={handleUpdateNews}
       />
 
-      {/* Sử dụng thành phần AddNewsDialog */}
+      {/* Use AddNewsDialog component */}
       <AddNewsDialog
         open={openAddDialog}
         onClose={handleCloseAddDialog}
@@ -131,6 +150,18 @@ const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAdd
         onChange={handleNewChange}
         onAdd={handleAddNewNews}
       />
+
+      {/* Confirm delete dialog */}
+      <Dialog open={openConfirmDialog} onClose={handleCloseConfirmDialog}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <p>{`Are you sure you want to delete the news titled "${selectedNews.title}"?`}</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmDialog}>Cancel</Button>
+          <Button onClick={handleConfirmDeleteNews} color="primary">Confirm</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

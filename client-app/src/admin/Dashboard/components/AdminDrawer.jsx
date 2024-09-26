@@ -1,16 +1,17 @@
 import React from 'react';
 import { Drawer, Toolbar, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Home, People, History, Article, QuestionAnswer, School } from '@mui/icons-material';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const drawerWidth = 240;
 
 const menuItems = [
-  { text: 'Home', icon: <Home />, view: 'home' },
-  { text: 'Users', icon: <People />, view: 'users' },
-  { text: 'Courses History', icon: <History />, view: 'courses' },
-  { text: 'News', icon: <Article />, view: 'news' },
-  { text: 'Faqs', icon: <QuestionAnswer />, view: 'faqs' },
-  { text: 'Educators', icon: <School />, view: 'educators' },
+  { text: 'Home', icon: <Home />, view: 'home', path: '/dashboard' },
+  { text: 'Users', icon: <People />, view: 'users', path: '/admin/dashboard/users' },
+  { text: 'Courses History', icon: <History />, view: 'courses', path: '/admin/dashboard/courses' },
+  { text: 'News', icon: <Article />, view: 'news', path: '/admin/dashboard/news' },
+  { text: 'Faqs', icon: <QuestionAnswer />, view: 'faqs', path: '/admin/dashboard/faqs' },
+  { text: 'Educators', icon: <School />, view: 'educators', path: '/admin/dashboard/educators' },
 ];
 
 const AdminDrawer = ({ darkMode, setView }) => {
@@ -31,7 +32,7 @@ const AdminDrawer = ({ darkMode, setView }) => {
       <Toolbar />
       <List>
         {menuItems.map((item) => (
-          <ListItem button key={item.text} onClick={() => setView(item.view)}>
+          <ListItem button key={item.text} component={Link} to={item.path} onClick={() => setView(item.view)}>
             <ListItemIcon sx={{ color: darkMode ? '#fff' : '#000' }}>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
