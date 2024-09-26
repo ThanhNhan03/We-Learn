@@ -51,7 +51,8 @@ const Hero = () => {
                 className="flex justify-center md:justify-start"
               >
                 <Button variant="contained" color="primary" endIcon={<IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />}>
-                  Get Started
+                  
+                  <a href="/get-started" className="hidden">Get Started</a>
                 </Button>
               </motion.div>
             </Box>
