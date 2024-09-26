@@ -23,9 +23,9 @@ const App = () => {
       <Route path="/admin/dashboard/educators" element={<AdminDashboard />} /> {/* Educators view */}
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/get-started" element={<GetStarted />} /> {/* Add route for GetStarted */}
-      <Route path="/course/:title" element={<CourseDetail />} />
-      
+      {/* <Route path="/get-started" element={<GetStarted />} /> Add route for GetStarted */}
+      {/* <Route path="/course/:title" element={<CourseDetail />} />
+       */}
     </Routes>
   );
 };
