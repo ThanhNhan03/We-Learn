@@ -34,7 +34,7 @@ const Banner = () => {
                 transition={{ duration: 0.5 }}
                 style={{ fontSize: '2rem', fontWeight: 'bold', lineHeight: '1.2' }}
               >
-                The World's Leading Online learning Platform
+                Learn Anything, <br /> Anytime, Anywhere
               </motion.h1>
             </Box>
             <Box display="flex" flexDirection="column" gap={2}>
