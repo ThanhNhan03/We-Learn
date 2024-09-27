@@ -60,7 +60,7 @@ const Navbar = () => {
                 {menu.title}
               </Button>
             ))}
-            <Button variant="contained" color="primary" href="/sign-in">Sign In</Button>
+            <Button variant="contained" color="primary">Sign In</Button>
           </Box>
           {/* Mobile Hamburger menu section */}
           <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
@@ -78,7 +78,7 @@ const Navbar = () => {
                 </MenuItem>
               ))}
               <MenuItem onClick={handleMenuClose}>
-                <Button variant="contained" color="primary" fullWidth href="/register">Sign In</Button>
+                <Button variant="contained" color="primary" fullWidth>Sign In</Button>
               </MenuItem>
             </Menu>
           </Box>
