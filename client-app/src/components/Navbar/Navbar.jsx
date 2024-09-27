@@ -3,11 +3,9 @@ import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Box, InputBase, Avatar } from '@mui/material';
 import { styled } from '@mui/system';
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
-const NavbarMenu = [
- 
-];
+const NavbarMenu = [];
 
 // Custom styled components
 const Search = styled('div')(({ theme }) => ({
@@ -47,13 +45,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null); 
   const [userAnchorEl, setUserAnchorEl] = useState(null);
-  const navigate = useNavigate(); // Khởi tạo useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    // Kiểm tra xem người dùng đã đăng nhập chưa
     const accessToken = localStorage.getItem('accessToken');
+    const role = localStorage.getItem('role');
     setIsLoggedIn(!!accessToken);
+    setUserRole(role); 
   }, []);
 
   const handleMenuClick = (event) => {
@@ -75,7 +75,9 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userRole'); 
     setIsLoggedIn(false);
+    setUserRole(null); // Reset userRole
     navigate('/');
   };
 
@@ -122,7 +124,7 @@ const Navbar = () => {
             ))}
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            {isLoggedIn ? (
+            {isLoggedIn && userRole === 'User' ? ( 
               <>
                 <Avatar
                   onClick={handleUserMenuOpen}
@@ -135,7 +137,7 @@ const Navbar = () => {
                   onClose={handleUserMenuClose}
                 >
                   <MenuItem onClick={() => { handleUserMenuClose(); navigate('/edit-profile'); }}>
-                    Edit your Profile
+                    Your Profile
                   </MenuItem>
                   <MenuItem onClick={() => { handleUserMenuClose(); handleLogout(); }}>
                     Logout

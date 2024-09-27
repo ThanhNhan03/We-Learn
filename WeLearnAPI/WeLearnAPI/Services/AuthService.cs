@@ -45,7 +45,7 @@ namespace WeLearnAPI.Services
                 var refreshToken = await _jwtTokenService.GenerateRefreshToken();
 
                 user.RefreshToken = refreshToken;
-                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Token hết hạn sau 7 ngày
+                user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
                 await _userManager.UpdateAsync(user);
 
                 return (accessToken, refreshToken, "User");

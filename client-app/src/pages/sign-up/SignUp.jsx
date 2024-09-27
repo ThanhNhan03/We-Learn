@@ -1,9 +1,9 @@
 import * as React from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import Link from "@mui/material/Link";
@@ -12,8 +12,14 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { createTheme, styled } from "@mui/material/styles";
-import getSignUpTheme from "./theme/getSignUpTheme";
-import { GoogleIcon, FacebookIcon} from "./CustomIcons";
+import { GoogleIcon, FacebookIcon } from "./CustomIcons";
+import PasswordStrengthMeter from '../../common/PasswordStrengthMeter';
+import AxiosAPI from '../../api/AxiosAPI';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import * as yup from 'yup'; 
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -34,90 +40,51 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-
+const schema = yup.object().shape({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/,
+      "Password must contain uppercase, lowercase, number and special character"
+    )
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords do not match")
+    .required("Confirm password is required"),
+});
 
 export default function SignUp() {
-  const [mode, setMode] = React.useState("light");
-  const [showCustomTheme, setShowCustomTheme] = React.useState(true);
-  const defaultTheme = createTheme({ palette: { mode } });
-  const SignUpTheme = createTheme(getSignUpTheme(mode));
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState("");
-  // This code only runs on the client side, to determine the system color preference
-  React.useEffect(() => {
-    // Check if there is a preferred mode in localStorage
-    const savedMode = localStorage.getItem("themeMode");
-    if (savedMode) {
-      setMode(savedMode);
-    } else {
-      // If no preference is found, it uses system preference
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setMode(systemPrefersDark ? "dark" : "light");
-    }
-  }, []);
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const toggleColorMode = () => {
-    const newMode = mode === "dark" ? "light" : "dark";
-    setMode(newMode);
-    localStorage.setItem("themeMode", newMode); // Save the selected mode to localStorage
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await AxiosAPI.post("/Auth/register/user", data);
+      console.log("Registration successful:", response.data);
+      toast.success("Registration successful. Please check your email to confirm your account.", {
+        onClose: () => navigate('/sign-in')
+      });
+    } catch (error) {
+      console.error("Registration error:", error.response?.data || error.message);
+      toast.error("An error occurred during registration. Please try again.");
+    }
   };
 
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
-
-  const validateInputs = () => {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const name = document.getElementById("name");
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage("");
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage("");
-    }
-
-    if (!name.value || name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage("Name is required.");
-      isValid = false;
-    } else {
-      setNameError(false);
-      setNameErrorMessage("");
-    }
-
-    return isValid;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   return (
@@ -134,69 +101,69 @@ export default function SignUp() {
           variant="h4"
           sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
         >
-          Sign up
+          Sign Up
         </Typography>
         <Box
           component="form"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
-          <FormControl>
-            <FormLabel htmlFor="name">Full name</FormLabel>
-            <TextField
-              autoComplete="name"
-              name="name"
-              required
-              fullWidth
-              id="name"
-              placeholder="Jon Snow"
-              error={nameError}
-              helperText={nameErrorMessage}
-              color={nameError ? "error" : "primary"}
-            />
-          </FormControl>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <FormControl sx={{ flex: 1 }}>
+              <FormLabel htmlFor="firstName">First Name</FormLabel>
+              <TextField
+                {...register("firstName")}
+                error={!!errors.firstName}
+                helperText={errors.firstName?.message}
+                placeholder="First Name"
+              />
+            </FormControl>
+            <FormControl sx={{ flex: 1 }}>
+              <FormLabel htmlFor="lastName">Last Name</FormLabel>
+              <TextField
+                {...register("lastName")}
+                error={!!errors.lastName}
+                helperText={errors.lastName?.message}
+                placeholder="Last Name"
+              />
+            </FormControl>
+          </Box>
           <FormControl>
             <FormLabel htmlFor="email">Email</FormLabel>
             <TextField
-              required
-              fullWidth
-              id="email"
-              placeholder="your@email.com"
-              name="email"
-              autoComplete="email"
-              variant="outlined"
-              error={emailError}
-              helperText={emailErrorMessage}
-              color={passwordError ? "error" : "primary"}
+              {...register("email")}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              placeholder="Email"
             />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="password">Password</FormLabel>
             <TextField
-              required
-              fullWidth
-              name="password"
-              placeholder="••••••"
+              {...register("password")}
               type="password"
-              id="password"
-              autoComplete="new-password"
-              variant="outlined"
-              error={passwordError}
-              helperText={passwordErrorMessage}
-              color={passwordError ? "error" : "primary"}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                register("password").onChange(e);
+              }}
+              placeholder="Password"
+            />
+            <PasswordStrengthMeter password={password} />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+            <TextField
+              {...register("confirmPassword")}
+              type="password"
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword?.message}
+              placeholder="Confirm Password"
             />
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="allowExtraEmails" color="primary" />}
-            label="I want to receive updates via email."
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            onClick={validateInputs}
-          >
-            Sign up
+          <Button type="submit" fullWidth variant="contained">
+            Sign Up
           </Button>
           <Typography sx={{ textAlign: "center" }}>
             Already have an account?{" "}
@@ -206,7 +173,7 @@ export default function SignUp() {
                 variant="body2"
                 sx={{ alignSelf: "center" }}
               >
-                Login
+                Sign In
               </Link>
             </span>
           </Typography>
@@ -235,6 +202,7 @@ export default function SignUp() {
           </Button>
         </Box>
       </Card>
+      <ToastContainer position="top-right" autoClose={5000} />
     </Stack>
   );
 }
