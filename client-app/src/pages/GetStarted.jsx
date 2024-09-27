@@ -8,7 +8,7 @@ import Services from "../components/Services/Services";
     return (
       <main className="overflow-x-hidden bg-white text-dark">
         <Navbar />
-       <Services />
+       {/* <Services /> */}
         <CourseList />
         <Footer />
       </main>
