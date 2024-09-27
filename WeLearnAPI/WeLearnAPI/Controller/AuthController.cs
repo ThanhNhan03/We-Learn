@@ -154,12 +154,14 @@ namespace WeLearnAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Authenticate admin
             var (adminToken, adminRole) = await _authService.AuthenticateAdminAsync(request.Email, request.Password);
             if (adminToken != null)
             {
-                return Ok(new { token = adminToken, role = adminRole });
+                return Ok(new { AccessToken = adminToken, RefreshToken = (string)null, role = adminRole });
             }
 
+            // Authenticate user
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user != null)
             {
@@ -177,6 +179,7 @@ namespace WeLearnAPI.Controllers
 
             return Unauthorized("Invalid email or password.");
         }
+
 
 
 

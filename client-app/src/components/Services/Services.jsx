@@ -72,10 +72,36 @@ const SlideLeft = (delay) => {
 };
 
 const Services = () => {
+  const styles = {
+    section: {
+      backgroundColor: "#A8D0E6",   
+    },
+    heading: {
+      color: "#374785", 
+    },
+    paper: {
+      backgroundColor: "#F8E9A1",   
+      '&:hover': {
+        backgroundColor: "#FFFFFF",   
+        transform: 'scale(1.1)',
+        boxShadow: 6,
+      },
+      transition: 'transform 0.3s ease-in-out',
+    },
+    iconBox: {
+      fontSize: '2rem',
+      marginBottom: '2rem',
+      color: "#24305E", 
+    },
+    title: {
+      color: "#374785", 
+    },
+  };
+
   return (
-    <section className="bg-white">
+    <section style={styles.section}>
       <Container sx={{ pb: 14, pt: 16 }}>
-        <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
+        <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom style={styles.heading}>
           Services we provide
         </Typography>
         <Grid container spacing={4}>
@@ -96,18 +122,12 @@ const Services = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    bgcolor: '#f4f4f4',
                     borderRadius: 2,
-                    '&:hover': {
-                      bgcolor: 'white',
-                      transform: 'scale(1.1)',
-                      boxShadow: 6,
-                    },
-                    transition: 'transform 0.3s ease-in-out',
+                    ...styles.paper,
                   }}
                 >
-                  <Box sx={{ fontSize: '2rem', mb: 2 }}>{service.icon}</Box>
-                  <Typography variant="h6" component="h2" textAlign="center">
+                  <Box sx={styles.iconBox}>{service.icon}</Box>
+                  <Typography variant="h6" component="h2" textAlign="center" style={styles.title}>
                     {service.title}
                   </Typography>
                 </Paper>

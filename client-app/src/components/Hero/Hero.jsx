@@ -27,8 +27,30 @@ export const FadeUp = (delay) => {
 };
 
 const Hero = () => {
+  const styles = {
+    section: {
+      backgroundColor: "#A8D0E6", // Light Blue
+      overflow: "hidden",
+      position: "relative",
+    },
+    heading: {
+      color: "#374785", // Dark Blue
+    },
+    span: {
+      color: "#F76C6C", // Pink
+    },
+    button: {
+      backgroundColor: "#F76C6C", // Pink
+      color: "#FFFFFF", // White
+    },
+    link: {
+      color: "#F8E9A1", // Yellow
+      textDecoration: "none",
+    },
+  };
+
   return (
-    <section className="bg-light overflow-hidden relative">
+    <section style={styles.section}>
       <Navbar />
       <Container>
         <Grid container spacing={4} minHeight="650px">
@@ -40,9 +62,9 @@ const Hero = () => {
                 initial="initial"
                 animate="animate"
                 className="text-3xl lg:text-5xl font-bold !leading-snug"
+                style={styles.heading}
               >
-                Let's Learn to build a{" "}
-                <span className="text-secondary">Website</span> for your business
+                <span style={styles.span}>WE LEARN</span>  Sharing knowledge, building futures
               </motion.h1>
               <motion.div
                 variants={FadeUp(0.8)}
@@ -50,9 +72,8 @@ const Hero = () => {
                 animate="animate"
                 className="flex justify-center md:justify-start"
               >
-                <Button variant="contained" color="primary" endIcon={<IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />}>
-                  
-                  <a href="/get-started" className="hidden">Get Started</a>
+                <Button variant="contained" style={styles.button} endIcon={<IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />}>
+                  <a href="/get-started" className="hidden" style={styles.link }>Get Started</a>
                 </Button>
               </motion.div>
             </Box>
