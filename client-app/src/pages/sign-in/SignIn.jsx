@@ -82,6 +82,7 @@ export default function SignIn() {
       if (accessToken && refreshToken !== undefined) {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken || "");
+        localStorage.setItem("role", role);
         navigate(role === "Admin" ? "/admin/dashboard" : "/");
       } else {
         throw new Error("Login response missing tokens");
