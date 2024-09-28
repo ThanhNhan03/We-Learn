@@ -105,16 +105,16 @@ const Footer = () => {
                 </Box>
                 {/* social icons */}
                 <Box display="flex" mt={2}>
-                  <IconButton href="https://chat.whatsapp.com/FQSKgJ5f1eIAhlyF5sVym0">
+                  <IconButton href="https://www.facebook.com/minhkhai2610">
                     <FaWhatsapp className="cursor-pointer hover:text-primary hover:scale-105 duration-200" />
                   </IconButton>
-                  <IconButton href="https://www.instagram.com/the.coding.journey/">
+                  <IconButton href="https://www.instagram.com/thanhtimmy/">
                     <FaInstagram className="cursor-pointer hover:text-primary hover:scale-105 duration-200" />
                   </IconButton>
-                  <IconButton href="https://thecodingjourney.com/">
+                  <IconButton href="https://www.facebook.com/thanh.timmy.3">
                     <TbWorldWww className="cursor-pointer hover:text-primary hover:scale-105 duration-200" />
                   </IconButton>
-                  <IconButton href="https://www.youtube.com/@TheCodingJourney">
+                  <IconButton href="https://www.youtube.com/@t.tmadness5797">
                     <FaYoutube className="cursor-pointer hover:text-primary hover:scale-105 duration-200" />
                   </IconButton>
                 </Box>
