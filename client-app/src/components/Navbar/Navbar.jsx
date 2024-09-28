@@ -81,6 +81,10 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const handleNavigateHome = () => {
+    navigate('/'); // Điều hướng về trang chủ
+  };
+
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white', color: 'black', boxShadow: 'none', borderBottom: '1px solid #e0e0e0' }}>
       <motion.div
@@ -89,9 +93,16 @@ const Navbar = () => {
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           {/* Logo section */}
-          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: '#5624d0', cursor: 'pointer' }} style={{color: '#F76C6C'}}>
+          <Typography 
+            variant="h6" 
+            component="div" 
+            sx={{ fontWeight: 'bold', color: '#5624d0', cursor: 'pointer' }} 
+            style={{color: '#F76C6C'}}
+            onClick={handleNavigateHome} // Thêm sự kiện onClick vào Typography
+          >
             We Learn
           </Typography>
+          
           {/* Search Bar */}
           <Search>
             <SearchIconWrapper>
@@ -115,6 +126,7 @@ const Navbar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
           {/* Menu section */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
             {NavbarMenu.map((menu) => (
@@ -123,6 +135,7 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
+
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {isLoggedIn && userRole === 'User' ? ( 
               <>
@@ -153,6 +166,7 @@ const Navbar = () => {
               </>
             )}
           </Box>
+
           {/* Mobile Hamburger menu section */}
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuClick}>
