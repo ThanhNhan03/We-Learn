@@ -1,17 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import MuiCard from "@mui/material/Card";
-import { createTheme, styled } from "@mui/material/styles";
 import { GoogleIcon, FacebookIcon } from "./CustomIcons";
 import PasswordStrengthMeter from '../../common/PasswordStrengthMeter';
 import AxiosAPI from '../../api/AxiosAPI';
@@ -20,6 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as yup from 'yup'; 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { IconButton, Card as MuiCard, Typography, Stack, 
+  Divider, FormControl, FormLabel, TextField, Button, Box, styled, Link } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import InputAdornment from '@mui/material/InputAdornment';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -60,6 +53,8 @@ const schema = yup.object().shape({
 
 export default function SignUp() {
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -85,6 +80,18 @@ export default function SignUp() {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -141,7 +148,7 @@ export default function SignUp() {
             <FormLabel htmlFor="password">Password</FormLabel>
             <TextField
               {...register("password")}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               error={!!errors.password}
               helperText={errors.password?.message}
               onChange={(e) => {
@@ -149,6 +156,20 @@ export default function SignUp() {
                 register("password").onChange(e);
               }}
               placeholder="Password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <PasswordStrengthMeter password={password} />
           </FormControl>
@@ -156,10 +177,24 @@ export default function SignUp() {
             <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
             <TextField
               {...register("confirmPassword")}
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               error={!!errors.confirmPassword}
               helperText={errors.confirmPassword?.message}
               placeholder="Confirm Password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle confirm password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
           </FormControl>
           <Button type="submit" fullWidth variant="contained">

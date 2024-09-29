@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Box, InputBase, Avatar } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Box, InputBase, Avatar, Divider } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 
@@ -43,25 +44,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null); 
+  const { User, logout } = useContext(UserContext);
+  const navigate = useNavigate();
   const [userAnchorEl, setUserAnchorEl] = useState(null);
-  const navigate = useNavigate(); 
+  const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    const role = localStorage.getItem('role');
-    setIsLoggedIn(!!accessToken);
-    setUserRole(role); 
-  }, []);
-
-  const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   const handleUserMenuOpen = (event) => {
@@ -72,17 +62,16 @@ const Navbar = () => {
     setUserAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userRole'); 
-    setIsLoggedIn(false);
-    setUserRole(null); // Reset userRole
-    navigate('/');
+  const handleMobileMenuOpen = (event) => {
+    setMobileAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileAnchorEl(null);
   };
 
   const handleNavigateHome = () => {
-    navigate('/'); // Điều hướng về trang chủ
+    navigate('/');
   };
 
   return (
@@ -98,7 +87,7 @@ const Navbar = () => {
             component="div" 
             sx={{ fontWeight: 'bold', color: '#5624d0', cursor: 'pointer' }} 
             style={{color: '#F76C6C'}}
-            onClick={handleNavigateHome} // Thêm sự kiện onClick vào Typography
+            onClick={handleNavigateHome}
           >
             We Learn
           </Typography>
@@ -137,12 +126,13 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            {isLoggedIn && userRole === 'User' ? ( 
+            {User ? ( 
               <>
                 <Avatar
                   onClick={handleUserMenuOpen}
                   sx={{ cursor: 'pointer' }}
                 >
+                  {User.firstname[0]}
                 </Avatar>
                 <Menu
                   anchorEl={userAnchorEl}
@@ -159,7 +149,9 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button onClick={() => navigate("/sign-in")} sx={{ textTransform: 'none' }}>Log-in</Button>
+                <Button onClick={() => navigate("/sign-in")} sx={{ textTransform: 'none' }}>
+                  Sign-in
+                </Button>
                 <Button onClick={() => navigate("/sign-up")} variant="contained" color="primary" sx={{ textTransform: 'none' }}>
                   Sign-up
                 </Button>
@@ -169,25 +161,34 @@ const Navbar = () => {
 
           {/* Mobile Hamburger menu section */}
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuClick}>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMobileMenuOpen}>
               <IoMdMenu />
             </IconButton>
             <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
+              anchorEl={mobileAnchorEl}
+              open={Boolean(mobileAnchorEl)}
+              onClose={handleMobileMenuClose}
             >
               {NavbarMenu.map((menu) => (
-                <MenuItem key={menu.id} onClick={handleMenuClose} component="a" href={menu.path}>
+                <MenuItem key={menu.id} onClick={() => { handleMobileMenuClose(); navigate(menu.path); }}>
                   {menu.title}
                 </MenuItem>
               ))}
-              <MenuItem onClick={handleMenuClose}>
-                <Button onClick={() => navigate("/sign-in")} sx={{ textTransform: 'none' }}>Log-in</Button>
-              </MenuItem>
-              <MenuItem onClick={handleMenuClose}>
-                <Button onClick={() => navigate("/sign-up")} variant="contained" color="primary" fullWidth>Sign-up</Button>
-              </MenuItem>
+              <Divider />
+              {User ? (
+                <MenuItem onClick={() => { handleMobileMenuClose(); handleLogout(); }}>
+                  Logout
+                </MenuItem>
+              ) : (
+                [
+                  <MenuItem key="sign-in" onClick={() => { handleMobileMenuClose(); navigate("/sign-in"); }}>
+                    Sign-in
+                  </MenuItem>,
+                  <MenuItem key="sign-up" onClick={() => { handleMobileMenuClose(); navigate("/sign-up"); }}>
+                    Sign-up
+                  </MenuItem>
+                ]
+              )}
             </Menu>
           </Box>
         </Toolbar>
