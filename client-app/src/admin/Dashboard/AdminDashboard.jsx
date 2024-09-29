@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import AdminAppBar from './components/AdminAppBar.jsx';
 import AdminDrawer from './components/AdminDrawer.jsx';
 import HomeView from './components/HomeView.jsx';
-import UserTable from './components/UserTable.jsx';
+// Xóa import UserTable từ đây
 import NewsTable from './components/NewsTable.jsx';
 import CreateAccountDialog from './components/CreateAccountDialog.jsx';
 import EducatorTable from './components/EducatorTable.jsx';
-import { Toolbar } from '@mui/material';
+import { Toolbar, CircularProgress } from '@mui/material';
+
+// Thêm lazy loading cho UserTable
+const UserTable = lazy(() => import('./components/UserTable.jsx'));
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -118,7 +121,11 @@ const AdminDashboard = () => {
       <main style={{ flexGrow: 1, padding: '24px' }}>
         <Toolbar />
         {view === 'home' && <HomeView users={users} setView={setView} handleDialogOpen={handleDialogOpen} />}
-        {view === 'users' && <UserTable data={users} darkMode={darkMode} />}
+        {view === 'users' && (
+          <Suspense fallback={<CircularProgress />}>
+            <UserTable data={users} darkMode={darkMode} />
+          </Suspense>
+        )}
         {view === 'news' && <NewsTable data={news} darkMode={darkMode} handleEditNews={handleEditNews} handleDeleteNews={handleDeleteNews} />}
         {view === 'educators' && <EducatorTable data={educators} darkMode={darkMode} handleViewEducator={() => {}} handleToggleEducatorAccount={() => {}} />}
       </main>
