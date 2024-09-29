@@ -13,8 +13,10 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "male" : src.Gender == 0 ? "female" : "other"));
 
         CreateMap<Users, UserResponseDTO>();
-        // Mapping RegisterRequestDTO to Users domain model
+    
         CreateMap<News, NewsReponeDTO>();
+        CreateMap<Admin, AdminLoginResponeDTO>();
+        CreateMap<Users, UserLoginResponeDTO>();
 
 
         CreateMap<RegisterRequestDTO, Users>()

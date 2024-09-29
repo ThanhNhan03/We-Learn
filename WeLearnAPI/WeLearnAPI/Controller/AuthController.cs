@@ -155,10 +155,23 @@ namespace WeLearnAPI.Controllers
                 return BadRequest(ModelState);
 
             // Authenticate admin
-            var (adminToken, adminRole) = await _authService.AuthenticateAdminAsync(request.Email, request.Password);
-            if (adminToken != null)
+            var admin = await _adminManager.FindByEmailAsync(request.Email);
+            if (admin != null)
             {
-                return Ok(new { AccessToken = adminToken, RefreshToken = (string)null, role = adminRole });
+                var (adminToken, adminRole) = await _authService.AuthenticateAdminAsync(request.Email, request.Password);
+                if (adminToken != null)
+                {
+        
+                    var adminInfo = _mapper.Map<AdminLoginResponeDTO>(admin);
+
+                    return Ok(new
+                    {
+                        AccessToken = adminToken,
+                        RefreshToken = (string)null,
+                        Role = adminRole,
+                        AdminInfo = adminInfo 
+                    });
+                }
             }
 
             // Authenticate user
@@ -173,15 +186,20 @@ namespace WeLearnAPI.Controllers
                 var (userAccessToken, userRefreshToken, userRole) = await _authService.AuthenticateUserAsync(request.Email, request.Password);
                 if (userAccessToken != null)
                 {
-                    return Ok(new { AccessToken = userAccessToken, RefreshToken = userRefreshToken, role = userRole });
+                    var userInfo = _mapper.Map<UserLoginResponeDTO>(user);
+
+                    return Ok(new
+                    {
+                        AccessToken = userAccessToken,
+                        RefreshToken = userRefreshToken,
+                        Role = userRole,
+                        UserInfo = userInfo
+                    });
                 }
             }
 
             return Unauthorized("Invalid email or password.");
         }
-
-
-
 
     }
 }

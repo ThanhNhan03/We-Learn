@@ -20,10 +20,18 @@ function ForgotPassword({ open, handleClose }) {
           handleClose();
         },
       }}
+      maxWidth="xs"
+      fullWidth
     >
       <DialogTitle>Reset password</DialogTitle>
       <DialogContent
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+        sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: 2,
+          width: 'auto',
+          p: 2,
+        }}
       >
         <DialogContentText>
           Enter your account&apos;s email address, and we&apos;ll send you a link to

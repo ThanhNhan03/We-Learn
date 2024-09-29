@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+const BASE_URL = "https://localhost:7284/api";
 
 const AxiosAPI = axios.create({
-  baseURL: "https://localhost:7284/api", 
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -27,10 +28,19 @@ AxiosAPI.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      alert("Your session has expired. Please log in again.");
+      alert("Your account is not authorized.");
     }
     return Promise.reject(error);
   }
 );
 
-export default AxiosAPI;
+const api = {
+  get: (url) => AxiosAPI.get(url),
+  post: (url, data) => AxiosAPI.post(url, data),
+  put: (url, data) => AxiosAPI.put(url, data),
+  delete: (url) => AxiosAPI.delete(url),
+  patch: (url, data) => AxiosAPI.patch(url, data),
+};
+
+export { BASE_URL };
+export default api;

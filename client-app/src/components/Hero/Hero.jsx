@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "../Navbar/Navbar";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import HeroPng from "../../assets/hero.png";
 import { motion } from "framer-motion";
 import { Container, Grid, Box, Button } from '@mui/material';
+import { UserContext } from '../../contexts/UserContext'; // Import UserContext
 import '../style/WebStyle.css';
 
 export const FadeUp = (delay) => {
@@ -27,6 +28,8 @@ export const FadeUp = (delay) => {
 };
 
 const Hero = () => {
+  const { User } = useContext(UserContext);
+
   return (
     <section className="hero-section">
       <Navbar />
@@ -41,9 +44,19 @@ const Hero = () => {
                 animate="animate"
                 className="hero-heading text-4xl lg:text-6xl font-bold !leading-snug"
               >
-                <span className="hero-span hero-title">WE LEARN</span>
-                <br />
-                <span className="hero-subtitle">Sharing knowledge, building futures</span>
+                {User ? (
+                  <>
+                    <span className="hero-span hero-title">WELLCOME {User.firstname} {User.lastname}</span>
+                    <br />
+                    <span style={{ fontSize: "1.5rem" }} className="hero-subtitle">Let's explore the world of knowledge together :D</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="hero-span hero-title">WE LEARN</span>
+                    <br />
+                    <span className="hero-subtitle">Share knowledge, build future</span>
+                  </>
+                )}
               </motion.h1>
               <motion.div
                 variants={FadeUp(0.8)}
@@ -51,8 +64,9 @@ const Hero = () => {
                 animate="animate"
                 className="flex justify-center md:justify-start"
               >
-                <Button variant="contained" className="hero-button" endIcon={<IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />}>
-                  <a href="/get-started" className="hero-link hidden">Get Started</a>
+                {/* Button redirect to get-started */}
+                <Button href="/get-started" variant="contained" className="hero-button" endIcon={<IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />}>
+                  Get Started
                 </Button>
               </motion.div>
             </Box>
