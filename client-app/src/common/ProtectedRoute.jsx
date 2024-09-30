@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
 
   console.log('Admin context:', admin);
 
-  if (!admin ) {
+  if (!admin  ) {
     return <Navigate to="/error-403" replace />;
   }
 

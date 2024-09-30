@@ -14,7 +14,7 @@ const AdminAppBar = ({ darkMode, handleThemeChange }) => {
       navigate('/admin/profile');
     } else if (selectedOption === 'Log Out') {
       logout();
-      navigate('/login');
+      navigate('/sign-in');
     }
   };
 

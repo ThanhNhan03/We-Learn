@@ -52,7 +52,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
             .ForMember(dest => dest.Birthday, opt => opt.MapFrom(src => src.Birthday))
             .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.TelephoneNumber))
-            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
+            //.ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == "male" ? 1 : src.Gender == "female" ? 0 : 2));
 
         CreateMap<AddNewsRequestDTO, NewsReponeDTO>();

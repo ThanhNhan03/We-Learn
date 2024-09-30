@@ -55,7 +55,7 @@ namespace WeLearnAPI.Controller
         }
 
         // POST: api/Admin
-        [HttpPost]
+        [HttpPost("add-admin")]
         public async Task<IActionResult> AddAdmin(AddAdminRequestDTO addAdminRequest)
         {
             if (!ModelState.IsValid)

@@ -22,8 +22,8 @@ public class AddAdminRequestDTO
     [MaxLength(20)]
     public string TelephoneNumber { get; set; }
 
-    [MaxLength(255)]
-    public string Image { get; set; }
+    //[MaxLength(255)]
+    //public string? Image { get; set; }
 
     [Required]
     [MinLength(6)]  // Ensure passwords are of adequate length

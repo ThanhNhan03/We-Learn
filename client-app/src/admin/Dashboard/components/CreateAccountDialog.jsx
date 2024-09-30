@@ -1,7 +1,55 @@
 import React from 'react';
+import api from '../../../api/AxiosAPI';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Grid, TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 
 const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, handleFileChange, handleSubmit }) => {
+
+  // Hàm handleSubmitForm thực hiện cuộc gọi API
+  const handleSubmitForm = async () => {
+    try {
+      // Convert image to base64
+      // const imageBase64 = await convertToBase64(formData.image);
+
+      // Prepare data to send
+      const dataToSend = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        birthday: formData.birthday,
+        telephoneNumber: formData.telephoneNumber,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        role: formData.role,
+        gender: formData.gender,
+        // image: imageBase64
+      };
+
+      // Send data as JSON
+      const response = await api.post('/Admin/add-admin', dataToSend, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log('Admin created successfully:', response.data);
+      handleDialogClose();
+    } catch (error) {
+      console.error('Error creating admin:', error);
+      // Display error message to the user
+      alert(error.message || "An error occurred while creating the account");
+    }
+  };
+
+  // Helper function to convert File to base64
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   return (
     <Dialog open={open} onClose={handleDialogClose}>
       <DialogTitle>Create Account</DialogTitle>
@@ -52,15 +100,16 @@ const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, 
           </Grid>
           <Grid item xs={6}>
             <TextField
-              name="phoneNumber"
+              name="telephoneNumber" 
               label="Telephone Number"
               fullWidth
-              value={formData.phoneNumber}
+              value={formData.telephoneNumber}
               onChange={handleChange}
               margin="dense"
+              required 
             />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FormControl fullWidth>
               <FormLabel>Image</FormLabel>
               <input
@@ -70,7 +119,7 @@ const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, 
                 style={{ marginTop: '8px' }}
               />
             </FormControl>
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               name="password"
@@ -116,9 +165,9 @@ const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, 
                 value={formData.gender}
                 onChange={handleChange}
               >
-                <FormControlLabel value="Female" control={<Radio />} label="Female" />
-                <FormControlLabel value="Male" control={<Radio />} label="Male" />
-                <FormControlLabel value="Other" control={<Radio />} label="Other" />
+                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                <FormControlLabel value="other" control={<Radio />} label="Other" />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -126,7 +175,7 @@ const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, 
       </DialogContent>
       <DialogActions>
         <Button onClick={handleDialogClose}>Cancel</Button>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmitForm}>Submit</Button> {/* Gọi hàm handleSubmitForm */}
       </DialogActions>
     </Dialog>
   );
