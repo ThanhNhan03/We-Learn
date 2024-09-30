@@ -75,17 +75,20 @@ export default function SignIn() {
 
     try {
       const response = await api.post("/Auth/login", formData);
-      const { accessToken, refreshToken, role, userInfo } = response.data;
-
+      const { accessToken, refreshToken, role, userInfo, adminInfo } = response.data;
+      
+      console.log(response.data);
       if (accessToken && refreshToken !== undefined) {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken || "");
         localStorage.setItem("role", role);
 
+        const info = role === "Admin" ? adminInfo : userInfo;
         const userData = {
-          firstname: userInfo?.firstName || "",
-          lastname: userInfo?.lastName || "",
-          email: userInfo?.email || formData.email,
+          id: info?.id || "",
+          firstname: info?.firstName || "",
+          lastname: info?.lastName || "",
+          email: info?.email || formData.email,
           role: role,
         };
 

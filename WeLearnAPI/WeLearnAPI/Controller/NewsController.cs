@@ -66,22 +66,32 @@ public class NewsController : ControllerBase
         return Ok(new { message = "News retrieved successfully.", data = news });
     }
 
-    // POST: api/News
     [HttpPost]
-    public async Task<IActionResult> AddNews([FromBody] AddNewsRequestDTO newsDto)
+    public async Task<IActionResult> AddNews([FromBody] AddNewsRequestDTO newsRequestDto)
     {
+        
         if (!ModelState.IsValid)
         {
             return BadRequest(new { message = "Invalid data.", errors = ModelState });
         }
 
-        var news = _mapper.Map<News>(newsDto);
+       var news = _mapper.Map<News>(newsRequestDto);   
+
+        var adminExists = await _unitOfWork.Admin.GetAdminByIdAsync(Guid.Parse(newsRequestDto.AdminId));
+        if (adminExists == null)
+        {
+            return BadRequest(new { message = "Admin invalid" });
+        }
+
+        // Nếu AdminId hợp lệ mới tiếp tục
+        var newsDto = _mapper.Map<NewsReponeDTO>(newsRequestDto);
 
         await _unitOfWork.News.AddAsync(news);
         await _unitOfWork.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetNewsById), new { id = news.Id }, new { message = "News added successfully.", data = news });
+        return CreatedAtAction(nameof(GetNewsById), new { id = news.Id }, new { message = "News added successfully."  , data = newsDto });
     }
+
 
     // DELETE: api/News/{id}
     [HttpDelete("{id}")]

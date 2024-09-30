@@ -15,7 +15,8 @@ public class MappingProfile : Profile
         CreateMap<Users, UserResponseDTO>()
              .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
 
-        CreateMap<News, NewsReponeDTO>();
+        CreateMap<News, NewsReponeDTO>()
+              .ForMember(dest => dest.AdminName, opt => opt.MapFrom(src => src.Admin.FirstName + " " + src.Admin.LastName));
         CreateMap<Admin, AdminLoginResponeDTO>()
              .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
         CreateMap<Users, UserLoginResponeDTO>()
@@ -54,7 +55,9 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == "male" ? 1 : src.Gender == "female" ? 0 : 2));
 
+        CreateMap<AddNewsRequestDTO, NewsReponeDTO>();
         CreateMap<AddNewsRequestDTO, News>();
+
         CreateMap<UpdateNewsRequestDTO, News>();
     }
 }

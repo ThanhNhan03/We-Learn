@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WeLearnAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240929175644_SeedData")]
-    partial class SeedData
+    [Migration("20240930014759_UpdateSeedData")]
+    partial class UpdateSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,67 +154,67 @@ namespace WeLearnAPI.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            UserId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             RoleId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
                         },
                         new
                         {
-                            UserId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            UserId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("d81b8ed9-be68-4a35-a361-c010670a1d5a"),
+                            UserId = new Guid("3b6b8489-4075-4625-9689-06d4884cd027"),
                             RoleId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
                         },
                         new
                         {
-                            UserId = new Guid("93ed089d-9645-4d8e-af7d-ad520bc5437f"),
+                            UserId = new Guid("2952c90a-1718-4c77-b66c-a40c2292a710"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("e30185c9-c3c0-436f-805b-4d90246be632"),
+                            UserId = new Guid("b29fa928-0d73-4260-bed8-9ebd2a637177"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("805a2744-d048-47e8-af7a-e4c9cef6817c"),
+                            UserId = new Guid("9780ac73-137e-45b8-9870-789bd2878e35"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("33912ce4-146d-4713-ab34-7b015d454cdf"),
+                            UserId = new Guid("df9f3af1-aa5b-4c62-968e-c351bdd6ba18"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("a5be4496-7f22-4681-b842-a3c60634d448"),
+                            UserId = new Guid("801e660c-638e-40b1-83f2-fe550965a213"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("7853fe73-9cd1-4e9e-906a-8f70159e0ebb"),
+                            UserId = new Guid("1451b12d-9c03-4088-9934-5603483c1acf"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("165f561f-927b-44ea-afb7-10b0282b518f"),
+                            UserId = new Guid("bd52a710-92d4-49f4-8f08-fd55a4c5a43d"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("a0e60fe6-ec4e-4847-8728-bf9faa1ebbf0"),
+                            UserId = new Guid("8d7aac49-009d-497e-a303-2bbb1b31c3c9"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("21e6e157-5847-45f7-96c3-727101718958"),
+                            UserId = new Guid("e41a9e36-1fb2-4f3c-97a5-f4436c5cf158"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         },
                         new
                         {
-                            UserId = new Guid("6bb560ed-4e70-4278-9927-01a2887adb95"),
+                            UserId = new Guid("c0173fa1-a2c8-402a-9fec-bc2f0f9a0113"),
                             RoleId = new Guid("0da24f70-3cc9-44b1-a48e-aa9d93635514")
                         });
                 });
@@ -328,11 +328,11 @@ namespace WeLearnAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d8877b08-be6c-4841-8f55-dba9c764a839"),
+                            Id = new Guid("48f622f2-c86a-4bc9-9df6-8879682e2251"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "cecce020-e874-4dde-b34c-becfab5ecb90",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5229),
+                            ConcurrencyStamp = "7a3ea47f-37e2-4bac-8ac6-1dcd1a9c1fa3",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7854),
                             Email = "user1@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName1",
@@ -343,18 +343,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER1",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_1",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5177),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7827),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5231),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7855),
                             UserName = "user1"
                         },
                         new
                         {
-                            Id = new Guid("7a8e8e68-d4c4-4a1f-ac34-6dda2370af99"),
+                            Id = new Guid("ed22c4fd-5894-480e-bb3f-c37aa95fa4bc"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "bcdfdb8c-f65c-4e1c-a7bc-db40ac98d025",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5316),
+                            ConcurrencyStamp = "5a27e39c-284f-43bb-8043-207f59d8273b",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7939),
                             Email = "user2@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName2",
@@ -365,18 +365,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER2",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_2",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5315),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7937),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5316),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7940),
                             UserName = "user2"
                         },
                         new
                         {
-                            Id = new Guid("851da6ff-a17b-4bda-912e-109b117ae4dd"),
+                            Id = new Guid("4a5bb3f4-4474-4998-a75c-229863d941a5"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "dac002f2-dd3d-428c-a879-1e63204b89d3",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5379),
+                            ConcurrencyStamp = "e142ba1b-27e1-4234-a3ac-9b58bb168dca",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8000),
                             Email = "user3@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName3",
@@ -387,18 +387,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER3",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_3",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5377),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8000),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5379),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8001),
                             UserName = "user3"
                         },
                         new
                         {
-                            Id = new Guid("8e84e041-0d87-42ff-a1d6-3ac817b8efd9"),
+                            Id = new Guid("0936b8aa-2e91-4506-a69a-1848ef9ed8c1"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "97d1c119-d0f3-4c12-aaf8-ba22b10862f5",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5471),
+                            ConcurrencyStamp = "568a9313-8172-4c58-bae6-2ec1c37b8bad",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8069),
                             Email = "user4@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName4",
@@ -409,18 +409,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER4",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_4",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5469),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8069),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5471),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8070),
                             UserName = "user4"
                         },
                         new
                         {
-                            Id = new Guid("3f6e801e-dd53-45bb-b3bd-8ce58c6593e0"),
+                            Id = new Guid("904737ed-0e8c-4572-b644-4e5acb2d0a0b"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "eb25896c-6009-40fe-bda9-cd6afbe59b2e",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5545),
+                            ConcurrencyStamp = "ae49192c-0b74-4557-b077-98f844e41aa7",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8154),
                             Email = "user5@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName5",
@@ -431,18 +431,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER5",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_5",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5543),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8153),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5545),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8154),
                             UserName = "user5"
                         },
                         new
                         {
-                            Id = new Guid("c2e78182-02a0-48ba-9f67-1cad88b7e329"),
+                            Id = new Guid("7a402ab8-8c66-41b0-b468-7ff46a0baf10"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "808df78a-102e-4894-a439-df0b7936a2ac",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5618),
+                            ConcurrencyStamp = "5f963f8c-a877-4e6e-af98-956a13fa930e",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8209),
                             Email = "user6@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName6",
@@ -453,18 +453,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER6",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_6",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5617),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8208),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5618),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8209),
                             UserName = "user6"
                         },
                         new
                         {
-                            Id = new Guid("9e2c3fb7-a5f9-45ca-83fa-9e89d1255ef7"),
+                            Id = new Guid("15ef872e-d8f7-456f-b449-6026b162ca83"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4f4fc409-cc8e-4cad-97d9-e90722b02dcc",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5685),
+                            ConcurrencyStamp = "028fce45-f3bf-4e5e-ba82-3d08d5cac575",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8260),
                             Email = "user7@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName7",
@@ -475,18 +475,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER7",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_7",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5684),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8259),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5686),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8260),
                             UserName = "user7"
                         },
                         new
                         {
-                            Id = new Guid("d03b2e02-1997-405d-804c-b3b0cc19fe59"),
+                            Id = new Guid("9077bcbb-5dbb-4f7a-b2ff-40ac7a1e5584"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "bb92af9e-d0d8-4e04-8b8a-cd3188c79653",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5752),
+                            ConcurrencyStamp = "17807433-6cfe-46ba-bbd3-2ea30d93063a",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8297),
                             Email = "user8@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName8",
@@ -497,18 +497,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER8",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_8",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5750),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8297),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5752),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8298),
                             UserName = "user8"
                         },
                         new
                         {
-                            Id = new Guid("3f648733-399a-4e10-a50d-a2b0d9927c5f"),
+                            Id = new Guid("78836550-dbba-4367-921c-38cb502fb5a6"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "bae6d8e7-e5e4-461a-9761-ad9b4080cd5c",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6000),
+                            ConcurrencyStamp = "4b244f17-050e-4818-b097-44577a769f55",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8478),
                             Email = "user9@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName9",
@@ -519,18 +519,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER9",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_9",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5999),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8477),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6001),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8478),
                             UserName = "user9"
                         },
                         new
                         {
-                            Id = new Guid("cea6bc37-0fa2-4db4-aa23-b0d4c8e3de59"),
+                            Id = new Guid("886601fc-94a8-4596-932e-9d7d419d6534"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "dfa69b37-8415-4840-ae0b-d89ceb73e85e",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6083),
+                            ConcurrencyStamp = "694f43c5-fe89-44cf-adf7-184e1a352399",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8529),
                             Email = "user10@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName10",
@@ -541,18 +541,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER10",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_10",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6082),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8528),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6084),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8529),
                             UserName = "user10"
                         },
                         new
                         {
-                            Id = new Guid("170a9f79-05f7-4802-988c-cab6a3b0c564"),
+                            Id = new Guid("6df298a5-7fc9-405a-971e-40c769aa648b"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9017eda8-c3dc-4105-8f39-e0a5ea8878e7",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6148),
+                            ConcurrencyStamp = "0a1f42eb-01ea-4424-8694-2e3711ce5993",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8568),
                             Email = "user11@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName11",
@@ -563,18 +563,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER11",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_11",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6146),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8568),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6148),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8569),
                             UserName = "user11"
                         },
                         new
                         {
-                            Id = new Guid("f966c00b-0d7c-42b2-9918-d19ba977c278"),
+                            Id = new Guid("7c3df089-0008-49da-8cf0-c384f48cabe4"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4b0b459c-38d2-4936-b93d-bd429bffd477",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6213),
+                            ConcurrencyStamp = "d8558e5f-3ab8-4531-aee2-fc1143351e08",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8605),
                             Email = "user12@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName12",
@@ -585,18 +585,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER12",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_12",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6212),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8605),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6214),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8605),
                             UserName = "user12"
                         },
                         new
                         {
-                            Id = new Guid("8140604d-4428-49c8-ad32-b05a1c10cae3"),
+                            Id = new Guid("c1b0e3f1-2b95-4f4d-a02b-bc372557e4b9"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "1eb49235-cdf3-45c7-bbd6-e8352fa9ff0c",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6271),
+                            ConcurrencyStamp = "a27684bc-ab76-4420-ab6c-37bfd2a9fd65",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8646),
                             Email = "user13@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName13",
@@ -607,18 +607,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER13",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_13",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6270),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8645),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6272),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8646),
                             UserName = "user13"
                         },
                         new
                         {
-                            Id = new Guid("11a0014d-01b4-41f8-a1ae-533358367328"),
+                            Id = new Guid("a0a15df6-7842-451b-8631-7e8d931c30e2"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "be3ac9e7-d732-45da-ad9f-dfb42bdb9d99",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6333),
+                            ConcurrencyStamp = "83f7fcb9-a260-4cad-b64c-e7d114f7a34b",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8686),
                             Email = "user14@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName14",
@@ -629,18 +629,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER14",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_14",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6331),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8686),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6333),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8687),
                             UserName = "user14"
                         },
                         new
                         {
-                            Id = new Guid("18dae43f-238f-4d22-9b89-55c1f59ff407"),
+                            Id = new Guid("984ca89c-8a60-4f42-9335-c734bbf7b1b6"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "07b840a8-12d4-4b11-bc14-6478004c5cb7",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6397),
+                            ConcurrencyStamp = "8833e600-87cd-4fee-b985-5d7a2def1d37",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8730),
                             Email = "user15@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName15",
@@ -651,18 +651,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER15",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_15",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6396),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8729),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6398),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8730),
                             UserName = "user15"
                         },
                         new
                         {
-                            Id = new Guid("91ad9c77-f7c4-479d-8a7e-e7259bcdbab6"),
+                            Id = new Guid("2c3ae6d9-da07-43d3-9996-7be6e7719e42"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "eb86f050-e59a-47ce-89e6-7739dfeb33ed",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6468),
+                            ConcurrencyStamp = "eb15c63d-267b-456a-a4b2-5b935de28381",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8772),
                             Email = "user16@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName16",
@@ -673,18 +673,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER16",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_16",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6467),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8772),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6469),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8773),
                             UserName = "user16"
                         },
                         new
                         {
-                            Id = new Guid("bf7dc463-bcb3-43ee-b569-04ea3d961cba"),
+                            Id = new Guid("45df22c4-9ff1-488a-ad25-486ac5d41381"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e506f231-da12-4d66-aaf9-02091601ed16",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6529),
+                            ConcurrencyStamp = "c62aff03-41a5-4b2a-bdd9-68dfaaa1a8cb",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8811),
                             Email = "user17@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName17",
@@ -695,18 +695,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER17",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_17",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6528),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8811),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6530),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8811),
                             UserName = "user17"
                         },
                         new
                         {
-                            Id = new Guid("f4cfd463-920d-4471-99e3-65ef1421ccb7"),
+                            Id = new Guid("1805203f-0b4c-42c6-807b-de4622fe6baf"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "d3a8217b-b4dd-4bf4-998a-c5e88ad4c9b4",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6614),
+                            ConcurrencyStamp = "5c30d787-e229-4117-a6b1-1fe22e39f990",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8854),
                             Email = "user18@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName18",
@@ -717,18 +717,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER18",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_18",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6613),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8853),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(6615),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(8854),
                             UserName = "user18"
                         },
                         new
                         {
-                            Id = new Guid("6781f40c-e891-446e-a29a-9e035570217e"),
+                            Id = new Guid("7d326f55-98c3-4633-b278-354547634903"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c437e4a4-edcf-4979-b424-43f3386f0d95",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7053),
+                            ConcurrencyStamp = "7e826986-f548-442b-8f05-25c06b0f7cd4",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4731),
                             Email = "user19@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName19",
@@ -739,18 +739,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER19",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_19",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7051),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4728),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7054),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4731),
                             UserName = "user19"
                         },
                         new
                         {
-                            Id = new Guid("f5229fb3-a700-486e-be0a-42b44cdb226e"),
+                            Id = new Guid("eccf73c2-a551-452b-9a9e-f600e4f4e6fe"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "f63b8b7e-b8e0-4990-8ab8-f32646dc7893",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7219),
+                            ConcurrencyStamp = "a95ab39d-4004-4530-b1b7-9b6494371071",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4882),
                             Email = "user20@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName20",
@@ -761,18 +761,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER20",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_20",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7218),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4882),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7220),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4883),
                             UserName = "user20"
                         },
                         new
                         {
-                            Id = new Guid("cb842099-8e6e-406e-a95d-0906f2442a33"),
+                            Id = new Guid("4c975796-53f6-4a3e-bee2-bb1828a15bb3"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4d3cd539-fde3-411c-b681-f805fac3d8f4",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7296),
+                            ConcurrencyStamp = "fce4e7ea-32d3-4758-9560-79c9cb319acd",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4930),
                             Email = "user21@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName21",
@@ -783,18 +783,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER21",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_21",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7295),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4930),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7297),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4931),
                             UserName = "user21"
                         },
                         new
                         {
-                            Id = new Guid("2805fb17-bcb1-41d7-881b-015fb0420699"),
+                            Id = new Guid("e7f5a4ea-4949-4427-959d-30368714167b"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7968a1e1-208c-4bbb-87a4-2177fa03adf2",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7363),
+                            ConcurrencyStamp = "ffdf9beb-875c-4edc-91da-195559480daf",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4967),
                             Email = "user22@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName22",
@@ -805,18 +805,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER22",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_22",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7361),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4967),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7363),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(4968),
                             UserName = "user22"
                         },
                         new
                         {
-                            Id = new Guid("a27442ee-2ad7-4598-b444-2281b620b234"),
+                            Id = new Guid("c92707e6-9316-4ada-ab9b-1c9e2ac1eede"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "372f856c-b773-47de-96d5-9bbac19c0134",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7579),
+                            ConcurrencyStamp = "6203f082-c14c-48bc-be1b-bf9821a5cec4",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5002),
                             Email = "user23@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName23",
@@ -827,18 +827,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER23",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_23",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7577),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5002),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7580),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5003),
                             UserName = "user23"
                         },
                         new
                         {
-                            Id = new Guid("4bd71b57-d5c9-4a83-a878-9e3916827215"),
+                            Id = new Guid("d417222d-119f-4547-874b-f713c567a96e"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "3eb4295a-c47c-47ff-a68c-1b43214e9a94",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7655),
+                            ConcurrencyStamp = "0d826964-8689-4ba2-9a7d-6d3f5ffb7118",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5048),
                             Email = "user24@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName24",
@@ -849,18 +849,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER24",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_24",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7654),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5048),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7656),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5049),
                             UserName = "user24"
                         },
                         new
                         {
-                            Id = new Guid("991655f9-768e-46f2-af99-7130a14e632c"),
+                            Id = new Guid("f659691a-11c6-4517-9b56-e3428f7b26ee"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "ba9fa3a9-0261-491c-ad19-c8d8582d7e55",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7722),
+                            ConcurrencyStamp = "92dfa931-fb66-4346-af14-80146998c2b9",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5090),
                             Email = "user25@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName25",
@@ -871,18 +871,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER25",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_25",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7721),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5090),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7723),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5091),
                             UserName = "user25"
                         },
                         new
                         {
-                            Id = new Guid("127933d9-4fc3-4af1-a638-27494a1f5d7f"),
+                            Id = new Guid("76bc427f-8ac4-4d0d-ace6-2a775a34f7d1"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "690828a4-48a5-435b-85a2-19c4a05e912a",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7804),
+                            ConcurrencyStamp = "f4556ffe-5acb-4314-b463-8494313e6a5a",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5129),
                             Email = "user26@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName26",
@@ -893,18 +893,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER26",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_26",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7803),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5129),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7805),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5130),
                             UserName = "user26"
                         },
                         new
                         {
-                            Id = new Guid("49d620fe-1634-4f0e-b43d-712ae8c54c68"),
+                            Id = new Guid("77de27ae-d777-46dc-aaad-dc93da3d807c"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "436c88a3-9e56-4c32-86e6-eb20fe59068f",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7875),
+                            ConcurrencyStamp = "66d3825e-9fe5-4224-9c26-a13018d2e807",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5165),
                             Email = "user27@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName27",
@@ -915,18 +915,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER27",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_27",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7874),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5164),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7876),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5165),
                             UserName = "user27"
                         },
                         new
                         {
-                            Id = new Guid("8a79ad02-66bc-454c-98a5-ef1b333b1d24"),
+                            Id = new Guid("2559b95a-c8c5-496f-bb02-efdccc3f0f58"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "bfe98cf9-25a7-49b7-9d59-83f45e7acaf0",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7951),
+                            ConcurrencyStamp = "d17cfb30-3ac6-4eb9-ab78-4f3881858d4b",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5201),
                             Email = "user28@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName28",
@@ -937,18 +937,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER28",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_28",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7949),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5200),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(7951),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5201),
                             UserName = "user28"
                         },
                         new
                         {
-                            Id = new Guid("2ca2216d-2d56-41e1-a61f-724d334dcb14"),
+                            Id = new Guid("6b617dd8-620e-4151-913b-ade9b5ff4025"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "04f26627-13c3-4b00-b182-15a4dc4a68d0",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8011),
+                            ConcurrencyStamp = "dc1fd07c-98b9-4ffb-ad65-67552e6a1131",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5233),
                             Email = "user29@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName29",
@@ -959,18 +959,18 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER29",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_29",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8010),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5232),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8012),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5233),
                             UserName = "user29"
                         },
                         new
                         {
-                            Id = new Guid("d91144e9-02dd-4551-9e8c-8a0f37767585"),
+                            Id = new Guid("a7458ddc-f7f4-4a9c-8313-a1273557e2aa"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "3cd1e6dc-3ecb-46cd-8976-fbfbce7de820",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8082),
+                            ConcurrencyStamp = "28d64d93-0fe9-4d38-a9d2-0c98e8e0318a",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5271),
                             Email = "user30@example.com",
                             EmailConfirmed = true,
                             FirstName = "UserFirstName30",
@@ -981,9 +981,9 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "USER30",
                             PhoneNumberConfirmed = false,
                             RefreshToken = "refresh_token_30",
-                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8071),
+                            RefreshTokenExpiryTime = new DateTime(2024, 10, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5263),
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8082),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 838, DateTimeKind.Local).AddTicks(5271),
                             UserName = "user30"
                         });
                 });
@@ -1084,11 +1084,11 @@ namespace WeLearnAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            Id = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e210dbcb-cda2-4bd7-812c-ea11dfeb3bbe",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 361, DateTimeKind.Local).AddTicks(348),
+                            ConcurrencyStamp = "9e213b71-cda6-4851-8943-61289ea7e824",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 757, DateTimeKind.Local).AddTicks(2767),
                             Email = "admin1@example.com",
                             EmailConfirmed = true,
                             FirstName = "FirstAdmin",
@@ -1097,19 +1097,19 @@ namespace WeLearnAPI.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN1@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN1",
-                            PasswordHash = "AQAAAAIAAYagAAAAELGjoHDMUmcGZ84hJTwl3P0Pwx+oVQDUHCxGWnPVMgHGHnRA/BKdDJyQSfqG7nZaxA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDeRvh96NNgh54caBaBB7tTHgBE3nBOzz/goZfbYFPswKXr5HdXouP3qf+bkqt4UjQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 361, DateTimeKind.Local).AddTicks(364),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 757, DateTimeKind.Local).AddTicks(2782),
                             UserName = "admin1"
                         },
                         new
                         {
-                            Id = new Guid("d81b8ed9-be68-4a35-a361-c010670a1d5a"),
+                            Id = new Guid("3b6b8489-4075-4625-9689-06d4884cd027"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1982, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "878a1961-a7a3-4d6b-9bc9-55dbc1f466f8",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(2135),
+                            ConcurrencyStamp = "324f7a56-7310-4565-ad6b-76a93755c83a",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(4559),
                             Email = "admin2@example.com",
                             EmailConfirmed = true,
                             FirstName = "SecondAdmin",
@@ -1118,19 +1118,19 @@ namespace WeLearnAPI.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN2@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBj3XRS6XJvNG/ymPDSKPdBDQWeYyG7b13y1fJ8yADzua/9HGbg8tgPFzdrW5sYGZA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDMW/4W9RiSYDtRh67dOd6EQcQmHm1LfgV1ZG3d+6EMR2r4Bs5SKg2WT+5zY7NFrSQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(2158),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(4576),
                             UserName = "admin2"
                         },
                         new
                         {
-                            Id = new Guid("93ed089d-9645-4d8e-af7d-ad520bc5437f"),
+                            Id = new Guid("2952c90a-1718-4c77-b66c-a40c2292a710"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "82a35ed4-1686-4bd5-bd1e-01c125a31469",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(3271),
+                            ConcurrencyStamp = "682d012d-755c-43de-a3ee-5961dad12767",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5438),
                             Email = "teacher1@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher1",
@@ -1141,16 +1141,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER1",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(3273),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5439),
                             UserName = "teacher1"
                         },
                         new
                         {
-                            Id = new Guid("e30185c9-c3c0-436f-805b-4d90246be632"),
+                            Id = new Guid("b29fa928-0d73-4260-bed8-9ebd2a637177"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "f6213f2f-1715-4fc7-86a7-1f2a42356cff",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(3699),
+                            ConcurrencyStamp = "19562a4d-3e48-4379-a9c5-0f119a830d2e",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5643),
                             Email = "teacher2@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher2",
@@ -1161,16 +1161,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER2",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(3701),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5644),
                             UserName = "teacher2"
                         },
                         new
                         {
-                            Id = new Guid("805a2744-d048-47e8-af7a-e4c9cef6817c"),
+                            Id = new Guid("9780ac73-137e-45b8-9870-789bd2878e35"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "8ba71723-f8ff-46da-9e89-3075d1f61009",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(3931),
+                            ConcurrencyStamp = "61352dda-daef-4db9-b7d5-1f01e72f4fc0",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5788),
                             Email = "teacher3@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher3",
@@ -1181,16 +1181,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER3",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(3931),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5788),
                             UserName = "teacher3"
                         },
                         new
                         {
-                            Id = new Guid("33912ce4-146d-4713-ab34-7b015d454cdf"),
+                            Id = new Guid("df9f3af1-aa5b-4c62-968e-c351bdd6ba18"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4f7bf98e-5006-4c49-b85d-90fda2fecde7",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4044),
+                            ConcurrencyStamp = "22835d6c-5848-4391-b19d-845e8a74ee14",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5870),
                             Email = "teacher4@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher4",
@@ -1201,16 +1201,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER4",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4045),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(5871),
                             UserName = "teacher4"
                         },
                         new
                         {
-                            Id = new Guid("a5be4496-7f22-4681-b842-a3c60634d448"),
+                            Id = new Guid("801e660c-638e-40b1-83f2-fe550965a213"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "6734c18e-8bef-44df-8f2f-f7300860ef5d",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4225),
+                            ConcurrencyStamp = "edd5315b-62c0-4f44-9210-71da2f10d873",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7205),
                             Email = "teacher5@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher5",
@@ -1221,16 +1221,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER5",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4226),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7206),
                             UserName = "teacher5"
                         },
                         new
                         {
-                            Id = new Guid("7853fe73-9cd1-4e9e-906a-8f70159e0ebb"),
+                            Id = new Guid("1451b12d-9c03-4088-9934-5603483c1acf"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "feb4b649-1edd-42a6-b3ea-adfb83aa695d",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4379),
+                            ConcurrencyStamp = "4559c446-4f68-4be6-8995-1469489bb31b",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7344),
                             Email = "teacher6@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher6",
@@ -1241,16 +1241,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER6",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4380),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7344),
                             UserName = "teacher6"
                         },
                         new
                         {
-                            Id = new Guid("165f561f-927b-44ea-afb7-10b0282b518f"),
+                            Id = new Guid("bd52a710-92d4-49f4-8f08-fd55a4c5a43d"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "dbbe9e4b-412e-4159-9539-a9ecf415a66d",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4496),
+                            ConcurrencyStamp = "b6186480-e42b-40b4-ad1f-19e62024b0fb",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7417),
                             Email = "teacher7@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher7",
@@ -1261,16 +1261,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER7",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4512),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7428),
                             UserName = "teacher7"
                         },
                         new
                         {
-                            Id = new Guid("a0e60fe6-ec4e-4847-8728-bf9faa1ebbf0"),
+                            Id = new Guid("8d7aac49-009d-497e-a303-2bbb1b31c3c9"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "fedab6d2-934d-4038-8865-ec18441f1f0c",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4777),
+                            ConcurrencyStamp = "1ca29be8-e464-4380-8325-ae41d09ed739",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7603),
                             Email = "teacher8@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher8",
@@ -1281,16 +1281,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER8",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4778),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7604),
                             UserName = "teacher8"
                         },
                         new
                         {
-                            Id = new Guid("21e6e157-5847-45f7-96c3-727101718958"),
+                            Id = new Guid("e41a9e36-1fb2-4f3c-97a5-f4436c5cf158"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "3d38996e-beef-413f-81ad-2bbb1bda76da",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4905),
+                            ConcurrencyStamp = "a45ba32c-c858-4bd2-ab19-17d9539befce",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7677),
                             Email = "teacher9@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher9",
@@ -1301,16 +1301,16 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER9",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(4906),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7677),
                             UserName = "teacher9"
                         },
                         new
                         {
-                            Id = new Guid("6bb560ed-4e70-4278-9927-01a2887adb95"),
+                            Id = new Guid("c0173fa1-a2c8-402a-9fec-bc2f0f9a0113"),
                             AccessFailedCount = 0,
                             Birthday = new DateTime(1985, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4f9950c4-a2d4-46f8-9181-7ce2ed8f66df",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5035),
+                            ConcurrencyStamp = "95876dc9-21c7-457e-be4e-d5ecf9948930",
+                            CreatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7739),
                             Email = "teacher10@example.com",
                             EmailConfirmed = true,
                             FirstName = "Teacher10",
@@ -1321,7 +1321,7 @@ namespace WeLearnAPI.Migrations
                             NormalizedUserName = "TEACHER10",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(5036),
+                            UpdatedAt = new DateTime(2024, 9, 30, 8, 47, 58, 837, DateTimeKind.Local).AddTicks(7739),
                             UserName = "teacher10"
                         });
                 });
@@ -1363,242 +1363,272 @@ namespace WeLearnAPI.Migrations
                         new
                         {
                             Id = 1,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 1",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8147),
-                            Title = "News Title 1"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 1",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 2",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8196),
-                            Title = "News Title 2"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 2",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 3",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8232),
-                            Title = "News Title 3"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 3",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 4",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8266),
-                            Title = "News Title 4"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 4",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 5",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8301),
-                            Title = "News Title 5"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 5",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 6,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 6",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8338),
-                            Title = "News Title 6"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 6",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 7,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 7",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8372),
-                            Title = "News Title 7"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 7",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 8,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 8",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8405),
-                            Title = "News Title 8"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 8",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 9,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 9",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8441),
-                            Title = "News Title 9"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 9",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 10,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 10",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8489),
-                            Title = "News Title 10"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 10",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 11,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 11",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8524),
-                            Title = "News Title 11"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 11",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 12,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 12",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8558),
-                            Title = "News Title 12"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 12",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 13,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 13",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8598),
-                            Title = "News Title 13"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 13",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 14,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 14",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8634),
-                            Title = "News Title 14"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 14",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 15,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 15",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8669),
-                            Title = "News Title 15"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 15",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 16,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 16",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8705),
-                            Title = "News Title 16"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 16",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 17,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 17",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8741),
-                            Title = "News Title 17"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 17",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 18,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 18",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8778),
-                            Title = "News Title 18"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 18",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 19,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 19",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8814),
-                            Title = "News Title 19"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 19",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 20,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 20",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8850),
-                            Title = "News Title 20"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 20",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 21,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 21",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8893),
-                            Title = "News Title 21"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 21",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 22,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 22",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8934),
-                            Title = "News Title 22"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 22",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 23,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 23",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(8974),
-                            Title = "News Title 23"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 23",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 24,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 24",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9008),
-                            Title = "News Title 24"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 24",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 25,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 25",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9042),
-                            Title = "News Title 25"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 25",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 26,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 26",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9076),
-                            Title = "News Title 26"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 26",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 27,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 27",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9113),
-                            Title = "News Title 27"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 27",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 28,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 28",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9160),
-                            Title = "News Title 28"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 28",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 29,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 29",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9196),
-                            Title = "News Title 29"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 29",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 30,
-                            AdminId = new Guid("cbbaa534-5ddf-46b3-908e-260ed43740ea"),
+                            AdminId = new Guid("28259c6d-5f55-4f75-9964-11b5079153c8"),
                             Content = "This is the content of news 30",
-                            CreatedAt = new DateTime(2024, 9, 30, 0, 56, 43, 490, DateTimeKind.Local).AddTicks(9228),
-                            Title = "News Title 30"
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "News Title 30",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

@@ -1,168 +1,248 @@
-import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button, TextField, Select, MenuItem, FormControl, InputLabel, Pagination, Typography } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
-import EditNewsDialog from './EditNewsDialog';
-import AddNewsDialog from './AddNewsDialog.jsx'; // Import AddNewsDialog component
+import AddNewsDialog from './AddNewsDialog';
+import ConfirmDialog from '../../../common/ConfirmDialog';
+import api from '../../../api/AxiosAPI';
+// import { format } from 'date-fns';
 
-const NewsTable = ({ data, darkMode, handleEditNews, handleDeleteNews, handleAddNews }) => {
-  const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [openAddDialog, setOpenAddDialog] = useState(false); // State to manage add news dialog
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false); // State to manage confirm delete dialog
-  const [selectedNews, setSelectedNews] = useState({
-    id: '',
-    title: '',
-    content: '',
-    author: '',
-    date: ''
-  });
+const NewsTable = ({ darkMode }) => {
+  const [news, setNews] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortBy, setSortBy] = useState('title');
+  const [isDescending, setIsDescending] = useState(true);
+  const [titleFilter, setTitleFilter] = useState('');
+  const [totalPages, setTotalPages] = useState(1);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentNews, setCurrentNews] = useState({ title: '', content: '', author: '', date: '' });
+  const [isEditing, setIsEditing] = useState(false);
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [newsToDelete, setNewsToDelete] = useState(null);
+  const [error, setError] = useState(null);
 
-  // State to store new news information
-  const [newNews, setNewNews] = useState({
-    id: '',
-    title: '',
-    content: '',
-    author: '',
-    date: ''
-  });
-
-  // Open edit dialog
-  const handleOpenEditDialog = (news) => {
-    setSelectedNews(news); // Set selected news data
-    setOpenEditDialog(true); // Open dialog
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    try {
+      return format(new Date(dateString), 'dd/MM/yyyy HH:mm');
+    } catch (error) {
+      console.error('Invalid date:', dateString);
+      return '';
+    }
   };
 
-  // Close edit dialog
-  const handleCloseEditDialog = () => {
-    setOpenEditDialog(false);
-    setSelectedNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset data
+  useEffect(() => {
+    fetchNews();  
+  }, [pageNumber, pageSize, sortBy, isDescending, titleFilter]);
+
+  const fetchNews = async () => {
+    try {
+      const url = `/News?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&isDescending=${isDescending}${titleFilter ? `&titleFilter=${encodeURIComponent(titleFilter)}` : ''}`;
+      const response = await api.get(url);
+      setNews(response.data.data.items.map(item => ({
+        ...item,
+        id: item.id
+      })));
+      setTotalPages(response.data.data.totalPages);
+    } catch (error) {
+      setError('Lỗi khi tải tin tức');
+    }
   };
 
-  // Open add news dialog
-  const handleOpenAddDialog = () => {
-    setOpenAddDialog(true);
+  const handleSearchChange = (event) => {
+    setTitleFilter(event.target.value);
+    setPageNumber(1);
   };
 
-  // Close add news dialog
-  const handleCloseAddDialog = () => {
-    setOpenAddDialog(false);
-    setNewNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset data
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+    setPageNumber(1);
   };
 
-  // Open confirm delete dialog
-  const handleOpenConfirmDialog = (news) => {
-    setSelectedNews(news);
-    setOpenConfirmDialog(true);
+  const handleOrderChange = (event) => {
+    setIsDescending(event.target.value === 'true');
+    setPageNumber(1);
   };
 
-  // Close confirm delete dialog
-  const handleCloseConfirmDialog = () => {
-    setOpenConfirmDialog(false);
-    setSelectedNews({ id: '', title: '', content: '', author: '', date: '' }); // Reset data
+  const handlePageChange = (event, value) => {
+    setPageNumber(value);
   };
 
-  // Handle changes in edit form
-  const handleChange = (e) => {
+  const handlePageSizeChange = (event) => {
+    setPageSize(Number(event.target.value));
+    setPageNumber(1);
+  };
+
+  const handleOpenDialog = (newsItem = null) => {
+    if (newsItem) {
+      setCurrentNews({
+        id: newsItem.id,
+        title: newsItem.title,
+        content: newsItem.content,
+        author: newsItem.author,
+        date: newsItem.date
+      });
+      setIsEditing(true);
+    } else {
+      setCurrentNews({ id: '', title: '', content: '', author: '', date: '' });
+      setIsEditing(false);
+    }
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setCurrentNews({ title: '', content: '', author: '', date: '' });
+    setIsEditing(false);
+  };
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setSelectedNews((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setCurrentNews(prev => ({ ...prev, [name]: value }));
   };
 
-  // Handle changes in new news form
-  const handleNewChange = (e) => {
-    const { name, value } = e.target;
-    setNewNews((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleSaveNews = async (newsData) => {
+    try {
+      if (isEditing) {
+        await api.put(`/News/${currentNews.id}`, newsData);
+      } else {
+        await api.post('/News', newsData);
+      }
+      fetchNews();
+      handleCloseDialog();
+      setError(null);
+    } catch (error) {
+      setError(error.response?.data?.message || 'Something wrong when saving news ');
+    }
   };
 
-  // Update news
-  const handleUpdateNews = () => {
-    handleEditNews(selectedNews); // Call handleEditNews from props to update news
-    handleCloseEditDialog(); // Close dialog after updating
+  const handleDeleteClick = (newsItem) => {
+    setNewsToDelete(newsItem);
+    setConfirmDialogOpen(true);
   };
 
-  // Add new news
-  const handleAddNewNews = () => {
-    handleAddNews(newNews); // Call handleAddNews from props to add new news
-    handleCloseAddDialog(); // Close dialog after adding
+  const handleConfirmDelete = async () => {
+    if (newsToDelete) {
+      try {
+        await api.delete(`/News/${newsToDelete.id}`);
+        fetchNews();
+      } catch (error) {
+        console.error('Error deleting news:', error);
+      }
+    }
+    setConfirmDialogOpen(false);
+    setNewsToDelete(null);
   };
 
-  // Confirm delete news
-  const handleConfirmDeleteNews = () => {
-    handleDeleteNews(selectedNews); // Call handleDeleteNews from props to delete news
-    handleCloseConfirmDialog(); // Close dialog after deleting
+  const handleCancelDelete = () => {
+    setConfirmDialogOpen(false);
+    setNewsToDelete(null);
   };
 
   return (
-    <>
-      <TableContainer component={Paper} sx={{ backgroundColor: darkMode ? '#424242' : '#fff', color: darkMode ? '#000' : '#000' }}>
-        <Button variant="contained" onClick={handleOpenAddDialog} sx={{ margin: 2 }}>
-          Add News
-        </Button>
-        <Table sx={{ minWidth: 650 }} aria-label="news table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Title</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Content</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Author</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Date</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Actions</TableCell>
+    <TableContainer component={Paper} sx={{ backgroundColor: darkMode ? '#424242' : '#fff', color: darkMode ? '#fff' : '#000' }}>
+      <FormControl fullWidth sx={{ m: 1 }}>
+        <TextField
+          label="Search by title"
+          variant="outlined"
+          value={titleFilter}
+          onChange={handleSearchChange}
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel>Sort by</InputLabel>
+        <Select
+          value={sortBy}
+          label="Sort by"
+          onChange={handleSortChange}
+        >
+          <MenuItem value="title">Title</MenuItem>
+          <MenuItem value="adminName">Admin Name</MenuItem>
+          <MenuItem value="createdAt">Created Date</MenuItem>
+          <MenuItem value="updatedAt">Updated Date</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel>Order</InputLabel>
+        <Select
+          value={isDescending.toString()}
+          label="Order"
+          onChange={handleOrderChange}
+        >
+          <MenuItem value="true">Descending</MenuItem>
+          <MenuItem value="false">Ascending</MenuItem>
+        </Select>
+      </FormControl>
+      <Button variant="contained" onClick={() => handleOpenDialog()} sx={{ margin: 2 }}>
+        Add News
+      </Button>
+      <Table sx={{ minWidth: 650 }} aria-label="news table">
+        <TableHead>
+          <TableRow>
+            <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Title</TableCell>
+            <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Admin Name</TableCell>
+            <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Created Date</TableCell>
+            <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Updated Date</TableCell>
+            <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {news.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.title || ''}</TableCell>
+              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.adminName || ''}</TableCell>
+              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.createdAt}</TableCell>
+              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.updatedAt}</TableCell>
+              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>
+                <IconButton onClick={() => handleOpenDialog(item)}>
+                  <Edit />
+                </IconButton>
+                <IconButton onClick={() => handleDeleteClick(item)}>
+                  <Delete />
+                </IconButton>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.title || ''}</TableCell>
-                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.content || ''}</TableCell>
-                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.author || ''}</TableCell>
-                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.date || ''}</TableCell>
-                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>
-                  <IconButton onClick={() => handleOpenEditDialog(item)}>
-                    <Edit />
-                  </IconButton>
-                  <IconButton onClick={() => handleOpenConfirmDialog(item)}>
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {/* Use EditNewsDialog component */}
-      <EditNewsDialog
-        open={openEditDialog}
-        onClose={handleCloseEditDialog}
-        selectedNews={selectedNews}
-        onChange={handleChange}
-        onUpdate={handleUpdateNews}
+          ))}
+        </TableBody>
+      </Table>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel>Items per page</InputLabel>
+        <Select
+          value={pageSize}
+          label="Items per page"
+          onChange={handlePageSizeChange}
+        >
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={20}>20</MenuItem>
+        </Select>
+      </FormControl>
+      <Pagination 
+        count={totalPages} 
+        page={pageNumber} 
+        onChange={handlePageChange} 
+        color="primary" 
+        sx={{ margin: 2, display: 'flex', justifyContent: 'center' }}
       />
-
-      {/* Use AddNewsDialog component */}
       <AddNewsDialog
-        open={openAddDialog}
-        onClose={handleCloseAddDialog}
-        newNews={newNews}
-        onChange={handleNewChange}
-        onAdd={handleAddNewNews}
+        open={openDialog}
+        onClose={handleCloseDialog}
+        news={currentNews}
+        onChange={handleInputChange}
+        onSave={handleSaveNews}
+        isEditing={isEditing}
+        error={error}
+        setError={setError}
       />
-
-      {/* Confirm delete dialog */}
-      <Dialog open={openConfirmDialog} onClose={handleCloseConfirmDialog}>
-        <DialogTitle>Confirm Deletion</DialogTitle>
-        <DialogContent>
-          <p>{`Are you sure you want to delete the news titled "${selectedNews.title}"?`}</p>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfirmDialog}>Cancel</Button>
-          <Button onClick={handleConfirmDeleteNews} color="primary">Confirm</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+      <ConfirmDialog
+        open={confirmDialogOpen}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Confrim Delete"
+        content="Are you sure you want to delete this news?"
+      />
+      {error && <Typography color="error">{error}</Typography>}
+    </TableContainer>
   );
 };
 
