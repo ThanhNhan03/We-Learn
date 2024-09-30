@@ -7,6 +7,7 @@ import SignIn from "./pages/sign-in/SignIn";
 import CourseDetail from "./components/CourseDetail/CourseDetail";
 import { UserProvider } from './contexts/UserContext';
 import { AdminProvider } from './contexts/AdminContext';
+import AdminProfile from "./admin/Dashboard/components/AdminProfile";
 
 const LazyGetStarted = React.lazy(() => import("./pages/GetStarted"));
 const LazyHome = React.lazy(() => import("./pages/Home"));
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/admin/dashboard/users" element={<LazyAdminDashboard />} />
         <Route path="/admin/dashboard/news" element={<LazyAdminDashboard />} />
         <Route path="/admin/dashboard/educators" element={<LazyAdminDashboard />} />
+        <Route path="/admin/profile" element={<AdminProfile/>} />
       </Routes>
     </React.Suspense>
   );
