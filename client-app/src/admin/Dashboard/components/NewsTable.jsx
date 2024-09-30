@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button, TextField, Select, MenuItem, FormControl, InputLabel, Pagination, Typography } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
+import { Edit, Delete, Visibility } from '@mui/icons-material';
 import AddNewsDialog from './AddNewsDialog';
 import ConfirmDialog from '../../../common/ConfirmDialog';
+import NewsDetailDialog from './NewsDetailDialog';
 import api from '../../../api/AxiosAPI';
 // import { format } from 'date-fns';
 
@@ -20,15 +21,17 @@ const NewsTable = ({ darkMode }) => {
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [newsToDelete, setNewsToDelete] = useState(null);
   const [error, setError] = useState(null);
+  const [openDetailDialog, setOpenDetailDialog] = useState(false);
+  const [selectedNews, setSelectedNews] = useState(null);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return '';
-    try {
-      return format(new Date(dateString), 'dd/MM/yyyy HH:mm');
-    } catch (error) {
-      console.error('Invalid date:', dateString);
-      return '';
-    }
+  const handleOpenDetailDialog = (newsItem) => {
+    setSelectedNews(newsItem);
+    setOpenDetailDialog(true);
+  };
+
+  const handleCloseDetailDialog = () => {
+    setOpenDetailDialog(false);
+    setSelectedNews(null);
   };
 
   useEffect(() => {
@@ -194,6 +197,9 @@ const NewsTable = ({ darkMode }) => {
               <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.createdAt}</TableCell>
               <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.updatedAt}</TableCell>
               <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>
+                <IconButton onClick={() => handleOpenDetailDialog(item)}>
+                  <Visibility />
+                </IconButton>
                 <IconButton onClick={() => handleOpenDialog(item)}>
                   <Edit />
                 </IconButton>
@@ -241,6 +247,11 @@ const NewsTable = ({ darkMode }) => {
         title="Confrim Delete"
         content="Are you sure you want to delete this news?"
       />
+      <NewsDetailDialog
+      open={openDetailDialog}
+      onClose={handleCloseDetailDialog}
+      news={selectedNews}
+    />
       {error && <Typography color="error">{error}</Typography>}
     </TableContainer>
   );

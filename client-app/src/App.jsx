@@ -7,6 +7,10 @@ import SignIn from "./pages/sign-in/SignIn";
 import CourseDetail from "./components/CourseDetail/CourseDetail";
 import { UserProvider } from './contexts/UserContext';
 import { AdminProvider } from './contexts/AdminContext';
+import ErrorPage403 from "./pages/ErrorPage/ErrorPage403";
+import ErrorPage404 from "./pages/ErrorPage/ErrorPage404";
+import ErrorPage500 from "./pages/ErrorPage/ErrorPage500";
+import ProtectedRoute from "./common/ProtectedRoute";
 
 const LazyGetStarted = React.lazy(() => import("./pages/GetStarted"));
 const LazyHome = React.lazy(() => import("./pages/Home"));
@@ -35,10 +39,21 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/get-started" element={<LazyGetStarted />} />
         <Route path="/course/:title" element={<CourseDetail />} />
-        <Route path="/admin/dashboard" element={<LazyAdminDashboard />} />
-        <Route path="/admin/dashboard/users" element={<LazyAdminDashboard />} />
-        <Route path="/admin/dashboard/news" element={<LazyAdminDashboard />} />
-        <Route path="/admin/dashboard/educators" element={<LazyAdminDashboard />} />
+        
+        <Route path="/admin/*" element={
+          <ProtectedRoute>
+            <Routes>
+              <Route path="dashboard" element={<LazyAdminDashboard />} />
+              <Route path="dashboard/users" element={<LazyAdminDashboard />} />
+              <Route path="dashboard/news" element={<LazyAdminDashboard />} />
+              <Route path="dashboard/educators" element={<LazyAdminDashboard />} />
+            </Routes>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/error-403" element={<ErrorPage403 />} />
+        <Route path="/error-500" element={<ErrorPage500 />} />
+        <Route path="*" element={<ErrorPage404 />} />
       </Routes>
     </React.Suspense>
   );
