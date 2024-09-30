@@ -10,13 +10,16 @@ public class MappingProfile : Profile
     {
 
         CreateMap<Admin, AdminResponseDTO>()
-            .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "male" : src.Gender == 0 ? "female" : "other"));
+            .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
 
-        CreateMap<Users, UserResponseDTO>();
-    
+        CreateMap<Users, UserResponseDTO>()
+             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
+
         CreateMap<News, NewsReponeDTO>();
-        CreateMap<Admin, AdminLoginResponeDTO>();
-        CreateMap<Users, UserLoginResponeDTO>();
+        CreateMap<Admin, AdminLoginResponeDTO>()
+             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
+        CreateMap<Users, UserLoginResponeDTO>()
+             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
 
 
         CreateMap<RegisterRequestDTO, Users>()
