@@ -10,7 +10,8 @@ namespace WeLearnAPI.Models.DTO.RequestDto
         [Required]
         [MaxLength(255)]
         public string Content { get; set; } = string.Empty;
-        public Guid AdminId { get; set; }
+        [Required]
+        public string AdminId { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

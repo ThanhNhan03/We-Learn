@@ -12,7 +12,6 @@ namespace WeLearnAPI.Models.DTO.RequestDto
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, MinimumLength = 6)]
         public string NewPassword { get; set; }
     }
 }

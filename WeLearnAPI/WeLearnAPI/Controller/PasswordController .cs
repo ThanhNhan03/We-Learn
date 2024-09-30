@@ -13,14 +13,16 @@ namespace YourNamespace.Controllers
     {
         private readonly UserManager<Users> _userManager;
         private readonly IEmailService _emailSenderService;
+        private readonly IConfiguration _configuration;
 
-        public PasswordController(UserManager<Users> userManager, IEmailService emailSenderService)
+        public PasswordController(UserManager<Users> userManager, IEmailService emailSenderService, IConfiguration configuration)
         {
             _userManager = userManager;
             _emailSenderService = emailSenderService;
+            _configuration = configuration;
         }
 
-      
+
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDTO request)
         {
@@ -36,8 +38,11 @@ namespace YourNamespace.Controllers
             user.RememberToken = token;
             await _userManager.UpdateAsync(user);
 
-            var resetPasswordLink = Url.Action(nameof(ResetPassword), "Password",
-                new { token, email = user.Email }, Request.Scheme);
+            // Lấy URL của client-app từ appsettings
+            var clientAppUrl = _configuration["ClientAppUrl"];
+
+            // Tạo link reset password cho client-app
+            var resetPasswordLink = $"{clientAppUrl}/reset-password?token={Uri.EscapeDataString(token)}&email={Uri.EscapeDataString(user.Email)}";
 
             var message = $"Click the link to reset your password: <a href='{resetPasswordLink}'>Reset Password</a>";
             await _emailSenderService.SendEmailAsync(user.Email, "Reset your password", message);

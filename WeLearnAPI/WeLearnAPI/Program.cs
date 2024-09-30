@@ -9,6 +9,11 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorization(); 
 builder.Services.AddSwaggerDocumentation();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddDebug();
+});
 
 //Add Cors
 builder.Services.AddCors(opt =>

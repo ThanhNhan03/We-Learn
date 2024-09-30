@@ -90,6 +90,7 @@ namespace WeLearnAPI.Controllers
             if (result.Succeeded)
                 return Ok("Email confirmed successfully!");
 
+
             return BadRequest("Error confirming your email.");
         }
 

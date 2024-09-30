@@ -139,11 +139,13 @@ namespace DMS_API.Data
                         Id = i,
                         Title = $"News Title {i}",
                         Content = $"This is the content of news {i}",
-                        CreatedAt = DateTime.Now,
-                        AdminId = admin1Id // or any Admin/Teacher ID
+                        CreatedAt = new DateTime(2024, 1, 1),
+                        UpdatedAt = new DateTime(2024, 1, 1),
+                        AdminId = admin1Id // or any AdminId
                     }
                 );
             }
+
         }
     }
 }

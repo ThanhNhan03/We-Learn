@@ -36,7 +36,7 @@ const ErrorText = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(0.5)
 }));
 
-const UserProfileSettings = () => {
+const UserProfile = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [firstName, setFirstName] = useState("Thomas");
   const [lastName, setLastName] = useState("Newman");
@@ -199,4 +199,4 @@ const UserProfileSettings = () => {
   );
 };
 
-export default UserProfileSettings;
+export default UserProfile;

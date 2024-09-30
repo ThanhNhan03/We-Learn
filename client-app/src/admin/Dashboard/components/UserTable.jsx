@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Avatar,
   IconButton, TextField, Select, MenuItem, FormControl, InputLabel, Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography,
-  LinearProgress
+  LinearProgress, Pagination
 } from '@mui/material';
 import { Visibility, Mail, Lock, LockOpen } from '@mui/icons-material';
 import api from '../../../api/AxiosAPI';
@@ -22,13 +22,15 @@ const UserTable = ({ darkMode }) => {
   const [emailContent, setEmailContent] = useState('');
   const [actionType, setActionType] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get(`/Admin/users?pageNumber=${pageNumber}&pageSize=${pageSize}&filter=${filter}&sortOrder=${sortOrder}`);
         setData(response.data.items);
-        console.log(response.data.items);
+        setTotalPages(response.data.totalPages); // Assuming the API returns totalPages
+        console.log(response.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -83,6 +85,10 @@ const UserTable = ({ darkMode }) => {
     // Implement account status toggle logic here
     console.log(`Toggling account status for user: ${selectedUser.email}`);
     handleCloseDialog();
+  };
+
+  const handlePageChange = (event, value) => {
+    setPageNumber(value);
   };
 
   if (loading) {
@@ -198,6 +204,29 @@ const UserTable = ({ darkMode }) => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Pagination */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel>Items per page</InputLabel>
+          <Select
+            value={pageSize}
+            label="Items per page"
+            onChange={handlePageSizeChange}
+          >
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={20}>20</MenuItem>
+          </Select>
+        </FormControl>
+        <Pagination 
+          count={totalPages} 
+          page={pageNumber} 
+          onChange={handlePageChange} 
+          color="primary" 
+          sx={{ margin: 2, display: 'flex', justifyContent: 'center' }}
+        />
+      </div>
 
       {/* Dialogs */}
       {selectedUser && (
