@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace WeLearnAPI.Models.Domain
 {
@@ -15,13 +16,8 @@ namespace WeLearnAPI.Models.Domain
         public string? Image { get; set; }
         [MaxLength(100)]
         public string? RememberToken { get; set; }
-        public Guid? ModifiedBy { get; set; }
-        [Required]
-        public Guid CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        public DateTime? DeletedAt { get; set; }
-
         //Navigation Property
         public ICollection<News> News { get; set; } = new List<News>();
     }

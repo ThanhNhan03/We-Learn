@@ -4,6 +4,7 @@ namespace WeLearnAPI.Repository.Interface
     {
         IAdminRepository Admin { get; }
         IUserRepository Users { get; }
+        INewsRepository News { get; }
         Task SaveChangesAsync();
     }
 }

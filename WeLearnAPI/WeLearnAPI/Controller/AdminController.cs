@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using WeLearnAPI.Helpers;
 using WeLearnAPI.Models.Domain;
 using WeLearnAPI.Models.DTOs;
 using WeLearnAPI.Repository.Interface;
-using WeLearnAPI.Services;
+using WeLearnAPI.Services.Interface;
 
 namespace WeLearnAPI.Controller
 {
@@ -54,7 +55,7 @@ namespace WeLearnAPI.Controller
         }
 
         // POST: api/Admin
-        [HttpPost]
+        [HttpPost("add-admin")]
         public async Task<IActionResult> AddAdmin(AddAdminRequestDTO addAdminRequest)
         {
             if (!ModelState.IsValid)
@@ -87,16 +88,25 @@ namespace WeLearnAPI.Controller
         }
         [HttpGet("teachers")]
         public async Task<IActionResult> GetAllTeachers(
-            [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] string? filter = null,
-            [FromQuery] string? sortOrder = null)
+         [FromQuery] int pageNumber = 1,
+         [FromQuery] int pageSize = 10,
+         [FromQuery] string? filter = null,
+         [FromQuery] string? sortOrder = null)
         {
             var (teachers, totalTeachers) = await _unitOfWork.Admin.GetAllTeachersAsync("Teacher", pageNumber, pageSize, filter, sortOrder);
             var teacherResponse = _mapper.Map<List<AdminResponseDTO>>(teachers);
 
-            return Ok(new { TotalCount = totalTeachers, Teachers = teacherResponse });
+            var pagedResult = new PagedResult<AdminResponseDTO>
+            {
+                Items = teacherResponse,
+                TotalCount = totalTeachers,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return Ok(pagedResult);
         }
+
 
         [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers(
@@ -108,22 +118,17 @@ namespace WeLearnAPI.Controller
             var (users, totalUsers) = await _unitOfWork.Users.GetAllUsersAsync(pageNumber, pageSize, filter, sortOrder);
             var userResponse = _mapper.Map<List<UserResponseDTO>>(users);
 
-            return Ok(new { TotalCount = totalUsers, Users = userResponse });
-        }
-        //DELETE: api/Admin/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdmin(Guid id)
-        {
-            var admin = await _unitOfWork.Admin.GetAdminByIdAsync(id);
-            if (admin == null)
+            var pagedResult = new PagedResult<UserResponseDTO>
             {
-                return NotFound();
-            }
-            _unitOfWork.Admin.Delete(admin);
-            await _unitOfWork.SaveChangesAsync();
+                Items = userResponse,
+                TotalCount = totalUsers,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
 
-            return Ok("Deleted successfully");
+            return Ok(pagedResult);
         }
+
         //PUT: api/Admin/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAdmin(Guid id, UpdateAdminRequestDTO updateAdminRequest)

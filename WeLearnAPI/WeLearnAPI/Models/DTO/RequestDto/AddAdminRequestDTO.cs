@@ -22,16 +22,12 @@ public class AddAdminRequestDTO
     [MaxLength(20)]
     public string TelephoneNumber { get; set; }
 
-    [MaxLength(255)]
-    public string Image { get; set; }
+    //[MaxLength(255)]
+    //public string? Image { get; set; }
 
     [Required]
     [MinLength(6)]  // Ensure passwords are of adequate length
     public string Password { get; set; }
-
-    [Required]
-    [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-    public string ConfirmPassword { get; set; }
 
     [Required]
     public string Role { get; set; } 
