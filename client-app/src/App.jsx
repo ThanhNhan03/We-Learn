@@ -11,6 +11,7 @@ import ErrorPage403 from "./pages/ErrorPage/ErrorPage403";
 import ErrorPage404 from "./pages/ErrorPage/ErrorPage404";
 import ErrorPage500 from "./pages/ErrorPage/ErrorPage500";
 import ProtectedRoute from "./common/ProtectedRoute";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 const LazyGetStarted = React.lazy(() => import("./pages/GetStarted"));
 const LazyHome = React.lazy(() => import("./pages/Home"));
@@ -39,7 +40,8 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/get-started" element={<LazyGetStarted />} />
         <Route path="/course/:title" element={<CourseDetail />} />
-        
+        <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="/admin/*" element={
           <ProtectedRoute>
             <Routes>
