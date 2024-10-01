@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Select, MenuItem, IconButton } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AdminContext } from '../../../contexts/AdminContext';
 
 const AdminAppBar = ({ darkMode, handleThemeChange }) => {
@@ -24,7 +24,9 @@ const AdminAppBar = ({ darkMode, handleThemeChange }) => {
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          E-Learning
+          <Link to="/admin/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+            E-Learning
+          </Link>
         </Typography>
         <Select value={adminName} onChange={handleMenuChange} sx={{ color: 'white' }}>
           <MenuItem value={adminName}>{adminName}</MenuItem>
