@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button, TextField, Select, MenuItem, FormControl, InputLabel, Pagination, Typography } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, 
+  Button, TextField, Select, MenuItem, FormControl, InputLabel, Pagination, Typography } from '@mui/material';
 import { Edit, Delete, Visibility } from '@mui/icons-material';
 import AddNewsDialog from './AddNewsDialog';
 import ConfirmDialog from '../../../common/ConfirmDialog';
@@ -47,12 +48,12 @@ const NewsTable = ({ darkMode }) => {
         id: item.id
       })));
       setTotalPages(response.data.data.totalPages);
-      setError(null); // Clear any existing error
+      setError(null); 
     } catch (error) {
       console.error('Error loading news:', error);
-      setNews([]); // Set news to an empty array
+      setNews([]);
       setTotalPages(0);
-      setError(null); // Don't set an error
+      setError(null);
     }
   };
 

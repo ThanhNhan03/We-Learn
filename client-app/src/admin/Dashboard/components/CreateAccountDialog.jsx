@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../../../api/AxiosAPI';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Grid, TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
-// import 'react-toastify/dist/ReactToastify.css'; // Import CSS của Toastify
+// import 'react-toastify/dist/ReactToastify.css'; 
 
 const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, handleFileChange, handleSubmit }) => {
   const [phoneError, setPhoneError] = useState('');
@@ -13,10 +13,9 @@ const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, 
       return;
     }
     try {
-      // Convert image to base64 nếu cần
       // const imageBase64 = await convertToBase64(formData.image);
 
-      // Prepare data to send
+    
       const dataToSend = {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -47,7 +46,6 @@ const CreateAccountDialog = ({ open, handleDialogClose, formData, handleChange, 
       handleDialogClose();
     } catch (error) {
       console.error('Error creating account:', error);
-      // Display error message to the user
       toast.error(error.message || "An error occurred while creating the account");
     }
   };

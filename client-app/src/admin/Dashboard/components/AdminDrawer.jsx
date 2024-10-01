@@ -50,7 +50,7 @@ const AdminDrawer = ({ darkMode, setView }) => {
             onClick={() => setView(item.view)} 
             sx={{
               '&:hover': {
-                bgcolor: 'rgba(255, 0, 0, 0.2)', // Light red on hover
+                bgcolor: 'rgba(255, 0, 0, 0.2)', 
               }
             }}
           >
@@ -58,9 +58,9 @@ const AdminDrawer = ({ darkMode, setView }) => {
             <ListItemText 
               primary={item.text} 
               sx={{ 
-                color: 'purple', // Dreamy purple color
+                color: 'purple', 
                 '&:hover': {
-                  color: 'rgba(255, 0, 0, 0.8)', // Light red on hover
+                  color: 'rgba(255, 0, 0, 0.8)',
                 }
               }} 
             />

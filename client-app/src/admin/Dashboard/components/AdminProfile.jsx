@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Avatar, Typography, Grid, Paper, Button, Box, TextField, IconButton, Toolbar, Divider, MenuItem, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Edit, Save, Person, Security } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import AdminAppBar from './AdminAppBar'; // Ensure correct path
+import AdminAppBar from './AdminAppBar';
 
-const drawerWidth = 240; // Width of the sidebar
+const drawerWidth = 240; 
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -12,9 +12,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
-  width: '100%', // Full width for mobile responsiveness
-  maxWidth: '900px', // Max width to keep it centered and balanced
-  margin: 'auto', // Center it horizontally
+  width: '100%',
+  maxWidth: '900px',
+  margin: 'auto', 
 }));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({

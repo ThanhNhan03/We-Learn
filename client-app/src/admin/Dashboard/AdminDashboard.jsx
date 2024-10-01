@@ -3,13 +3,12 @@ import { useLocation } from 'react-router-dom';
 import AdminAppBar from './components/AdminAppBar.jsx';
 import AdminDrawer from './components/AdminDrawer.jsx';
 import HomeView from './components/HomeView.jsx';
-// Xóa import UserTable từ đây
 import NewsTable from './components/NewsTable.jsx';
 import CreateAccountDialog from './components/CreateAccountDialog.jsx';
 import EducatorTable from './components/EducatorTable.jsx';
 import { Toolbar, CircularProgress } from '@mui/material';
 
-// Thêm lazy loading cho UserTable
+
 const UserTable = lazy(() => import('./components/UserTable.jsx'));
 
 const AdminDashboard = () => {
@@ -29,43 +28,12 @@ const AdminDashboard = () => {
     role: '',
     gender: ''
   });
-  const [users, setUsers] = useState([]); // Empty array for users
-  const [news, setNews] = useState([]); // Empty array for news
-  const [educators, setEducators] = useState([]); // Empty array for educators
+  const [users, setUsers] = useState([]); 
+  const [news, setNews] = useState([]); 
+  const [educators, setEducators] = useState([]); 
 
-  // Simulate fetching users from a temporary database
-  const fetchUsers = () => {
-    const tempUsers = [
-      { id: 1, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com' },
-      { id: 2, firstName: 'Jane', lastName: 'Doe', email: 'jane.doe@example.com' },
-    ];
-    setUsers(tempUsers);
-  };
 
-  // Simulate fetching news from a temporary database
-  const fetchNews = () => {
-    const tempNews = [
-      { id: 1, title: 'News Title 1', content: 'News Content 1', author: 'Author 1', date: '2022-01-01' },
-      { id: 2, title: 'News Title 2', content: 'News Content 2', author: 'Author 2', date: '2022-02-01' },
-    ];
-    setNews(tempNews);
-  };
-
-  // Simulate fetching educators from a temporary database
-  const fetchEducators = () => {
-    const tempEducators = [
-      { id: 1, name: "Nguyễn Văn A", email: "educatorA@example.com", phone: "123456789", gender: "Male", status: true, role: "Teacher" },
-      { id: 2, name: "Trần Thị B", email: "educatorB@example.com", phone: "987654321", gender: "Female", status: false, role: "Assistant" },
-      { id: 3, name: "Lê Văn C", email: "educatorC@example.com", phone: "456789123", gender: "Male", status: true, role: "Professor" },
-    ];
-    setEducators(tempEducators);
-  };
-
-  useEffect(() => {
-    fetchUsers();
-    fetchNews();
-    fetchEducators();
-  }, []);
+ 
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);

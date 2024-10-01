@@ -29,7 +29,7 @@ const UserTable = ({ darkMode }) => {
       try {
         const response = await api.get(`/Admin/users?pageNumber=${pageNumber}&pageSize=${pageSize}&filter=${filter}&sortOrder=${sortOrder}`);
         setData(response.data.items);
-        setTotalPages(response.data.totalPages); // Assuming the API returns totalPages
+        setTotalPages(response.data.totalPages); 
         console.log(response.data);
       } catch (err) {
         setError(err.message);

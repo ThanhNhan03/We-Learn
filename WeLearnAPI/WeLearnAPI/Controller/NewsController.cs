@@ -56,7 +56,6 @@ public class NewsController : ControllerBase
 
 
 
-    // GET: api/News/{id}
     [HttpGet("{id}")]
     public async Task<IActionResult> GetNewsById(int id)
     {
@@ -83,7 +82,6 @@ public class NewsController : ControllerBase
             return BadRequest(new { message = "Admin invalid" });
         }
 
-        // Nếu AdminId hợp lệ mới tiếp tục
         var newsDto = _mapper.Map<NewsReponeDTO>(newsRequestDto);
 
         await _unitOfWork.News.AddAsync(news);
@@ -93,7 +91,7 @@ public class NewsController : ControllerBase
     }
 
 
-    // DELETE: api/News/{id}
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteNews(int id)
     {
@@ -109,7 +107,6 @@ public class NewsController : ControllerBase
         return Ok(new { message = "News deleted successfully." });
     }
 
-    // PUT: api/News/{id}
     [HttpPut("{id}")]
 
     public async Task<IActionResult> UpdateNews(int id, [FromBody] UpdateNewsRequestDTO updateNewsRequest)

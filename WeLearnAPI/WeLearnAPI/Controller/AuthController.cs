@@ -40,7 +40,7 @@ namespace WeLearnAPI.Controllers
             _adminManager = adminManager;
             _mapper = mapper;
             _authService = authService;
-            _emailSenderService = emailSenderService;
+            _emailSenderService = emailSenderService;   
             _roleManager = roleManager;
             _jwtTokenService = jwtTokenService;
         }
