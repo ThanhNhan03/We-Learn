@@ -1,202 +1,286 @@
-import React, { useState } from "react";
-import { Box, Typography, TextField, Button, Grid, Avatar, Container, List, ListItem, ListItemText, Drawer, IconButton, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { styled } from "@mui/system";
-import { FiCamera, FiLock, FiCreditCard, FiPackage, FiMenu, FiUser } from "react-icons/fi";
+import React, { useState, useRef } from 'react';
+import { Avatar, Typography, Grid, Paper, Button, Box, TextField, IconButton, Toolbar, Divider, MenuItem, CssBaseline } from '@mui/material';
+import { Edit, Save, Person, Security } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
+import Navbar from '../components/Navbar/Navbar';
 
-const Sidebar = styled(Box)(({ theme }) => ({
-  width: 250,
-  backgroundColor: "#f5f5f5",
-  padding: theme.spacing(2),
-  [theme.breakpoints.down("md")]: {
-    display: "none"
-  }
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  marginTop: theme.spacing(4),
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[3],
+  width: '100%',
+  maxWidth: '900px',
+  margin: 'auto',
 }));
 
-const MainContent = styled(Box)(({ theme }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  backgroundColor: "#ffffff"
-}));
-
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  width: theme.spacing(15),
-  height: theme.spacing(15),
-  margin: "0 auto",
+const SectionTitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(2),
-  cursor: "pointer",
-  transition: "transform 0.3s",
-  "&:hover": {
-    transform: "scale(1.1)"
-  }
+  fontWeight: 500,
+  color: theme.palette.text.primary,
 }));
 
-const ErrorText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.error.main,
-  fontSize: "0.75rem",
-  marginTop: theme.spacing(0.5)
-}));
+const Profile = () => {
+  const [formData, setFormData] = useState({
+    firstName: 'James',
+    lastName: 'Johnson',
+    email: 'jamesjohnson@arctic.com',
+    phone: '+47 988 86 066',
+    address: '123 Main St, Oslo, Norway',
+    birthday: '1985-05-15',
+    gender: 'Male',
+    image: 'https://via.placeholder.com/150',
+  });
 
-const UserProfile = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [firstName, setFirstName] = useState("Thomas");
-  const [lastName, setLastName] = useState("Newman");
-  const [birthday, setBirthday] = useState("1990-01-01");
-  const [gender, setGender] = useState("male");
-  const [errors, setErrors] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedPage, setSelectedPage] = useState('profile');
+  const fileInputRef = useRef(null);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
+  });
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
   };
 
-  const validateField = (name, value) => {
-    if (!value) {
-      setErrors((prev) => ({ ...prev, [name]: "Field cannot be empty" }));
-    } else {
-      setErrors((prev) => ({ ...prev, [name]: null }));
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-    if (name === "birthday") {
-      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-      if (!dateRegex.test(value)) {
-        setErrors((prev) => ({ ...prev, [name]: "Invalid date format" }));
-      }
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData({
+      ...passwordData,
+      [name]: value,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          image: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case "firstName":
-        setFirstName(value);
-        break;
-      case "lastName":
-        setLastName(value);
-        break;
-      case "birthday":
-        setBirthday(value);
-        break;
-      case "gender":
-        setGender(value);
-        break;
-      default:
-        break;
-    }
-    validateField(name, value);
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
   };
 
-  const sidebarContent = (
-    <List>
-      {["Your profile", "Account Security", "Subscriptions", "Payment Methods"].map((text, index) => (
-        <ListItem button key={text} aria-label={text}>
-          <IconButton>
-            {index === 0 && <FiUser />}
-            {index === 1 && <FiLock />}
-            {index === 2 && <FiPackage />}
-            {index === 3 && <FiCreditCard />}
-          </IconButton>
-          <ListItemText primary={text} />
-        </ListItem>
-      ))}
-    </List>
-  );
+  const handlePasswordSubmit = () => {
+    if (passwordData.newPassword !== passwordData.confirmNewPassword) {
+      alert("New passwords do not match!");
+      return;
+    }
+    alert("Password changed successfully!");
+  };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ display: "flex" }}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { md: "none" } }}
-        >
-          <FiMenu />
-        </IconButton>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <CssBaseline />
 
-        <Sidebar>
-          {sidebarContent}
-        </Sidebar>
+      <Navbar></Navbar>
 
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }}
-          sx={{ display: { xs: "block", md: "none" } }}
-        >
-          {sidebarContent}
-        </Drawer>
+      {/* Main content container */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          mt: { xs: 7, sm: 8 }, // Add margin to avoid overlap with the AppBar
+          justifyContent: 'center',
+        }}
+      >
+        <Toolbar /> {/* Adds spacing between the AppBar and content */}
+        {selectedPage === 'profile' && (
+          <StyledPaper>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={4} container direction="column" alignItems="center">
+                <Box sx={{ position: 'relative' }}>
+                  <Avatar alt={formData.firstName} src={formData.image} sx={{ width: 150, height: 150 }} />
+                  <IconButton sx={{ position: 'absolute', bottom: 0, right: 0 }} onClick={triggerFileInput}>
+                    <Edit />
+                  </IconButton>
+                  <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleImageChange} />
+                </Box>
+                <Typography variant="h5" sx={{ mt: 2 }}>
+                  {formData.firstName} {formData.lastName}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Administrator
+                </Typography>
+              </Grid>
 
-        <MainContent>
-          <Typography variant="h4" gutterBottom sx={{ color: "grey.700", fontFamily: "sans-serif" }}>
-            User Profile Settings
-          </Typography>
-
-          <StyledAvatar alt="Thomas Newman" src="images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=300&h=300">TN</StyledAvatar>
-
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="First Name"
-                name="firstName"
-                value={firstName}
-                onChange={handleChange}
-                error={!!errors.firstName}
-                helperText={errors.firstName}
-              />
+              <Grid item xs={12} sm={8}>
+                <SectionTitle variant="h6">Personal Information</SectionTitle>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="First Name"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Last Name"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Birthday"
+                      name="birthday"
+                      type="date"
+                      value={formData.birthday}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      select
+                      label="Gender"
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Other">Other</MenuItem>
+                    </TextField>
+                  </Grid>
+                </Grid>
+                <Divider sx={{ my: 3 }} />
+                <SectionTitle variant="h6">Contact Information</SectionTitle>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Address"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      variant="outlined"
+                      InputProps={{ readOnly: !isEditing }}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={lastName}
-                onChange={handleChange}
-                error={!!errors.lastName}
-                helperText={errors.lastName}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Birthday"
-                name="birthday"
-                type="date"
-                value={birthday}
-                onChange={handleChange}
-                error={!!errors.birthday}
-                helperText={errors.birthday || "Format: YYYY-MM-DD"}
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="gender-label">Gender</InputLabel>
-                <Select
-                  labelId="gender-label"
-                  name="gender"
-                  value={gender}
-                  onChange={handleChange}
-                  label="Gender"
-                >
-                  <MenuItem value="male">Male</MenuItem>
-                  <MenuItem value="female">Female</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+              <Button
+                variant="contained"
+                color={isEditing ? 'primary' : 'default'}
+                startIcon={isEditing ? <Save /> : <Edit />}
+                onClick={handleEditToggle}
+              >
+                {isEditing ? 'Save Changes' : 'Edit Profile'}
+              </Button>
+            </Box>
+          </StyledPaper>
+        )}
 
-          <Box sx={{ mt: 4 }}>
-            <Button variant="contained" color="primary">
-              Save Changes
-            </Button>
-          </Box>
-        </MainContent>
+        {selectedPage === 'security' && (
+          <StyledPaper>
+            <SectionTitle variant="h6">Change Password</SectionTitle>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Current Password"
+                  type="password"
+                  name="currentPassword"
+                  value={passwordData.currentPassword}
+                  onChange={handlePasswordChange}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="New Password"
+                  type="password"
+                  name="newPassword"
+                  value={passwordData.newPassword}
+                  onChange={handlePasswordChange}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Confirm New Password"
+                  type="password"
+                  name="confirmNewPassword"
+                  value={passwordData.confirmNewPassword}
+                  onChange={handlePasswordChange}
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+              <Button variant="contained" color="primary" onClick={handlePasswordSubmit}>
+                Change Password
+              </Button>
+            </Box>
+          </StyledPaper>
+        )}
       </Box>
-    </Container>
+    </div>
   );
 };
 
-export default UserProfile;
+export default Profile;

@@ -139,9 +139,9 @@ const Navbar = () => {
                   open={Boolean(userAnchorEl)}
                   onClose={handleUserMenuClose}
                 >
-                  <MenuItem onClick={() => { handleUserMenuClose(); navigate('/edit-profile'); }}>
-                    Your Profile
-                  </MenuItem>
+                  <MenuItem onClick={() => { handleUserMenuClose(); navigate('/user/profile'); }}>
+                  Your Profile
+                </MenuItem>
                   <MenuItem onClick={() => { handleUserMenuClose(); handleLogout(); }}>
                     Logout
                   </MenuItem>

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';  // Import prop-types for validation
 
 export const UserContext = createContext();
 
@@ -29,4 +30,9 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+// Add prop-types validation for 'children'
+UserProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

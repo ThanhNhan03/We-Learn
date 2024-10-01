@@ -13,6 +13,7 @@ import ErrorPage500 from "./pages/ErrorPage/ErrorPage500";
 import ProtectedRoute from "./common/ProtectedRoute";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import AdminProfile from "./admin/Dashboard/components/AdminProfile";
+import Profile from "./student/Profile";
 
 const LazyGetStarted = React.lazy(() => import("./pages/GetStarted"));
 const LazyHome = React.lazy(() => import("./pages/Home"));
@@ -50,10 +51,12 @@ const App = () => {
               <Route path="dashboard/users" element={<LazyAdminDashboard />} />
               <Route path="dashboard/news" element={<LazyAdminDashboard />} />
               <Route path="dashboard/educators" element={<LazyAdminDashboard />} />
-              <Route path="profile" element={<AdminProfile/>} />
+              <Route path="profile" element={<AdminProfile />} />
             </Routes>
           </ProtectedRoute>
         } />
+
+        <Route path="/user/profile" element={<Profile />} /> {/* Fixed user profile route */}
 
         <Route path="/error-403" element={<ErrorPage403 />} />
         <Route path="/error-500" element={<ErrorPage500 />} />
