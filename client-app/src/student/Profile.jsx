@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Avatar, Typography, Grid, Paper, Button, Box, TextField, IconButton, Toolbar, Divider, MenuItem, CssBaseline } from '@mui/material';
+import {Avatar, Typography, Grid, Paper, Button, Box, TextField, IconButton, Toolbar, Divider, MenuItem, Drawer, List, ListItem, ListItemIcon, ListItemText} from '@mui/material';
 import { Edit, Save, Person, Security } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import Navbar from '../components/Navbar/Navbar';
@@ -33,7 +33,7 @@ const Profile = () => {
     gender: 'Male',
     image: 'https://via.placeholder.com/150',
   });
-
+  const drawerWidth = 240;
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPage, setSelectedPage] = useState('profile');
   const fileInputRef = useRef(null);
@@ -88,13 +88,39 @@ const Profile = () => {
     }
     alert("Password changed successfully!");
   };
+  const sidebarItems = [
+    { text: 'My Profile', icon: <Person />, page: 'profile' },
+    { text: 'Change Password', icon: <Security />, page: 'security' },
+  ];
+
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <CssBaseline />
+    <div style={{ display: 'static', flexDirection: 'column' }}>
+      
 
       <Navbar></Navbar>
-
+      <Drawer
+         sx={{
+        width: drawerWidth,
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: drawerWidth,
+      boxSizing: 'border-box',
+    },
+  }}
+  variant="permanent"
+  anchor="left"
+>
+  <Toolbar /> {/* Toolbar ensures space for the Navbar */}
+  <List>
+    {sidebarItems.map((item, index) => (
+      <ListItem button key={index} onClick={() => setSelectedPage(item.page)}>
+        <ListItemIcon>{item.icon}</ListItemIcon>
+        <ListItemText primary={item.text} />
+      </ListItem>
+    ))}
+  </List>
+</Drawer>
       {/* Main content container */}
       <Box
         component="main"
