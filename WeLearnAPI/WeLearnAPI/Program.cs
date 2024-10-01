@@ -15,6 +15,10 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddDebug();
 });
 
+var cloudinarySettings = builder.Configuration.GetSection("CloudinarySettings").Get<CloudinaryDotNet.Account>();
+var cloudinary = new CloudinaryDotNet.Cloudinary(cloudinarySettings);
+builder.Services.AddSingleton(cloudinary);
+
 //Add Cors
 builder.Services.AddCors(opt =>
 {
@@ -27,6 +31,8 @@ builder.Services.AddCors(opt =>
             .WithOrigins("http://localhost:3000");
     });
 });
+
+
 
 var app = builder.Build();
 
