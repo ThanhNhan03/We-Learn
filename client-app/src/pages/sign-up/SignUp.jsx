@@ -74,7 +74,13 @@ export default function SignUp() {
       });
     } catch (error) {
       console.error("Registration error:", error.response?.data || error.message);
-      toast.error("An error occurred during registration. Please try again.");
+      if (error.response?.data?.message === "This email is already registered but not verified. Please check your email to verify your account.") {
+        toast.warning(error.response.data.message);
+      } else if (error.response?.data?.message === "This email is already registered.") {
+        toast.error("This email is already registered. Please use a different email or sign in.");
+      } else {
+        toast.error("An error occurred during registration. Please try again.");
+      }
     }
   };
 

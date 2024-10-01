@@ -51,6 +51,16 @@ namespace WeLearnAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var existingUser = await _userManager.FindByEmailAsync(request.Email);
+            if (existingUser != null)
+            {
+                if (!existingUser.EmailConfirmed)
+                {
+                    return BadRequest(new { message = "This email is already registered but not verified. Please check your email to verify your account." });
+                }
+                return BadRequest(new { message = "This email is already registered." });
+            }
+
             var user = _mapper.Map<Users>(request);
             user.EmailConfirmed = false;
             var result = await _userManager.CreateAsync(user, request.Password);

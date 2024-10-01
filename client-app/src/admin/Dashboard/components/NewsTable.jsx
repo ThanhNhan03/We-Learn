@@ -47,8 +47,12 @@ const NewsTable = ({ darkMode }) => {
         id: item.id
       })));
       setTotalPages(response.data.data.totalPages);
+      setError(null); // Clear any existing error
     } catch (error) {
-      setError('Lỗi khi tải tin tức');
+      console.error('Error loading news:', error);
+      setNews([]); // Set news to an empty array
+      setTotalPages(0);
+      setError(null); // Don't set an error
     }
   };
 
@@ -190,25 +194,33 @@ const NewsTable = ({ darkMode }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {news.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.title || ''}</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.adminName || ''}</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.createdAt}</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.updatedAt}</TableCell>
-              <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>
-                <IconButton onClick={() => handleOpenDetailDialog(item)}>
-                  <Visibility />
-                </IconButton>
-                <IconButton onClick={() => handleOpenDialog(item)}>
-                  <Edit />
-                </IconButton>
-                <IconButton onClick={() => handleDeleteClick(item)}>
-                  <Delete />
-                </IconButton>
+          {news.length > 0 ? (
+            news.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.title || ''}</TableCell>
+                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.adminName || ''}</TableCell>
+                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.createdAt}</TableCell>
+                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>{item.updatedAt}</TableCell>
+                <TableCell sx={{ color: darkMode ? '#fff' : '#000' }}>
+                  <IconButton onClick={() => handleOpenDetailDialog(item)}>
+                    <Visibility />
+                  </IconButton>
+                  <IconButton onClick={() => handleOpenDialog(item)}>
+                    <Edit />
+                  </IconButton>
+                  <IconButton onClick={() => handleDeleteClick(item)}>
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} align="center" sx={{ color: darkMode ? '#fff' : '#000' }}>
+                No data available
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -252,7 +264,6 @@ const NewsTable = ({ darkMode }) => {
       onClose={handleCloseDetailDialog}
       news={selectedNews}
     />
-      {error && <Typography color="error">{error}</Typography>}
     </TableContainer>
   );
 };
