@@ -51,5 +51,10 @@ namespace DMS_API.Repository
 
             return (users, totalUsers);
         }
+
+        public async Task<Users?> GetUserByIdAsync(Guid id)
+        {
+            return await _context.AppUsers.FirstOrDefaultAsync(a => a.Id == id);
+        }
     }
 }
