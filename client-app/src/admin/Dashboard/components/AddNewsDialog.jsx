@@ -62,7 +62,7 @@ const AddNewsDialog = ({ open, onClose, news, onChange, onSave, isEditing, error
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Hủy</Button>
+        <Button onClick={onClose}>Cancel</Button>
         <Button onClick={handleSave} variant="contained" color="primary">
           {isEditing ? 'Update' : 'Add'}
         </Button>

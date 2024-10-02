@@ -253,7 +253,7 @@ borderRadius: '5%',  // This makes the image round
             {/* User Actions */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               {User ? (
-                <>
+                <div>
                   <Avatar onClick={handleUserMenuOpen} sx={{ cursor: 'pointer' }}>
                     {User.firstname[0]}
                   </Avatar>
@@ -269,16 +269,16 @@ borderRadius: '5%',  // This makes the image round
                       Logout
                     </MenuItem>
                   </Menu>
-                </>
+                </div>
               ) : (
-                <>
+                <div>
                   <Button onClick={() => navigate("/sign-in")} sx={{ textTransform: 'none' }}>
                     Sign-in
                   </Button>
                   <Button onClick={() => navigate("/sign-up")} variant="contained" color="primary" sx={{ textTransform: 'none' }}>
                     Sign-up
                   </Button>
-                </>
+                </div>
               )}
             </Box>
 
@@ -303,14 +303,14 @@ borderRadius: '5%',  // This makes the image round
                     Logout
                   </MenuItem>
                 ) : (
-                  <>
+                  [
                     <MenuItem key="sign-in" onClick={() => { handleMobileMenuClose(); navigate("/sign-in"); }}>
                       Sign-in
-                    </MenuItem>
+                    </MenuItem>,
                     <MenuItem key="sign-up" onClick={() => { handleMobileMenuClose(); navigate("/sign-up"); }}>
                       Sign-up
                     </MenuItem>
-                  </>
+                  ]
                 )}
               </Menu>
             </Box>

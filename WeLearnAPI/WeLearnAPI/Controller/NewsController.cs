@@ -23,6 +23,7 @@ public class NewsController : ControllerBase
 
     // GET: api/News
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAllNews(
             int pageNumber = 1,
             int pageSize = 10,

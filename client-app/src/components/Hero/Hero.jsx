@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Navbar from "../Navbar/Navbar";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import HeroPng from "../../assets/hero.png";
+import HeroPng2 from "../../assets/hero2.png";
 import { motion } from "framer-motion";
 import { Container, Grid, Box, Button } from '@mui/material';
 import { UserContext } from '../../contexts/UserContext'; // Import UserContext
@@ -36,7 +37,7 @@ const Hero = () => {
       <Container>
         <Grid container spacing={4} minHeight="650px">
           {/* Brand Info */}
-          <Grid item xs={12} md={6} display="flex" flexDirection="column" justifyContent="center" py={{ xs: 14, md: 0 }} zIndex={20}>
+          <Grid  item xs={12} md={6} display="flex" flexDirection="column" justifyContent="center" py={{ xs: 14, md: 0 }} zIndex={20} style={{ marginTop: "100px" }}>
             <Box textAlign={{ xs: 'center', md: 'left' }} maxWidth={{ lg: 400 }} mb={10}>
               <motion.h1
                 variants={FadeUp(0.6)}
@@ -72,12 +73,12 @@ const Hero = () => {
             </Box>
           </Grid>
           {/* Hero Image */}
-          <Grid item xs={12} md={6} display="flex" justifyContent="center" alignItems="center">
+          <Grid item xs={12} md={6} display="flex" justifyContent="center" alignItems="center" style={{ marginTop: "100px" }}>
             <motion.img
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}  
               transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
-              src={HeroPng}
+              src={HeroPng2}
               alt=""
               className="hero-image relative z-10 drop-shadow"
             />

@@ -8,7 +8,6 @@ namespace WeLearnAPI.Repository.Interface
 
         Task<Users?> GetUserByIdAsync(Guid id);
 
-        Task<(IEnumerable<Users> Users, int TotalCount)> GetAllUsersAsync(
-            int pageNumber, int pageSize, string? filter, string? sortOrder);
+       
     }
 }

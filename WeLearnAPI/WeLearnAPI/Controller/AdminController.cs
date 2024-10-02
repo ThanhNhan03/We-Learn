@@ -115,7 +115,7 @@ namespace WeLearnAPI.Controller
             [FromQuery] string? filter = null,
             [FromQuery] string? sortOrder = null)
         {
-            var (users, totalUsers) = await _unitOfWork.Users.GetAllUsersAsync(pageNumber, pageSize, filter, sortOrder);
+            var (users, totalUsers) = await _unitOfWork.Admin.GetAllUsersAsync(pageNumber, pageSize, filter, sortOrder);
             var userResponse = _mapper.Map<List<UserResponseDTO>>(users);
 
             var pagedResult = new PagedResult<UserResponseDTO>
