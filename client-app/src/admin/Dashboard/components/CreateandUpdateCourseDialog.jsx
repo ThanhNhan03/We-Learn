@@ -6,6 +6,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { styled } from '@mui/material/styles';
 
+
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogTitle-root': {
     backgroundColor: theme.palette.primary.main,
@@ -48,9 +49,9 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
   },
 }));
 
-const CourseDialog = ({ open, onClose, onSave, courseData, action }) => {
+const CourseDialog = ({ open, onClose, onSave, courseData, action, subjects }) => {
   const [formData, setFormData] = React.useState({ 
-    subject: '', 
+    subjectId: '', // Change 'subject' to 'subjectId'
     code: '', 
     name: '', 
     description: '', 
@@ -85,17 +86,12 @@ const CourseDialog = ({ open, onClose, onSave, courseData, action }) => {
   };
 
   const handleSubmit = () => {
-    const newCourse = { ...formData, id: Date.now() }; // Add a unique id
-    if (courseData) {
-      // Update existing course
-      const updatedCourses = courses.map(course => 
-        course.id === courseData.id ? newCourse : course
-      );
-      setCourses(updatedCourses);
-    } else {
-      // Add new course
-      setCourses([...courses, newCourse]);
-    }
+    const selectedSubject = subjects.find(subject => subject.id === formData.subjectId);
+    const newCourse = { 
+      ...formData, 
+      id: Date.now(),
+      subject: selectedSubject ? selectedSubject.name : '' // Add the subject name
+    };
     onSave(newCourse);
     onClose();
   };
@@ -111,16 +107,14 @@ const CourseDialog = ({ open, onClose, onSave, courseData, action }) => {
             <StyledFormControl fullWidth margin="normal">
               <InputLabel><strong>Subject</strong></InputLabel>
               <StyledSelect
-                name="subject"
-                value={formData.subject}
+                name="subjectId"
+                value={formData.subjectId}
                 onChange={handleChange}
                 endAdornment={<ArrowDropDownIcon />}
               >
-                <MenuItem value="Mathematics">Mathematics</MenuItem>
-                <MenuItem value="Physics">Physics</MenuItem>
-                <MenuItem value="Chemistry">Chemistry</MenuItem>
-                <MenuItem value="Biology">Biology</MenuItem>
-                <MenuItem value="Computer Science">Computer Science</MenuItem>
+                {subjects.map((subject) => (
+                  <MenuItem key={subject.id} value={subject.id}>{subject.name}</MenuItem>
+                ))}
               </StyledSelect>
             </StyledFormControl>
           </Grid>

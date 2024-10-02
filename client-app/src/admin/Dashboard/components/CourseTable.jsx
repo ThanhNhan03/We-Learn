@@ -1,64 +1,51 @@
-import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Select, MenuItem, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, InputAdornment } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Select,
+  MenuItem,
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  InputAdornment
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CourseDialog from './CreateandUpdateCourseDialog';
-import AdminCourseDetail from './AdminCourseDetail';
-import AdminLectureDetail from './AdminLectureDetail';
-
-const sampleCourses = [
-  {
-    id: 1,
-    subject: "Mathematics",
-    code: "MATH101",
-    name: "Introduction to Mathematics",
-    price: 100,
-    startDate: "2023-09-01",
-    endDate: "2023-12-15",
-    status: "public",
-    description: "An introductory course to basic mathematical concepts.",
-    resources: "Textbook, Online exercises",
-    image: "https://example.com/math101.jpg"
-  },
-  {
-    id: 2,
-    subject: "Physics",
-    code: "PHYS101",
-    name: "Fundamentals of Physics",
-    price: 120,
-    startDate: "2023-09-01",
-    endDate: "2023-12-15",
-    status: "Active",
-    description: "A comprehensive introduction to physics principles.",
-    resources: "Lab equipment, Simulation software",
-    image: "https://example.com/phys101.jpg"
-  },
-  {
-    id: 3,
-    subject: "Chemistry",
-    code: "CHEM101",
-    name: "Basic Chemistry",
-    price: 110,
-    startDate: "2023-09-01",
-    endDate: "2023-12-15",
-    status: "static",
-    description: "Explore the fundamental principles of chemistry.",
-    resources: "Chemical kit, Safety equipment",
-    image: "https://example.com/chem101.jpg"
-  },
-];
+import sampleCourses from './DataCourse';
 
 const CourseTable = ({ darkMode }) => {
   const [courses, setCourses] = useState(sampleCourses);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [viewCourseDetail, setViewCourseDetail] = useState(false);
-  const [viewLectureDetail, setViewLectureDetail] = useState(false);
-  const [selectedLecture, setSelectedLecture] = useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [courseToDelete, setCourseToDelete] = useState(null);
   const [filterSubject, setFilterSubject] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [dialogAction, setDialogAction] = useState('');
+  const [newSubject, setNewSubject] = useState('');
+  const [openSubjectDialog, setOpenSubjectDialog] = useState(false);
+
+  const [subjects, setSubjects] = useState([
+    { id: 1, name: "Mathematics" },
+    { id: 2, name: "Physics" },
+    { id: 3, name: "Chemistry" }
+  ]);
+  const [allSubjects, setAllSubjects] = useState(["All", "Mathematics", "Physics", "Chemistry"]);
+
+  useEffect(() => {
+    const subjectNames = subjects.map(subject => subject.name);
+    setAllSubjects(["All", ...subjectNames]);
+  }, [subjects]);
 
   const handleAddCourse = () => {
     const newCourse = {
@@ -75,10 +62,16 @@ const CourseTable = ({ darkMode }) => {
     setOpenDialog(true);
   };
 
-  const handleEditCourse = (course) => {
-    setSelectedCourse(course);
-    setDialogAction('edit');
-    setOpenDialog(true);
+  const handleAddSubject = () => {
+    if (newSubject) {
+      const newSubjectObj = { 
+        id: Date.now(),
+        name: newSubject 
+      };
+      setSubjects(prevSubjects => [...prevSubjects, newSubjectObj]);
+      setNewSubject('');
+      setOpenSubjectDialog(false);
+    }
   };
 
   const handleCloseDialog = () => {
@@ -119,19 +112,6 @@ const CourseTable = ({ darkMode }) => {
 
   const handleViewCourseDetail = (course) => {
     setSelectedCourse(course);
-    setViewCourseDetail(true);
-  };
-
-  const handleViewLectureDetail = (lecture) => {
-    setSelectedLecture(lecture);
-    setViewLectureDetail(true);
-  };
-
-  const handleBackToTable = () => {
-    setViewCourseDetail(false);
-    setViewLectureDetail(false);
-    setSelectedCourse(null);
-    setSelectedLecture(null);
   };
 
   const filteredCourses = courses.filter((course) => 
@@ -144,127 +124,143 @@ const CourseTable = ({ darkMode }) => {
       <Button variant="contained" color="primary" onClick={handleAddCourse} style={{ margin: '16px' }}>
         Add Course
       </Button>
+      <Button variant="contained" color="secondary" onClick={() => setOpenSubjectDialog(true)} style={{ margin: '16px' }}>
+        Add Category Subject
+      </Button>
 
-      {/* Search and Filter Controls */}
-      {!viewCourseDetail && !viewLectureDetail && (
-        <Box display="flex" justifyContent="space-between" alignItems="center" style={{ margin: '16px' }}>
-          <TextField 
-            label="Search Subject" 
-            variant="outlined" 
-            value={searchQuery} 
-            onChange={(e) => setSearchQuery(e.target.value)} 
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Select
-            value={filterSubject}
-            onChange={(e) => setFilterSubject(e.target.value)}
-            displayEmpty
-          >
-            <MenuItem value="All">All Subjects</MenuItem>
-            <MenuItem value="Mathematics">Mathematics</MenuItem>
-            <MenuItem value="Physics">Physics</MenuItem>
-            <MenuItem value="Chemistry">Chemistry</MenuItem>
-          </Select>
-        </Box>
-      )}
+      <Box display="flex" justifyContent="space-between" alignItems="center" style={{ margin: '16px' }}>
+        <TextField 
+          label="Search Subject" 
+          variant="outlined" 
+          value={searchQuery} 
+          onChange={(e) => setSearchQuery(e.target.value)} 
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Select
+          value={filterSubject}
+          onChange={(e) => setFilterSubject(e.target.value)}
+          displayEmpty
+        >
+          {allSubjects.map((subject, index) => (
+            <MenuItem key={index} value={subject}>{subject}</MenuItem>
+          ))}
+        </Select>
+      </Box>
 
-      {viewCourseDetail ? (
-        <Box>
-          <Button variant="contained" color="secondary" onClick={handleBackToTable}>
-            Back to Course List
-          </Button>
-          <AdminCourseDetail course={selectedCourse} onViewLecture={handleViewLectureDetail} />
-        </Box>
-      ) : viewLectureDetail ? (
-        <Box>
-          <Button variant="contained" color="secondary" onClick={handleBackToTable}>
-            Back to Course List
-          </Button>
-          <AdminLectureDetail lecture={selectedLecture} onClose={handleBackToTable} />
-        </Box>
-      ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Subject</TableCell>
-              <TableCell>Course Code</TableCell>
-              <TableCell>Course Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Start Date</TableCell>
-              <TableCell>End Date</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Subject</TableCell>
+            <TableCell>Course Code</TableCell>
+            <TableCell>Course Name</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Start Date</TableCell>
+            <TableCell>End Date</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredCourses.map((course) => (
+            <TableRow key={course.id}>
+              <TableCell>{course.subject}</TableCell>
+              <TableCell>{course.code}</TableCell>
+              <TableCell>{course.name}</TableCell>
+              <TableCell>{course.price}</TableCell>
+              <TableCell>{course.startDate}</TableCell>
+              <TableCell>{course.endDate}</TableCell>
+              <TableCell>{course.status}</TableCell>
+              <TableCell>
+                <Select
+                  value=""
+                  onChange={(event) => {
+                    const operation = event.target.value;
+                    switch (operation) {
+                      case 'delete':
+                        handleDeleteCourse(course.id);
+                        break;
+                      case 'view':
+                        handleViewCourseDetail(course);
+                        break;
+                      default:
+                        break;
+                    }
+                  }}
+                  displayEmpty
+                >
+                  <MenuItem value="" disabled>Operation</MenuItem>
+                  <MenuItem value="delete">Delete</MenuItem>
+                  <MenuItem value="view">View Details</MenuItem>
+                </Select>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredCourses.map((course) => (
-              <TableRow key={course.id}>
-                <TableCell>{course.subject}</TableCell>
-                <TableCell>{course.code}</TableCell>
-                <TableCell>{course.name}</TableCell>
-                <TableCell>{course.price}</TableCell>
-                <TableCell>{course.startDate}</TableCell>
-                <TableCell>{course.endDate}</TableCell>
-                <TableCell>{course.status}</TableCell>
-                <TableCell>
-                  <Select
-                    value=""
-                    onChange={(event) => {
-                      const operation = event.target.value;
-                      switch (operation) {
-                        case 'delete':
-                          handleDeleteCourse(course.id);
-                          break;
-                        case 'view':
-                          handleViewCourseDetail(course);
-                          break;
-                        default:
-                          break;
-                      }
-                    }}
-                    displayEmpty
-                  >
-                    <MenuItem value="" disabled>Operation</MenuItem>
-                    <MenuItem value="delete">Delete</MenuItem>
-                    <MenuItem value="view">View Details</MenuItem>
-                  </Select>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
+          ))}
+        </TableBody>
+      </Table>
       <CourseDialog 
         open={openDialog} 
         onClose={handleCloseDialog} 
         onSave={handleSaveCourse} 
         courseData={selectedCourse} 
         action={dialogAction}
+        subjects={subjects}
       />
+      
+      <Dialog
+        open={openSubjectDialog}
+        onClose={() => setOpenSubjectDialog(false)}
+        aria-labelledby="subject-dialog-title"
+      >
+        <DialogTitle id="subject-dialog-title">{"Add Category"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter new category name:
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="New Subject"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={newSubject}
+            onChange={(e) => setNewSubject(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenSubjectDialog(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleAddSubject} color="primary">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Dialog
         open={openDeleteDialog}
         onClose={handleCancelDelete}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Xác nhận xóa khóa học"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Confirm course deletion"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Bạn có chắc chắn muốn xóa khóa học "{courseToDelete?.name}" không?
+            Are you sure you want to delete the course "{courseToDelete?.name}"?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelDelete} color="primary">
-            Hủy
+            Cancel
           </Button>
           <Button onClick={handleConfirmDelete} color="primary" autoFocus>
-            Xác nhận
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
