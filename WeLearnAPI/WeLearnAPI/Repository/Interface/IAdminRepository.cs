@@ -14,5 +14,8 @@ namespace WeLearnAPI.Repository.Interface
         Task<(IEnumerable<Admin> Teachers, int TotalCount)> GetAllTeachersAsync(
             string roleName, int pageNumber, int pageSize, 
             string? filter, string? sortOrder);
+
+        Task<(IEnumerable<Users> Users, int TotalCount)> GetAllUsersAsync(
+           int pageNumber, int pageSize, string? filter, string? sortOrder);
     }        
 }

@@ -21,10 +21,9 @@ const Banner = () => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               src={BannerPng}
               alt=""
-              style={{ width: '350px', maxWidth: '450px', objectFit: 'cover', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}
+              style={{ width: '350px', maxWidth: '450px', objectFit: 'cover'}}
             />
           </Grid>
-          {/* Banner Text */}
           <Grid item xs={12} md={6} display="flex" flexDirection="column" justifyContent="center">
             <Box textAlign={{ xs: 'center', md: 'left' }} mb={3}>
               <motion.h1

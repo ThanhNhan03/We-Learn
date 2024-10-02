@@ -1,59 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../api/AxiosAPI';
 import {
   Dialog,
   DialogContent,
   IconButton,
   Typography,
   Card,
-  CardMedia,
   CardContent,
-  Link,
   Box,
-  Divider
+  Divider,
+  CircularProgress
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { styled } from '@mui/material/styles';
+
+const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
+  padding: theme.spacing(4),
+  backgroundColor: '#f5f5f5',
+  position: 'relative',
+  height: '85vh',
+  overflow: 'hidden',
+
+  // Customize scrollbar
+  '& ::-webkit-scrollbar': {
+    width: '6px',
+  },
+  '& ::-webkit-scrollbar-track': {
+    background: '#e0e0e0',
+  },
+  '& ::-webkit-scrollbar-thumb': {
+    background: '#bdbdbd',
+    borderRadius: '3px',
+  },
+  '& ::-webkit-scrollbar-thumb:hover': {
+    background: '#9e9e9e',
+  },
+}));
+
+const NewsCard = styled(Card)(({ theme }) => ({
+  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'translateY(-5px)',
+    boxShadow: theme.shadows[4],
+  },
+}));
 
 const NewsComponent = ({ open, onClose }) => {
-  const notifications = [
-    {
-      title: "Dự án cuối khóa HTML CSS Pro đang tăng tốc!",
-      description: "Dự án cuối khóa khá \"hoành\" chỉ là HTML CSS mà công phu ghê lắm: multiple pages, dark/light mode, sử dụng Sass 7-1 pattern, responsive áp dụng 6 breakpoints, sử dụng Grid system, v.v.",
-      imageUrl: "https://files.fullstack.edu.vn/f8-prod/public-images/650d9b3b1aa0f.png",
-      linkText: "Tìm hiểu thêm về khóa học tại đây bạn nhé: https://fullstack.edu.vn/landing/htmlcss/",
-      postedBy: "Son Dang",
-      postedTime: "một năm trước"
-    },
-    {
-      title: "Tại sao F8 bị DDoS lại không thể truy cập được?",
-      description: "Ngày hôm qua F8 không truy cập được là do bị tấn công từ dịch vụ phân tán (DDoS). Rất mong các bạn thông cảm vì F8 có không truy cập được. Chúng mình sẽ tìm giải pháp để duy trì sự ổn định giúp các bạn có môi trường học tập tốt nhất có thể ❤️",
-      imageUrl: "https://files.fullstack.edu.vn/f8-prod/public-images/6528f2d285a52.png",
-      linkText: "",
-      postedBy: "Son Dang",
-      postedTime: "một năm trước"
-    },
-    {
-        title: "Nhận ebook giao tiếp tiếng Anh trị giá 200k!",
-        description: "Với mong muốn cải tiến sản phẩm và phục vụ các học viên tốt hơn, phòng sản phẩm The Coach đang rất cần những ý kiến đóng góp của các bạn.",
-        imageUrl: "https://files.fullstack.edu.vn/f8-prod/public-images/651412ac8ab28.png",
-        linkText: "✅ Tham gia khảo sát qua Link: https://forms.gle/B7L9BQ43umWCuUBm9",
-        postedBy: "Son Dang",
-        postedTime: "một năm trước"
-      },
-      {
-        title: "#Ra mắt Dev Mode giúp học qua video hiệu quả hơn!",
-        description: "Khi học qua video các bạn thường thực hành lại bằng VS Code, điều này cũng khá phiền nên nhiều khi chúng ta lười, không thèm thực hành nữa. Hiệu quả học tập bị giảm sút 😎:(",
-        imageUrl: "https://files.fullstack.edu.vn/f8-prod/public-images/64f2ed13b300c.png",
-        linkText: "Tim hieu them ve khoa hoc tai day ban nhe: https://fullstack.edu.vn/landing/htmlcss/",
-        postedBy: "Son Dang",
-        postedTime: "một năm trước"
-      },  
-    
-  ];
+  const [news, setNews] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const handleImageClick = (linkText) => {
-    if (linkText) {
-      const url = linkText.split(': ')[1];
-      window.open(url, '_blank');
+  useEffect(() => {
+    if (open) {
+      fetchNews();
+    }
+  }, [open]);
+
+  const fetchNews = async () => {
+    try {
+      const response = await api.get(`/News?pageNumber=${page}&pageSize=5`);
+      const newNews = response.data.data.items;
+      setNews(prevNews => [...prevNews, ...newNews]);
+      setPage(prevPage => prevPage + 1);
+      setHasMore(newNews.length === 5);
+    } catch (error) {
+      console.error('Error loading news:', error);
     }
   };
 
@@ -63,64 +74,77 @@ const NewsComponent = ({ open, onClose }) => {
       onClose={onClose}
       maxWidth="md"
       fullWidth
+      PaperProps={{
+        style: { borderRadius: 16 },
+      }}
     >
-      <DialogContent sx={{ p: 3, bgcolor: 'white', position: 'relative' }}>
+      <StyledDialogContent>
         <IconButton
           aria-label="close"
           onClick={onClose}
           sx={{
             position: 'absolute',
-            right: 8,
-            top: 8,
+            right: 16,
+            top: 16,
             color: 'grey.500',
+            bgcolor: 'white',
+            '&:hover': {
+              bgcolor: 'grey.100',
+            },
+            zIndex: 1,
           }}
         >
-          <CloseIcon />
+          {/* Add close icon here */}
         </IconButton>
-        {notifications.map((notification, index) => (
-          <React.Fragment key={index}>
-            <Card sx={{ boxShadow: 'none', mb: 3 }}>
-              <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold' }}>
-                {notification.title}
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 2 }}>
-                {notification.description}
-              </Typography>
-              <CardMedia
-                component="img"
-                image={notification.imageUrl}
-                alt={notification.title}
-                sx={{ width: '100%', height: 'auto', cursor: notification.linkText ? 'pointer' : 'default', mb: 2 }}
-                onClick={() => handleImageClick(notification.linkText)}
-              />
-              <CardContent sx={{ p: 0 }}>
-                {notification.linkText && (
-                  <Box display="flex" alignItems="center" mb={1}>
-                    <Box
-                      component="span"
-                      sx={{
-                        display: 'inline-block',
-                        width: 20,
-                        height: 20,
-                        bgcolor: 'green',
-                        borderRadius: '70%',
-                        mr: 1,
-                      }}
-                    />
-                    <Typography variant="body2">
-                      {notification.linkText}
-                    </Typography>
-                  </Box>
-                )}
-                <Typography variant="body2" color="text.secondary">
-                  Đăng bởi {notification.postedBy} • {notification.postedTime}
-                </Typography>
-              </CardContent>
-            </Card>
-            {index < notifications.length - 1 && <Divider sx={{ mb: 3 }} />}
-          </React.Fragment>
-        ))}
-      </DialogContent>
+        <Typography variant="h4" sx={{ mb: 3, fontWeight: 'bold', textAlign: 'center' }}>
+          Latest News
+        </Typography>
+        <InfiniteScroll
+          dataLength={news.length}
+          next={fetchNews}
+          hasMore={hasMore}
+          height="calc(85vh - 100px)"
+          loader={<CircularProgress sx={{ display: 'block', margin: '20px auto' }} />}
+          style={{ overflow: 'auto' }}
+        >
+          {news.map((item, index) => (
+            <React.Fragment key={item.id}>
+              <NewsCard sx={{ mb: 3, bgcolor: 'white' }}>
+                <CardContent>
+                  <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', color: '#1976d2' }}>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 2, color: '#424242' }}>
+                    {item.content}
+                  </Typography>
+                  {item.linkUrl && (
+                    <Box display="flex" alignItems="center" mb={1}>
+                      <Box
+                        component="span"
+                        sx={{
+                          display: 'inline-block',
+                          width: 12,
+                          height: 12,
+                          bgcolor: '#4caf50',
+                          borderRadius: '50%',
+                          mr: 1,
+                        }}
+                      />
+                      <Typography variant="body2" color="primary" component="a" href={item.linkUrl} target="_blank" rel="noopener noreferrer">
+                        {item.linkUrl}
+                      </Typography>
+                    </Box>
+                  )}
+                  <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                    Posted by {item.adminName} • {new Date(item.createdAt).toLocaleDateString()}
+                  </Typography>
+                </CardContent>
+              </NewsCard>
+              {index < news.length - 1 && <Divider sx={{ mb: 3 }} />}
+            </React.Fragment>
+          ))}
+        </InfiniteScroll>
+      </StyledDialogContent>
     </Dialog>
   );
 };

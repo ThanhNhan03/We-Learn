@@ -1,3 +1,4 @@
+using System;
 using DMS_API.Repository;
 using Microsoft.AspNetCore.Identity;
 using WeLearnAPI.Models.Domain;
@@ -13,7 +14,9 @@ namespace WeLearnAPI.Repository
         public IAdminRepository Admin { get; private set; }
 
         public IUserRepository Users { get; private set; }
-        public INewsRepository News { get; private set; }
+
+        private readonly Lazy<INewsRepository> _news;
+        public INewsRepository News => _news.Value;
 
         public UnitOfWork(ApplicationDbContext context, UserManager<Admin> userManager, RoleManager<IdentityRole<Guid>> roleManager)
         {
@@ -22,16 +25,22 @@ namespace WeLearnAPI.Repository
             _roleManager = roleManager;
             Admin = new AdminRepository(_context, _userManager, _roleManager);
             Users = new UserRepository(_context);
-            News = new NewsRepository(_context);
+            _news = new Lazy<INewsRepository>(() => new NewsRepository(_context));
         }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
 
+      
         //public void Dispose()
         //{
-        //    throw new NotImplementedException();
+        //    _context.Dispose();
+        //    if (_news.IsValueCreated)
+        //    {
+        //        (_news.Value as IDisposable)?.Dispose();
+        //    }
         //}
     }
 }
