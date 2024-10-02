@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import AdminAppBar from './components/AdminAppBar.jsx';
 import AdminDrawer from './components/AdminDrawer.jsx';
@@ -7,7 +7,7 @@ import NewsTable from './components/NewsTable.jsx';
 import CreateAccountDialog from './components/CreateAccountDialog.jsx';
 import EducatorTable from './components/EducatorTable.jsx';
 import { Toolbar, CircularProgress } from '@mui/material';
-
+import CourseTable from './components/CourseTable.jsx';
 
 const UserTable = lazy(() => import('./components/UserTable.jsx'));
 
@@ -28,12 +28,11 @@ const AdminDashboard = () => {
     role: '',
     gender: ''
   });
-  const [users, setUsers] = useState([]); 
-  const [news, setNews] = useState([]); 
-  const [educators, setEducators] = useState([]); 
+  const [users, setUsers] = useState([]);
+  const [news, setNews] = useState([]);
+  const [educators, setEducators] = useState([]);
+  const [courses, setCourses] = useState([]);
 
-
- 
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);
@@ -82,6 +81,9 @@ const AdminDashboard = () => {
     console.log('News deleted:', item.id);
   };
 
+  
+
+
   return (
     <div style={{ display: 'flex', backgroundColor: darkMode ? '#333' : '#fff', minHeight: '100vh' }}>
       <AdminAppBar darkMode={darkMode} handleThemeChange={handleThemeChange} />
@@ -96,6 +98,8 @@ const AdminDashboard = () => {
         )}
         {view === 'news' && <NewsTable data={news} darkMode={darkMode} handleEditNews={handleEditNews} handleDeleteNews={handleDeleteNews} />}
         {view === 'educators' && <EducatorTable data={educators} darkMode={darkMode} handleViewEducator={() => {}} handleToggleEducatorAccount={() => {}} />}
+        {view === 'courses' && <CourseTable data={courses} darkMode={darkMode} />}
+       
       </main>
       <CreateAccountDialog
         open={openDialog}
@@ -105,7 +109,7 @@ const AdminDashboard = () => {
         handleFileChange={handleFileChange}
         handleSubmit={handleSubmit}
       />
-    </div>
+     </div>
   );
 };
 
