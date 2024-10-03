@@ -1,4 +1,4 @@
-import  { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
@@ -127,73 +127,102 @@ const Navbar = () => {
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
         >
-         <Toolbar sx={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }}>
-  {/* Logo section with rounded image and text */}
-  <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleNavigateHome}>
-<img 
-  src={logo} 
-  alt="logo" 
-  style={{ 
-width: 120, 
-height: 80, 
-    marginRight: 8,
-borderRadius: '5%',  // This makes the image round
-  // This ensures the image covers the area without distortion
-  }} 
-/>
-
-</Box>
+          <Toolbar sx={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }}>
+            {/* Logo section */}
+            <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleNavigateHome}>
+              <img 
+                src={logo} 
+                alt="logo" 
+                style={{ 
+                  width: 80, 
+                  height: 70, 
+                  marginRight: 8,
+      borderRadius: '20%',
+               
+                }} 
+              />
             
+            </Box>
 
-            {/* Categories Dropdown */}
-            <Box
-              onMouseEnter={handleCategoryOpen}
-              onMouseLeave={handleCategoryClose}
-              sx={{ marginLeft: 5 }}
-            >
-              <Button
-              
-                sx={{
-                  color: isCategoryHovered ? 'deepblue' : 'inherit',
-                  textTransform: 'none',
-                  fontFamily: '"Poppins", sans-serif',
-                  fontWeight: 700,  // Changed to bold (700)
-                  fontSize: '1rem',
-                  letterSpacing: '0.5px',
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                  },
-                }}
-              >
-                Categories
-              </Button>
-              <Menu
-                anchorEl={categoryAnchorEl}
-                open={Boolean(categoryAnchorEl)}
-                onClose={handleCategoryClose}
-                MenuListProps={{ onMouseLeave: handleCategoryClose }}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-              >
-                {categories.map((category) => (
-                  <MenuItem 
-                    key={category.id} 
-                    onClick={() => { 
-                      handleCategoryClose(); 
-                      navigate(category.path); 
+        {User && (
+              <>
+                {/* Categories Dropdown */}
+                <Box
+                  onMouseEnter={handleCategoryOpen}
+                  onMouseLeave={handleCategoryClose}
+                  sx={{ marginLeft: 5 }}
+                >
+                  <Button
+                  
+                    sx={{
+                      color: isCategoryHovered ? 'deepblue' : 'inherit',
+                      textTransform: 'none',
+                      fontFamily: '"Poppins", sans-serif',
+                      fontWeight: 700,
+                      fontSize: '1rem',
+                      letterSpacing: '0.5px',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                      },
                     }}
                   >
-                    {category.name}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+                    Categories
+                  </Button>
+                  <Menu
+                    anchorEl={categoryAnchorEl}
+                    open={Boolean(categoryAnchorEl)}
+                    onClose={handleCategoryClose}
+                    MenuListProps={{ onMouseLeave: handleCategoryClose }}
+                  >
+                    {categories.map((category) => (
+                      <MenuItem 
+                        key={category.id} 
+                        onClick={() => { 
+                          handleCategoryClose(); 
+                          navigate(category.path); 
+                        }}
+                      >
+                        {category.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+
+                {/* My Learning Path Dropdown */}
+                <Box
+                  onMouseEnter={handleLearningPathOpen}
+                  onMouseLeave={handleLearningPathClose}
+                  sx={{ marginLeft: 2, marginRight: 2 }}
+                >
+                  <Button
+                  
+                    sx={{
+                      color: isLearningPathHovered ? 'deepblue' : 'inherit',
+                      textTransform: 'none',
+                      fontFamily: '"Poppins", sans-serif',
+                      fontWeight: 700,
+                      fontSize: '1rem',
+                      letterSpacing: '0.5px',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                      },
+                    }}
+                  >
+                    My Learning Path
+                  </Button>
+                  <Menu
+                    anchorEl={learningPathAnchorEl}
+                    open={Boolean(learningPathAnchorEl)}
+                    onClose={handleLearningPathClose}
+                    MenuListProps={{ onMouseLeave: handleLearningPathClose }}
+                  >
+                    <MenuItem onClick={handleLearningPathClose}>Path 1</MenuItem>
+                    <MenuItem onClick={handleLearningPathClose}>Path 2</MenuItem>
+                    <MenuItem onClick={handleLearningPathClose}>Path 3</MenuItem>
+                  </Menu>
+                </Box>
+              </>
+            )}
 
             {/* Centered Search Bar */}
             <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }}>
@@ -206,48 +235,6 @@ borderRadius: '5%',  // This makes the image round
                   inputProps={{ 'aria-label': 'search' }}
                 />
               </Search>
-            </Box>
-
-            {/* My Learning Path Dropdown */}
-            <Box
-              onMouseEnter={handleLearningPathOpen}
-              onMouseLeave={handleLearningPathClose}
-              sx={{ marginLeft: 2, marginRight: 2 }}
-            >
-              <Button
-               
-                sx={{
-                  color: isLearningPathHovered ? 'deepblue' : 'inherit',
-                  textTransform: 'none',
-                  fontFamily: '"Poppins", sans-serif',
-                  fontWeight: 700,  // Changed to bold (700)
-                  fontSize: '1rem',
-                  letterSpacing: '0.5px',
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                  },
-                }}
-              >
-                My Learning Path
-              </Button>
-              <Menu
-                anchorEl={learningPathAnchorEl}
-                open={Boolean(learningPathAnchorEl)}
-                onClose={handleLearningPathClose}
-                MenuListProps={{ onMouseLeave: handleLearningPathClose }}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-              >
-                <MenuItem onClick={handleLearningPathClose}>Path 1</MenuItem>
-                <MenuItem onClick={handleLearningPathClose}>Path 2</MenuItem>
-                <MenuItem onClick={handleLearningPathClose}>Path 3</MenuItem>
-              </Menu>
             </Box>
 
             {/* User Actions */}
