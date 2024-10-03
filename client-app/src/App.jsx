@@ -14,6 +14,7 @@ import ProtectedRoute from "./common/ProtectedRoute";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import AdminProfile from "./admin/Dashboard/components/AdminProfile";
 import Profile from "./student/Profile";
+import ConfirmEmail from "./pages/ConfirmEmail/ConfirmEmail";
 
 const LazyGetStarted = React.lazy(() => import("./pages/GetStarted"));
 const LazyHome = React.lazy(() => import("./pages/Home"));
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/" element={<LazyHome />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/get-started" element={<LazyGetStarted />} />
         <Route path="/course/:title" element={<CourseDetail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
