@@ -54,6 +54,7 @@ const App = () => {
               <Route path="dashboard/news" element={<LazyAdminDashboard />} />
               <Route path="dashboard/educators" element={<LazyAdminDashboard />} />
               <Route path="dashboard/courses" element={<LazyAdminDashboard />} />
+              <Route path="dashboard/faqs" element={<LazyAdminDashboard />} /> {/* Updated FAQs route */}
               <Route path="profile" element={<AdminProfile/>} />
             </Routes>
           </ProtectedRoute>
