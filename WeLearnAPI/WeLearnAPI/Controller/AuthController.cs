@@ -172,7 +172,6 @@ namespace WeLearnAPI.Controllers
                 var (adminToken, adminRole) = await _authService.AuthenticateAdminAsync(request.Email, request.Password);
                 if (adminToken != null)
                 {
-        
                     var adminInfo = _mapper.Map<AdminLoginResponeDTO>(admin);
 
                     return Ok(new
@@ -192,6 +191,12 @@ namespace WeLearnAPI.Controllers
                 if (!user.EmailConfirmed)
                 {
                     return Unauthorized("Please confirm your email before logging in.");
+                }
+
+                if (user.LockoutEnd != null && user.LockoutEnd > DateTime.UtcNow)
+                {
+                    var lockoutDuration = user.LockoutEnd.Value - DateTime.UtcNow;
+                    return BadRequest($"Your account is locked for {lockoutDuration.Days} days and {lockoutDuration.Hours} hours.");
                 }
 
                 var (userAccessToken, userRefreshToken, userRole) = await _authService.AuthenticateUserAsync(request.Email, request.Password);

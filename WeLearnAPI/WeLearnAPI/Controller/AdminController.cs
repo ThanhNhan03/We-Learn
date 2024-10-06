@@ -146,5 +146,37 @@ namespace WeLearnAPI.Controller
 
             return Ok("Updated successfully");
         }
+
+    
+        [HttpPut("lock-user/{id}")]
+        public async Task<IActionResult> LockUser(Guid id)
+        {
+            var user = await _unitOfWork.Admin.GetAdminByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.LockoutEnd = DateTime.UtcNow.AddDays(7); 
+            await _unitOfWork.SaveChangesAsync();
+
+            return Ok("User has been locked for 7 days.");
+        }
+
+        // PUT: api/Admin/unlock-user/{id}
+        [HttpPut("unlock-user/{id}")]
+        public async Task<IActionResult> UnlockUser(Guid id)
+        {
+            var user = await _unitOfWork.Admin.GetAdminByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.LockoutEnd = null; 
+            await _unitOfWork.SaveChangesAsync();
+
+            return Ok("User has been unlocked.");
+        }
     }
 }
