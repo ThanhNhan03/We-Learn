@@ -20,5 +20,6 @@ namespace WeLearnAPI.Models.Domain
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         //Navigation Property
         public ICollection<News> News { get; set; } = new List<News>();
+        public ICollection<Faq> Faqs { get; set; } = new List<Faq>();
     }
 }

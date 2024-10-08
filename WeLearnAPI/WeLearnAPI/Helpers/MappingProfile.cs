@@ -22,6 +22,9 @@ public class MappingProfile : Profile
         CreateMap<Users, UserLoginResponeDTO>()
              .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == 1 ? "Male" : src.Gender == 0 ? "Female" : "Other"));
      
+        CreateMap<Faq, FaqResponeDTO>()
+            .ForMember(dest => dest.AdminName, opt => opt.MapFrom(src => src.Admin.FirstName + " " + src.Admin.LastName));
+
 
         CreateMap<RegisterRequestDTO, Users>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
@@ -64,9 +67,12 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender == "male" ? 1 : src.Gender == "female" ? 0 : 2));
 
 
+
+        CreateMap<AddFaqRequestDTO, Faq>();
+
+
         CreateMap<AddNewsRequestDTO, NewsReponeDTO>();
         CreateMap<AddNewsRequestDTO, News>();
-
         CreateMap<UpdateNewsRequestDTO, News>();
     }
 }
