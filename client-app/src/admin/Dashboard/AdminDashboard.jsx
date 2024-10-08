@@ -8,6 +8,7 @@ import CreateAccountDialog from './components/CreateAccountDialog.jsx';
 import EducatorTable from './components/EducatorTable.jsx';
 import { Toolbar, CircularProgress } from '@mui/material';
 import CourseTable from './components/CourseTable.jsx';
+import FAQManagement from './components/FAQManagement.jsx';
 
 const UserTable = lazy(() => import('./components/UserTable.jsx'));
 
@@ -32,7 +33,6 @@ const AdminDashboard = () => {
   const [news, setNews] = useState([]);
   const [educators, setEducators] = useState([]);
   const [courses, setCourses] = useState([]);
-
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);
@@ -81,9 +81,6 @@ const AdminDashboard = () => {
     console.log('News deleted:', item.id);
   };
 
-  
-
-
   return (
     <div style={{ display: 'flex', backgroundColor: darkMode ? '#333' : '#fff', minHeight: '100vh' }}>
       <AdminAppBar darkMode={darkMode} handleThemeChange={handleThemeChange} />
@@ -99,7 +96,7 @@ const AdminDashboard = () => {
         {view === 'news' && <NewsTable data={news} darkMode={darkMode} handleEditNews={handleEditNews} handleDeleteNews={handleDeleteNews} />}
         {view === 'educators' && <EducatorTable data={educators} darkMode={darkMode} handleViewEducator={() => {}} handleToggleEducatorAccount={() => {}} />}
         {view === 'courses' && <CourseTable data={courses} darkMode={darkMode} />}
-       
+        {view === 'faqs' && <FAQManagement />}
       </main>
       <CreateAccountDialog
         open={openDialog}
@@ -109,7 +106,7 @@ const AdminDashboard = () => {
         handleFileChange={handleFileChange}
         handleSubmit={handleSubmit}
       />
-     </div>
+    </div>
   );
 };
 

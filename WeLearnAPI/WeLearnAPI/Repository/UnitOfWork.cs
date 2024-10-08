@@ -17,6 +17,8 @@ namespace WeLearnAPI.Repository
 
         private readonly Lazy<INewsRepository> _news;
         public INewsRepository News => _news.Value;
+        public IFaqRepository Faq { get; private set; }
+
 
         public UnitOfWork(ApplicationDbContext context, UserManager<Admin> userManager, RoleManager<IdentityRole<Guid>> roleManager)
         {
@@ -26,6 +28,7 @@ namespace WeLearnAPI.Repository
             Admin = new AdminRepository(_context, _userManager, _roleManager);
             Users = new UserRepository(_context);
             _news = new Lazy<INewsRepository>(() => new NewsRepository(_context));
+            Faq = new FaqRepository(_context);
         }
 
         public async Task SaveChangesAsync()

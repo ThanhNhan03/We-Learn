@@ -14,7 +14,7 @@ public class ApplicationDbContext : IdentityDbContext<Admin, IdentityRole<Guid>,
     public DbSet<Users> AppUsers { get; set; }
     public DbSet<Admin> Admins { get; set; }
     public DbSet<News> News { get; set; }
-
+    public DbSet<Faq> Faqs { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -27,6 +27,12 @@ public class ApplicationDbContext : IdentityDbContext<Admin, IdentityRole<Guid>,
         .HasOne(n => n.Admin)
         .WithMany(a => a.News) 
         .HasForeignKey(n => n.AdminId) 
+        .OnDelete(DeleteBehavior.Cascade); 
+
+        builder.Entity<Faq>()
+        .HasOne(f => f.Admin)
+        .WithMany(a => a.Faqs) 
+        .HasForeignKey(f => f.AdminId) 
         .OnDelete(DeleteBehavior.Cascade); 
     }
 }
