@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -12,8 +12,38 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';
+import api from '../../../api/AxiosAPI'; 
+import { AdminContext } from '../../../contexts/AdminContext'; 
 
 const FAQDialog = ({ open, onClose, currentFAQ, setCurrentFAQ, onSave, categories }) => {
+  const { admin } = useContext(AdminContext); 
+
+  const handleSave = async () => {
+    try {
+      const adminId = admin?.id; 
+      if (currentFAQ.id) {
+        await api.put(`/faq/${currentFAQ.id}`, {
+          faqQuestion: currentFAQ.question,
+          faqAnswer: currentFAQ.answer,
+          faqCategories: currentFAQ.category,
+  
+        });
+      } else {
+      
+        await api.post('/faq', {
+          faqQuestion: currentFAQ.question,
+          faqAnswer: currentFAQ.answer,
+          faqCategories: currentFAQ.category,
+          adminId: adminId, 
+        });
+      }
+      onSave();
+    } catch (error) {
+      console.error("Error saving FAQ:", error);
+      alert("Failed to save FAQ. Please try again.");
+    }
+  };
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{currentFAQ.id ? 'Edit FAQ' : 'Add New FAQ'}</DialogTitle>
@@ -53,13 +83,15 @@ const FAQDialog = ({ open, onClose, currentFAQ, setCurrentFAQ, onSave, categorie
               ))}
             </Select>
           </FormControl>
+          {/* Input ẩn cho ID của admin */}
+          <input type="hidden" value={admin?.id} />
         </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           CANCEL
         </Button>
-        <Button onClick={onSave} color="primary">
+        <Button onClick={handleSave} color="primary">
           SAVE
         </Button>
       </DialogActions>

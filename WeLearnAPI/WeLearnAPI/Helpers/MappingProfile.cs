@@ -68,11 +68,15 @@ public class MappingProfile : Profile
 
 
 
-        CreateMap<AddFaqRequestDTO, Faq>();
-
+        CreateMap<AddFaqRequestDTO, Faq>()
+            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt));
+        CreateMap<UpdateFaqRequestDTO, Faq>()
+            .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
         CreateMap<AddNewsRequestDTO, NewsReponeDTO>();
         CreateMap<AddNewsRequestDTO, News>();
         CreateMap<UpdateNewsRequestDTO, News>();
+
+        CreateMap<DateOnly, DateTime>().ConvertUsing(d => d.ToDateTime(TimeOnly.MinValue));
     }
 }

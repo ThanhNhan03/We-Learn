@@ -10,7 +10,7 @@ namespace WeLearnAPI.Controller
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class FaqController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -52,7 +52,7 @@ namespace WeLearnAPI.Controller
             return Ok(createdFaqDto);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFaq(int id, [FromBody] AddFaqRequestDTO faqDto)
+        public async Task<IActionResult> UpdateFaq(int id, [FromBody] UpdateFaqRequestDTO faqDto)
         {
             if (faqDto == null)
                 return BadRequest("Faq data is required");
