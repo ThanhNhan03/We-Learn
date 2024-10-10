@@ -2,7 +2,7 @@
 
 namespace WeLearnAPI.Models.DTO.RequestDto
 {
-    public class AddFaqRequestDTO
+    public class UpdateFaqRequestDTO
     {
         [Required]
         [MaxLength(255)]
@@ -14,7 +14,6 @@ namespace WeLearnAPI.Models.DTO.RequestDto
         [MaxLength(255)]
         public string FaqCategories { get; set; } = string.Empty;
         [Required]
-        public Guid AdminId { get; set; }
-        public DateOnly CreatedAt { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateOnly UpdatedAt { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

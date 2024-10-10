@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import api from '../../../api/AxiosAPI';
 import { 
   Container, 
   TextField, 
@@ -26,18 +27,39 @@ import { debounce } from 'lodash';
 const FAQManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All Categories');
-  const [faqs, setFaqs] = useState([
-    { id: 1, question: 'What is React?', answer: 'React is a JavaScript library for building user interfaces', category: 'Programming', expanded: false, createdAt: new Date('2023-01-01') },
-    { id: 2, question: 'How do I style my React components?', answer: 'You can style React components using CSS, inline styles, or CSS-in-JS libraries.', category: 'Programming', expanded: false, createdAt: new Date('2023-01-15') },
-    { id: 3, question: 'What is state in React?', answer: 'State is a JavaScript object that stores component data and determines how the component renders and behaves.', category: 'Programming', expanded: false, createdAt: new Date('2023-02-01') },
-    { id: 4, question: 'How do I handle forms in React?', answer: 'You can handle forms in React by using controlled components and managing form state with hooks like useState.', category: 'Programming', expanded: false, createdAt: new Date('2023-02-15') },
-    { id: 5, question: 'What are the principles of responsive design?', answer: 'Responsive design principles include fluid grids, flexible images, and media queries to create layouts that adapt to different screen sizes.', category: 'Design', expanded: false, createdAt: new Date('2023-03-01') },
-  ]);
+  const [faqs, setFaqs] = useState([]); 
+  const [categories, setCategories] = useState([]); 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentFAQ, setCurrentFAQ] = useState({ question: '', answer: '', category: '' });
-  const [filteredFAQs, setFilteredFAQs] = useState([]); // Initialize as empty array
+  const [filteredFAQs, setFilteredFAQs] = useState([]); 
   const [page, setPage] = useState(1);
   const [itemsPerPage] = useState(5);
+
+
+  const fetchFAQs = async () => {
+    try {
+      const response = await api.get('/faq');
+      const formattedFAQs = response.data.map(faq => ({
+        id: faq.id,
+        question: faq.faqQuestion,
+        answer: faq.faqAnswer,
+        category: faq.faqCategories,
+        createdAt: new Date(faq.createdAt),
+        expanded: false,
+      }));
+      setFaqs(formattedFAQs); 
+
+      // Lấy danh sách categories từ response
+      const uniqueCategories = [...new Set(response.data.map(faq => faq.faqCategories))];
+      setCategories(['All Categories', ...uniqueCategories]); 
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFAQs(); 
+  }, []);
 
   const searchFAQs = useCallback((searchTerm, category, faqs) => {
     const keywords = searchTerm.toLowerCase().split(' ').filter(keyword => keyword.length > 0);
@@ -70,7 +92,6 @@ const FAQManagement = () => {
   );
 
   useEffect(() => {
-    // Remove the condition to clear filtered results
     debouncedSearch(searchTerm, category, faqs);
   }, [debouncedSearch, searchTerm, category, faqs]);
 
@@ -80,12 +101,14 @@ const FAQManagement = () => {
   };
 
   const handleEditFAQ = (id) => {
+    console.log("Editing FAQ with ID:", id);
     const faqToEdit = faqs.find(faq => faq.id === id);
     setCurrentFAQ(faqToEdit);
     setDialogOpen(true);
   };
 
   const handleDeleteFAQ = (id) => {
+    console.log("Deleting FAQ with ID:", id); 
     setFaqs(faqs.filter(faq => faq.id !== id));
   };
 
@@ -94,6 +117,7 @@ const FAQManagement = () => {
       alert("Question cannot be empty");
       return;
     }
+    console.log("Saving FAQ with ID:", currentFAQ.id); 
     if (currentFAQ.id) {
       setFaqs(faqs.map(f => f.id === currentFAQ.id ? {...currentFAQ, createdAt: f.createdAt} : f));
     } else {
@@ -107,25 +131,6 @@ const FAQManagement = () => {
       faq.id === id ? { ...faq, expanded: !faq.expanded } : faq
     ));
   };
-
-  const categories = [
-    'All Categories',
-    'Programming',
-    'Design',
-    'Database',
-    'Networking',
-    'Security',
-    'Cloud Computing',
-    'Machine Learning',
-    'Web Development',
-    'Mobile Development',
-    'DevOps',
-    'Artificial Intelligence',
-    'Data Science',
-    'Blockchain',
-    'Internet of Things (IoT)',
-    'Others'  // Added "Others" category
-  ];
 
   // Calculate pagination
   const indexOfLastItem = page * itemsPerPage;
