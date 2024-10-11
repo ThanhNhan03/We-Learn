@@ -107,9 +107,15 @@ const FAQManagement = () => {
     setDialogOpen(true);
   };
 
-  const handleDeleteFAQ = (id) => {
-    console.log("Deleting FAQ with ID:", id); 
-    setFaqs(faqs.filter(faq => faq.id !== id));
+  const handleDeleteFAQ = async (id) => {
+    console.log("Deleting FAQ with ID:", id); // Log ID khi xóa
+    try {
+      await api.delete(`/faq/${id}`); // Gọi API DELETE
+      setFaqs(faqs.filter(faq => faq.id !== id)); // Cập nhật state sau khi xóa
+    } catch (error) {
+      console.error("Error deleting FAQ:", error);
+      alert("Failed to delete FAQ. Please try again.");
+    }
   };
 
   const handleSaveFAQ = () => {
